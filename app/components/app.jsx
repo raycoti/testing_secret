@@ -11,12 +11,14 @@ const mapDispathToProps = (dispatch)=> {
   return {
     forcast(location){
       dispatch(getForcast(location))
+      window.map.setCenter({lat: 20, lng: 150})
     }
   }
 }
 
 const app = function({forcast}){
-  console.log('hi');
+  console.log('hi',window.map.setCenter);
+  console.log(window.infoWindow)
   return (
     <div id="main">
       <h1>Hello</h1>

@@ -31526,6 +31526,7 @@
 	  return {
 	    forcast: function forcast(location) {
 	      dispatch((0, _weather.getForcast)(location));
+	      window.map.setCenter({ lat: 20, lng: 150 });
 	    }
 	  };
 	};
@@ -31533,7 +31534,8 @@
 	var app = function app(_ref) {
 	  var forcast = _ref.forcast;
 	
-	  console.log('hi');
+	  console.log('hi', window.map.setCenter);
+	  console.log(window.infoWindow);
 	  return _react2.default.createElement(
 	    'div',
 	    { id: 'main' },
