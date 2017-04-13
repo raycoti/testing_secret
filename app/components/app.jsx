@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
-import {getForcast} from '../reducers/weather.jsx';
+
+import WeatherContainer from './weatherContainer';
 const mapStateToProps = (store) => {
   return {
 
@@ -9,12 +10,9 @@ const mapStateToProps = (store) => {
 
 const mapDispathToProps = (dispatch)=> {
   return {
-    forcast(location){
-      dispatch(getForcast(location))
-      window.map.setCenter({lat: 20, lng: 150})
-    }
-  }
+     }
 }
+
 
 const app = function({forcast}){
   console.log('hi',window.map.setCenter);
@@ -22,7 +20,7 @@ const app = function({forcast}){
   return (
     <div id="main">
       <h1>Hello</h1>
-      <button onClick={()=> forcast({}) }>forcast</button>
+     <WeatherContainer />
     </div>
   )
 }

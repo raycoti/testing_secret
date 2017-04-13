@@ -62,10 +62,6 @@
 	
 	var _store2 = _interopRequireDefault(_store);
 	
-	var _map = __webpack_require__(291);
-	
-	var _map2 = _interopRequireDefault(_map);
-	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	(0, _reactDom.render)(_react2.default.createElement(_routes2.default, null), document.getElementById('main'));
@@ -31514,7 +31510,9 @@
 	
 	var _reactRedux = __webpack_require__(182);
 	
-	var _weather = __webpack_require__(282);
+	var _weatherContainer = __webpack_require__(291);
+	
+	var _weatherContainer2 = _interopRequireDefault(_weatherContainer);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -31523,12 +31521,7 @@
 	};
 	
 	var mapDispathToProps = function mapDispathToProps(dispatch) {
-	  return {
-	    forcast: function forcast(location) {
-	      dispatch((0, _weather.getForcast)(location));
-	      window.map.setCenter({ lat: 20, lng: 150 });
-	    }
-	  };
+	  return {};
 	};
 	
 	var app = function app(_ref) {
@@ -31544,13 +31537,7 @@
 	      null,
 	      'Hello'
 	    ),
-	    _react2.default.createElement(
-	      'button',
-	      { onClick: function onClick() {
-	          return forcast({});
-	        } },
-	      'forcast'
-	    )
+	    _react2.default.createElement(_weatherContainer2.default, null)
 	  );
 	};
 	
@@ -31558,9 +31545,168 @@
 
 /***/ }),
 /* 291 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _reactRedux = __webpack_require__(182);
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _weatherForm = __webpack_require__(292);
+	
+	var _weatherForm2 = _interopRequireDefault(_weatherForm);
+	
+	var _weather = __webpack_require__(282);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+	  return {
+	    forcast: function forcast(location) {
+	      console.log(location);
+	      dispatch((0, _weather.getForcast)(location));
+	      window.map.setCenter({ lat: 43.075284, lng: -89.384318 });
+	    }
+	  };
+	};
+	
+	var WeatherContainer = function (_Component) {
+	  _inherits(WeatherContainer, _Component);
+	
+	  function WeatherContainer() {
+	    _classCallCheck(this, WeatherContainer);
+	
+	    var _this = _possibleConstructorReturn(this, (WeatherContainer.__proto__ || Object.getPrototypeOf(WeatherContainer)).call(this));
+	
+	    _this.state = {
+	      inputValue: '',
+	      dirty: false
+	    };
+	    _this.handleChange = _this.handleChange.bind(_this);
+	    _this.handleSubmit = _this.handleSubmit.bind(_this);
+	    return _this;
+	  }
+	
+	  _createClass(WeatherContainer, [{
+	    key: 'handleChange',
+	    value: function handleChange(e) {
+	      var value = e.target.value;
+	      this.setState({ inputValue: value,
+	        dirty: true });
+	    }
+	  }, {
+	    key: 'handleSubmit',
+	    value: function handleSubmit(e) {
+	      e.preventDefault();
+	      this.props.forcast(this.state.inputValue);
+	      this.setState({
+	        inputValue: '',
+	        dirty: false
+	      });
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	
+	      return _react2.default.createElement(_weatherForm2.default, { handleChange: this.handleChange, inputValue: this.state.inputValue, handleSubmit: this.handleSubmit });
+	    }
+	  }]);
+	
+	  return WeatherContainer;
+	}(_react.Component);
+	
+	exports.default = (0, _reactRedux.connect)(null, mapDispatchToProps)(WeatherContainer);
+
+/***/ }),
+/* 292 */
+/***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var weatherForm = function weatherForm(props) {
+	  console.log(props);
+	  var handleChange = props.handleChange,
+	      handleSubmit = props.handleSubmit,
+	      inputValue = props.inputValue;
+	
+	  return _react2.default.createElement(
+	    "div",
+	    null,
+	    _react2.default.createElement(
+	      "form",
+	      { onSubmit: handleSubmit },
+	      _react2.default.createElement(
+	        "fieldset",
+	        null,
+	        _react2.default.createElement(
+	          "legend",
+	          null,
+	          "SEARCH WEATHER"
+	        ),
+	        _react2.default.createElement(
+	          "div",
+	          { className: "form-group" },
+	          _react2.default.createElement(
+	            "label",
+	            { className: "col-xs-2 control-label" },
+	            "Name"
+	          ),
+	          _react2.default.createElement(
+	            "div",
+	            { className: "col-xs-10" },
+	            _react2.default.createElement("input", {
+	              className: "form-control",
+	              type: "text",
+	              onChange: handleChange,
+	              value: inputValue
+	            })
+	          )
+	        ),
+	        _react2.default.createElement(
+	          "div",
+	          { className: "form-group" },
+	          _react2.default.createElement(
+	            "div",
+	            { className: "col-xs-10 col-xs-offset-2" },
+	            _react2.default.createElement(
+	              "button",
+	              {
+	                type: "submit",
+	                className: "btn btn-success" },
+	              "SEARCH WEATHER"
+	            )
+	          )
+	        )
+	      )
+	    )
+	  );
+	};
+	exports.default = weatherForm;
 
 /***/ })
 /******/ ]);
