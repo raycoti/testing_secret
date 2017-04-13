@@ -62,6 +62,10 @@
 	
 	var _store2 = _interopRequireDefault(_store);
 	
+	var _map = __webpack_require__(291);
+	
+	var _map2 = _interopRequireDefault(_map);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	(0, _reactDom.render)(_react2.default.createElement(_routes2.default, null), document.getElementById('main'));
@@ -31549,6 +31553,12 @@
 	};
 	
 	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispathToProps)(app);
+
+/***/ }),
+/* 291 */
+/***/ (function(module, exports) {
+
+	"use strict";
 
 /***/ })
 /******/ ]);
