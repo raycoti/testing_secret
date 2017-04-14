@@ -30573,11 +30573,11 @@
 	};
 	
 	var getForcast = exports.getForcast = function getForcast(location) {
-	  console.log('location', location);
+	  console.log('my location', location);
 	  return function (dispatch) {
 	    _axios2.default.post('api/location', {
-	      latitude: 43.075284,
-	      longitude: -89.384318
+	      latitude: location.lat,
+	      longitude: location.lng
 	    }).then(function (result) {
 	      var weather = result.data;
 	      dispatch(setWeather(weather));
@@ -30591,7 +30591,8 @@
 	      name: location
 	    }).then(function (result) {
 	      var stuff = result.data;
-	      dispatch(setLocation(stuff));
+	      console.log('the result', stuff);
+	      dispatch(getForcast(stuff));
 	    });
 	  };
 	};
@@ -31594,11 +31595,6 @@
 	
 	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 	  return {
-	    forcast: function forcast(location) {
-	      console.log(location);
-	      dispatch((0, _weather.getForcast)(location));
-	      window.map.setCenter({ lat: 43.075284, lng: -89.384318 });
-	    },
 	    location: function location(_location) {
 	      dispatch((0, _weather.getLocation)(_location));
 	    }
@@ -31633,7 +31629,7 @@
 	    key: 'handleSubmit',
 	    value: function handleSubmit(e) {
 	      e.preventDefault();
-	      this.props.forcast(this.state.inputValue);
+	      //this.props.forcast(this.state.inputValue)
 	      this.props.location(this.state.inputValue);
 	      this.setState({
 	        inputValue: '',

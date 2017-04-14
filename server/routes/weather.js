@@ -13,8 +13,8 @@ router.post('/location', (req, res, next) => {
   //const forecast = new DarkSkyApi(apiKey);
   axios.get(`https://api.darksky.net/forecast/${apiKey}/${latitude},${longitude}`)
   .then(result => {
-    console.log('hidfad',result.data.currently)
-    res.send('hi').status(200)}
+    const weather = result.data.currently;
+    res.send(weather.summary).status(200)}
   )
   .catch(next)
 })

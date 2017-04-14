@@ -8,8 +8,8 @@ router.post('/weather', (req, res, next) => {
   const location = req.body.name; 
   axios.get(`https://maps.googleapis.com/maps/api/geocode/json?&address=${location}`)
   .then(result => {
-    console.log('lolo',result.data.results[0].geometry.location)
-    res.send('hi').status(200)}
+    const place = result.data.results[0].geometry.location;
+    res.send(place).status(200)}
   )
   .catch(next)
 })

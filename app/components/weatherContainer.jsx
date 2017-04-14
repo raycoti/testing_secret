@@ -4,11 +4,6 @@ import WeatherForm from './weatherForm';
 import {getForcast,getLocation} from '../reducers/weather.jsx';
 const mapDispatchToProps = (dispatch) => {
   return{
-     forcast(location){
-       console.log(location);
-      dispatch(getForcast(location))
-      window.map.setCenter({lat: 43.075284, lng: -89.384318})
-    },
     location(location){
       dispatch(getLocation(location))
     }
@@ -32,7 +27,7 @@ class WeatherContainer extends Component {
   }
   handleSubmit(e){
     e.preventDefault();
-    this.props.forcast(this.state.inputValue)
+    //this.props.forcast(this.state.inputValue)
     this.props.location(this.state.inputValue)
     this.setState({
       inputValue:'',

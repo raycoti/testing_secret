@@ -30,11 +30,11 @@ export const setLocation = (location) => ({
 })
 
 export const getForcast = (location) => {
-  console.log('location', location);
+  console.log('my location', location)
   return (dispatch) => {
     axios.post('api/location',{
-      latitude: 43.075284, 
-      longitude: -89.384318
+      latitude: location.lat, 
+      longitude: location.lng,
     })
     .then(result => {
       const weather = result.data;
@@ -50,7 +50,8 @@ export const getLocation = (location) => {
     })
     .then(result => {
       const stuff = result.data;
-      dispatch(setLocation(stuff))
+      console.log('the result', stuff)
+      dispatch(getForcast(stuff))
     })
   }
 }
