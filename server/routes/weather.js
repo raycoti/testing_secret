@@ -1,7 +1,7 @@
 //const DarkSkyApi = require('dark-sky-api').default; 
 const axios = require('axios');
 const router = require('express').Router();
-const manualKey = undefined //'c873ad4966e0c758ae58665f9f689f16'; //manually put api Key if you dont have it as global variable;
+const manualKey = undefined //; //manually put api Key if you dont have it as global variable;
 const apiKey = manualKey || process.env.DS_API_PASSWORD;
 module.exports = router;
 
