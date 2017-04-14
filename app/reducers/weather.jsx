@@ -24,6 +24,10 @@ export const setWeather = (forcast) => ({
   type: SET_WEATHER,
   forcast: forcast,
 })
+export const setLocation = (location) => ({
+  type: SET_WEATHER,
+  location: location,
+})
 
 export const getForcast = (location) => {
   console.log('location', location);
@@ -35,6 +39,18 @@ export const getForcast = (location) => {
     .then(result => {
       const weather = result.data;
       dispatch(setWeather(weather))
+    })
+  }
+}
+export const getLocation = (location) => {
+  console.log('where too ',location);
+  return (dispatch) => {
+    axios.post('/api/weather', {
+      name: location,
+    })
+    .then(result => {
+      const stuff = result.data;
+      dispatch(setLocation(stuff))
     })
   }
 }

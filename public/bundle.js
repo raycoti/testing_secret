@@ -30526,7 +30526,7 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.getForcast = exports.setWeather = undefined;
+	exports.getLocation = exports.getForcast = exports.setLocation = exports.setWeather = undefined;
 	
 	exports.default = function () {
 	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
@@ -30565,6 +30565,12 @@
 	    forcast: forcast
 	  };
 	};
+	var setLocation = exports.setLocation = function setLocation(location) {
+	  return {
+	    type: SET_WEATHER,
+	    location: location
+	  };
+	};
 	
 	var getForcast = exports.getForcast = function getForcast(location) {
 	  console.log('location', location);
@@ -30575,6 +30581,17 @@
 	    }).then(function (result) {
 	      var weather = result.data;
 	      dispatch(setWeather(weather));
+	    });
+	  };
+	};
+	var getLocation = exports.getLocation = function getLocation(location) {
+	  console.log('where too ', location);
+	  return function (dispatch) {
+	    _axios2.default.post('/api/weather', {
+	      name: location
+	    }).then(function (result) {
+	      var stuff = result.data;
+	      dispatch(setLocation(stuff));
 	    });
 	  };
 	};
@@ -31581,6 +31598,9 @@
 	      console.log(location);
 	      dispatch((0, _weather.getForcast)(location));
 	      window.map.setCenter({ lat: 43.075284, lng: -89.384318 });
+	    },
+	    location: function location(_location) {
+	      dispatch((0, _weather.getLocation)(_location));
 	    }
 	  };
 	};
@@ -31614,6 +31634,7 @@
 	    value: function handleSubmit(e) {
 	      e.preventDefault();
 	      this.props.forcast(this.state.inputValue);
+	      this.props.location(this.state.inputValue);
 	      this.setState({
 	        inputValue: '',
 	        dirty: false
