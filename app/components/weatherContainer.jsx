@@ -1,13 +1,11 @@
 import { connect } from 'react-redux';
 import React, { Component } from 'react';
 import WeatherForm from './weatherForm';
-import {getForcast} from '../reducers/weather.jsx';
+import {getLocation} from '../reducers/location';
 const mapDispatchToProps = (dispatch) => {
-  return{
-     forcast(location){
-       console.log(location);
-      dispatch(getForcast(location))
-      window.map.setCenter({lat: 43.075284, lng: -89.384318})
+  return {
+    location(location){
+      dispatch(getLocation(location))
     }
   }
 }
@@ -29,7 +27,8 @@ class WeatherContainer extends Component {
   }
   handleSubmit(e){
     e.preventDefault();
-    this.props.forcast(this.state.inputValue)
+    //this.props.forcast(this.state.inputValue)
+    this.props.location(this.state.inputValue)
     this.setState({
       inputValue:'',
       dirty: false,
@@ -46,4 +45,4 @@ class WeatherContainer extends Component {
 
 }
 
-export default connect(null,mapDispatchToProps)(WeatherContainer);
+export default connect(null, mapDispatchToProps)(WeatherContainer);
