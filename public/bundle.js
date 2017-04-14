@@ -23663,7 +23663,7 @@
 	
 	var _store2 = _interopRequireDefault(_store);
 	
-	var _app = __webpack_require__(290);
+	var _app = __webpack_require__(292);
 	
 	var _app2 = _interopRequireDefault(_app);
 	
@@ -30477,15 +30477,17 @@
 	
 	var _redux = __webpack_require__(191);
 	
-	var _reducers = __webpack_require__(281);
+	var _reduxDevtoolsExtension = __webpack_require__(281);
+	
+	var _reducers = __webpack_require__(282);
 	
 	var _reducers2 = _interopRequireDefault(_reducers);
 	
-	var _reduxLogger = __webpack_require__(283);
+	var _reduxLogger = __webpack_require__(285);
 	
 	var _reduxLogger2 = _interopRequireDefault(_reduxLogger);
 	
-	var _reduxThunk = __webpack_require__(289);
+	var _reduxThunk = __webpack_require__(291);
 	
 	var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 	
@@ -30493,29 +30495,33 @@
 	
 	// https://github.com/gaearon/redux-thunk
 	
-	exports.default = (0, _redux.createStore)(_reducers2.default, (0, _redux.applyMiddleware)(_reduxThunk2.default, (0, _reduxLogger2.default)())); // https://github.com/evgenyrodionov/redux-logger
+	exports.default = (0, _redux.createStore)(_reducers2.default, (0, _reduxDevtoolsExtension.composeWithDevTools)((0, _redux.applyMiddleware)(_reduxThunk2.default, (0, _reduxLogger2.default)()))); // https://github.com/evgenyrodionov/redux-logger
 
 /***/ }),
 /* 281 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
+	var compose = __webpack_require__(191).compose;
 	
-	var _redux = __webpack_require__(191);
+	exports.__esModule = true;
+	exports.composeWithDevTools = (
+	  typeof window !== 'undefined' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ?
+	    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ :
+	    function() {
+	      if (arguments.length === 0) return undefined;
+	      if (typeof arguments[0] === 'object') return compose;
+	      return compose.apply(null, arguments);
+	    }
+	);
 	
-	var _weather = __webpack_require__(282);
-	
-	var _weather2 = _interopRequireDefault(_weather);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	exports.default = (0, _redux.combineReducers)({
-	  weather: _weather2.default
-	});
+	exports.devToolsEnhancer = (
+	  typeof window !== 'undefined' && window.__REDUX_DEVTOOLS_EXTENSION__ ?
+	    window.__REDUX_DEVTOOLS_EXTENSION__ :
+	    function() { return function(noop) { return noop; } }
+	);
+
 
 /***/ }),
 /* 282 */
@@ -30526,7 +30532,34 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.getLocation = exports.getForcast = exports.setLocation = exports.setWeather = undefined;
+	
+	var _redux = __webpack_require__(191);
+	
+	var _weather = __webpack_require__(283);
+	
+	var _weather2 = _interopRequireDefault(_weather);
+	
+	var _location = __webpack_require__(284);
+	
+	var _location2 = _interopRequireDefault(_location);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	exports.default = (0, _redux.combineReducers)({
+	  weather: _weather2.default,
+	  location: _location2.default
+	});
+
+/***/ }),
+/* 283 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.getForcast = exports.setHourly = exports.setDaily = exports.setWeather = undefined;
 	
 	exports.default = function () {
 	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
@@ -30534,11 +30567,14 @@
 	
 	  var newState = Object.assign({}, state);
 	  switch (action.type) {
-	    case SELECT_LOCATION:
-	      newState.location = action.location;
-	      break;
 	    case SET_WEATHER:
 	      newState.forcast = action.forcast;
+	      break;
+	    case SET_DAILY:
+	      newState.daily = action.daily;
+	      break;
+	    case SET_HOURLY:
+	      newState.hourly = action.hourly;
 	      break;
 	    default:
 	      return state;
@@ -30552,11 +30588,13 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var SELECT_LOCATION = 'SELECT_LOCATION';
 	var SET_WEATHER = 'SET_WEATHER';
+	var SET_DAILY = 'SET_DAILY';
+	var SET_HOURLY = 'SET_HOURLY';
 	var initialState = {
-	  location: {},
-	  forcast: {}
+	  forcast: '',
+	  daily: [],
+	  hourly: []
 	};
 	
 	var setWeather = exports.setWeather = function setWeather(forcast) {
@@ -30565,40 +30603,114 @@
 	    forcast: forcast
 	  };
 	};
-	var setLocation = exports.setLocation = function setLocation(location) {
+	var setDaily = exports.setDaily = function setDaily(dailyData) {
 	  return {
-	    type: SET_WEATHER,
-	    location: location
+	    type: SET_DAILY,
+	    daily: dailyData
+	  };
+	};
+	var setHourly = exports.setHourly = function setHourly(hourlyData) {
+	  return {
+	    type: SET_HOURLY,
+	    hourly: hourlyData
 	  };
 	};
 	
+	//might be get all forcast;
+	
 	var getForcast = exports.getForcast = function getForcast(location) {
-	  console.log('my location', location);
+	  window.map.setCenter(location);
 	  return function (dispatch) {
 	    _axios2.default.post('api/location', {
 	      latitude: location.lat,
 	      longitude: location.lng
 	    }).then(function (result) {
 	      var weather = result.data;
-	      dispatch(setWeather(weather));
-	    });
-	  };
-	};
-	var getLocation = exports.getLocation = function getLocation(location) {
-	  console.log('where too ', location);
-	  return function (dispatch) {
-	    _axios2.default.post('/api/weather', {
-	      name: location
-	    }).then(function (result) {
-	      var stuff = result.data;
-	      console.log('the result', stuff);
-	      dispatch(getForcast(stuff));
+	      var forcast = weather.currently.summary;
+	      var hourly = weather.hourly;
+	      var daily = weather.daily;
+	      dispatch(setWeather(forcast));
+	      dispatch(setDaily(daily));
+	      dispatch(setHourly(hourly));
 	    });
 	  };
 	};
 
 /***/ }),
-/* 283 */
+/* 284 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.getLocation = exports.setLatLong = exports.setLocation = undefined;
+	
+	exports.default = function () {
+	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
+	  var action = arguments[1];
+	
+	  var newState = Object.assign({}, state);
+	  switch (action.type) {
+	    case SELECT_LOCATION:
+	      newState.location = action.location;
+	      break;
+	    case SET_LAT_LONG:
+	      newState.lat = action.lat;
+	      newState.lng = action.lng;
+	      break;
+	    default:
+	      return state;
+	  }
+	  return newState;
+	};
+	
+	var _axios = __webpack_require__(251);
+	
+	var _axios2 = _interopRequireDefault(_axios);
+	
+	var _weather = __webpack_require__(283);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var SELECT_LOCATION = 'SELECT_LOCATION';
+	var SET_LAT_LONG = 'SET_LAT_LONG';
+	var initialState = {
+	  location: '',
+	  lat: 0,
+	  lng: 0
+	};
+	
+	var setLocation = exports.setLocation = function setLocation(location) {
+	  return {
+	    type: SELECT_LOCATION,
+	    location: location
+	  };
+	};
+	
+	var setLatLong = exports.setLatLong = function setLatLong(position) {
+	  return {
+	    type: SET_LAT_LONG,
+	    lat: position.lat,
+	    lng: position.lng
+	  };
+	};
+	
+	var getLocation = exports.getLocation = function getLocation(location) {
+	  return function (dispatch) {
+	    _axios2.default.post('/api/weather', {
+	      name: location
+	    }).then(function (result) {
+	      var latLong = result.data;
+	      dispatch((0, _weather.getForcast)(latLong));
+	      dispatch(setLocation(location));
+	    });
+	  };
+	};
+
+/***/ }),
+/* 285 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -30610,11 +30722,11 @@
 	
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 	
-	var _core = __webpack_require__(284);
+	var _core = __webpack_require__(286);
 	
-	var _helpers = __webpack_require__(285);
+	var _helpers = __webpack_require__(287);
 	
-	var _defaults = __webpack_require__(288);
+	var _defaults = __webpack_require__(290);
 	
 	var _defaults2 = _interopRequireDefault(_defaults);
 	
@@ -30736,7 +30848,7 @@
 
 
 /***/ }),
-/* 284 */
+/* 286 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -30749,9 +30861,9 @@
 	
 	exports.printBuffer = printBuffer;
 	
-	var _helpers = __webpack_require__(285);
+	var _helpers = __webpack_require__(287);
 	
-	var _diff = __webpack_require__(286);
+	var _diff = __webpack_require__(288);
 	
 	var _diff2 = _interopRequireDefault(_diff);
 	
@@ -30882,7 +30994,7 @@
 	}
 
 /***/ }),
-/* 285 */
+/* 287 */
 /***/ (function(module, exports) {
 
 	"use strict";
@@ -30906,7 +31018,7 @@
 	var timer = exports.timer = typeof performance !== "undefined" && performance !== null && typeof performance.now === "function" ? performance : Date;
 
 /***/ }),
-/* 286 */
+/* 288 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -30916,7 +31028,7 @@
 	});
 	exports.default = diffLogger;
 	
-	var _deepDiff = __webpack_require__(287);
+	var _deepDiff = __webpack_require__(289);
 	
 	var _deepDiff2 = _interopRequireDefault(_deepDiff);
 	
@@ -31005,7 +31117,7 @@
 	module.exports = exports['default'];
 
 /***/ }),
-/* 287 */
+/* 289 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(global) {/*!
@@ -31434,7 +31546,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ }),
-/* 288 */
+/* 290 */
 /***/ (function(module, exports) {
 
 	"use strict";
@@ -31485,7 +31597,7 @@
 	module.exports = exports["default"];
 
 /***/ }),
-/* 289 */
+/* 291 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -31513,7 +31625,7 @@
 	exports['default'] = thunk;
 
 /***/ }),
-/* 290 */
+/* 292 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31528,7 +31640,7 @@
 	
 	var _reactRedux = __webpack_require__(182);
 	
-	var _weatherContainer = __webpack_require__(291);
+	var _weatherContainer = __webpack_require__(293);
 	
 	var _weatherContainer2 = _interopRequireDefault(_weatherContainer);
 	
@@ -31562,7 +31674,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispathToProps)(app);
 
 /***/ }),
-/* 291 */
+/* 293 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31579,11 +31691,11 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _weatherForm = __webpack_require__(292);
+	var _weatherForm = __webpack_require__(294);
 	
 	var _weatherForm2 = _interopRequireDefault(_weatherForm);
 	
-	var _weather = __webpack_require__(282);
+	var _location2 = __webpack_require__(284);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -31596,7 +31708,7 @@
 	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 	  return {
 	    location: function location(_location) {
-	      dispatch((0, _weather.getLocation)(_location));
+	      dispatch((0, _location2.getLocation)(_location));
 	    }
 	  };
 	};
@@ -31650,7 +31762,7 @@
 	exports.default = (0, _reactRedux.connect)(null, mapDispatchToProps)(WeatherContainer);
 
 /***/ }),
-/* 292 */
+/* 294 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";

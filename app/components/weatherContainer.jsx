@@ -1,9 +1,9 @@
 import { connect } from 'react-redux';
 import React, { Component } from 'react';
 import WeatherForm from './weatherForm';
-import {getForcast,getLocation} from '../reducers/weather.jsx';
+import {getLocation} from '../reducers/location';
 const mapDispatchToProps = (dispatch) => {
-  return{
+  return {
     location(location){
       dispatch(getLocation(location))
     }
@@ -45,4 +45,4 @@ class WeatherContainer extends Component {
 
 }
 
-export default connect(null,mapDispatchToProps)(WeatherContainer);
+export default connect(null, mapDispatchToProps)(WeatherContainer);

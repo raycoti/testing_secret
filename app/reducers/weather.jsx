@@ -1,19 +1,25 @@
 import axios from 'axios';
-const SELECT_LOCATION = 'SELECT_LOCATION';
 const SET_WEATHER = 'SET_WEATHER';
+const SET_DAILY = 'SET_DAILY';
+const SET_HOURLY = 'SET_HOURLY';
 const initialState = {
-  location: {},
-  forcast: {},
+  forcast: '',
+  daily: [],
+  hourly: [],
 }
 
-export default function(state=initialState, action){
+
+export default function(state = initialState, action){
   const newState = Object.assign({},state);
   switch (action.type){
-    case SELECT_LOCATION:
-    newState.location = action.location;
-    break;
     case SET_WEATHER:
     newState.forcast = action.forcast;
+    break;
+    case SET_DAILY:
+    newState.daily = action.daily;
+    break;
+    case SET_HOURLY:
+    newState.hourly = action.hourly;
     break;
     default:
       return state;
@@ -24,13 +30,19 @@ export const setWeather = (forcast) => ({
   type: SET_WEATHER,
   forcast: forcast,
 })
-export const setLocation = (location) => ({
-  type: SET_WEATHER,
-  location: location,
+export const setDaily = (dailyData) => ({
+  type: SET_DAILY,
+  daily: dailyData,
+})
+export const setHourly = (hourlyData) => ({
+  type: SET_HOURLY,
+  hourly: hourlyData,
 })
 
+//might be get all forcast;
+
 export const getForcast = (location) => {
-  console.log('my location', location)
+  window.map.setCenter(location)
   return (dispatch) => {
     axios.post('api/location',{
       latitude: location.lat, 
@@ -38,20 +50,13 @@ export const getForcast = (location) => {
     })
     .then(result => {
       const weather = result.data;
-      dispatch(setWeather(weather))
+      const forcast = weather.currently.summary
+      const hourly = weather.hourly;
+      const daily = weather.daily;
+      dispatch(setWeather(forcast))
+      dispatch(setDaily(daily));
+      dispatch(setHourly(hourly));
     })
   }
 }
-export const getLocation = (location) => {
-  console.log('where too ',location);
-  return (dispatch) => {
-    axios.post('/api/weather', {
-      name: location,
-    })
-    .then(result => {
-      const stuff = result.data;
-      console.log('the result', stuff)
-      dispatch(getForcast(stuff))
-    })
-  }
-}
+
