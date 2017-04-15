@@ -10,7 +10,6 @@ router.post('/location', (req, res, next) => {
   console.log('past queries', req.session.queries)
   axios.get(`https://maps.googleapis.com/maps/api/geocode/json?&address=${location}`)
   .then(result => {
-    console.log(result.data.results[0]);
     const place = result.data.results[0].geometry.location;
     const name = result.data.results[0].formatted_address;
     res.send({location: place, name: name}).status(200)}

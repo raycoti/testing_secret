@@ -1,7 +1,10 @@
-import {SET_CURRENT_CHART, SET_DAILY_CHART, SET_HOURLY_CHART} from '../constants';
+import {SET_CURRENT_CHART, SET_DAILY_CHART, SET_HOURLY_CHART, ADD_DAILY_CHART, TOGGLE_CHART_VIEW} from '../constants';
 const moment = require('moment');
 
-
+export const setChartView = (view) => ({
+  type: TOGGLE_CHART_VIEW,
+  view: view,
+})
 export const setCurrentChart = (chartType) => ({
   type: SET_CURRENT_CHART,
   current: chartType,
@@ -16,17 +19,25 @@ export const setHourlyChart = (hourlyData) => ({
   type: SET_HOURLY_CHART,
   hourly: hourlyData,
 });
-export const setData = (data, type) =>{
-  return (dispatch) => {
-      const formatedData = data.map(( theData ) => {
-        var timestamp = moment.unix(theData.time);
-        var name = timestamp.format("MM-DD-YYYY");
+export const addDailyHistory = (historyData) =>({
+  type: ADD_DAILY_CHART,
+  daily: historyData,
+})
+export const formatData = (data, type) => {
+  return data.map(( theData ) => {
+        const timestamp = moment.unix(theData.time);
+        let name;
+        type === 'daily' ? name = timestamp.format("MM-DD") : name = timestamp.format("HH:mm")
         return {
           name: name,
           high: theData.temperatureMax,
           low:  theData.temperatureMin,
         }
       })
+}
+export const setData = (data, type) =>{
+  return (dispatch) => {
+      const formatedData = formatData(data, type);
       switch (type){
           case 'daily':
           return dispatch(setDailyChart(formatedData));
@@ -35,5 +46,5 @@ export const setData = (data, type) =>{
           default:
       } 
   }
-  //{name: 'Page A', uv: 4000, pv: 2400, amt: 2400},
 }
+

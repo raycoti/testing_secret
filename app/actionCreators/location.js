@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { getForcast } from './weather';
+import {setChartView} from './chart';
 import {SELECT_LOCATION, SET_LAT_LONG} from '../constants';
 
 export const setLocation = (location) => ({
@@ -23,7 +24,8 @@ export const getLocation = (location) => {
       const name = result.data.name; 
       dispatch(getForcast(latLong));
       dispatch(setLocation(name));
-      dispatch(setLatLong(latLong))
+      dispatch(setLatLong(latLong));
+      dispatch(setChartView(false));
     })
   }
 }

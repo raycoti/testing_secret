@@ -6,7 +6,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     setLocation(location){
       dispatch(getLocation(location))
-    }
+    },
   }
 }
 
