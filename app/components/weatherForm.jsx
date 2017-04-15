@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 
-const weatherForm = (props) => {
-  console.log(props);
-  const {handleChange, handleSubmit, inputValue} = props;
+const weatherForm = ({handleChange, dirty, handleSubmit, inputValue}) => {
   return (
-    <div>
+    <div className="col-md-3">
       <form onSubmit={handleSubmit}>
         <fieldset>
         <legend>SEARCH WEATHER</legend>
@@ -23,7 +21,7 @@ const weatherForm = (props) => {
           <div className="col-xs-10 col-xs-offset-2">
             <button
               type="submit"
-              className="btn btn-success">
+              className="btn btn-success" disabled ={!dirty}>
               SEARCH WEATHER
             </button>
           </div>

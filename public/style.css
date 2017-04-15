@@ -1,0 +1,8 @@
+#map {
+  height: 80%;
+}
+html, body {
+  height: 100%;
+  margin: 1rem;
+  padding: 0;
+}

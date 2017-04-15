@@ -1,7 +1,4 @@
-import axios from 'axios';
-import {getForcast} from './weather';
-const SELECT_LOCATION = 'SELECT_LOCATION';
-const SET_LAT_LONG = 'SET_LAT_LONG';
+import {SELECT_LOCATION, SET_LAT_LONG} from '../constants';
 const initialState = {
   location: '',
   lat: 0,
@@ -22,28 +19,4 @@ export default function(state = initialState, action){
       return state;
   }
   return newState;
-}
-
-export const setLocation = (location) => ({
-  type: SELECT_LOCATION,
-  location: location,
-})
-
-export const setLatLong = (position) =>({
-  type: SET_LAT_LONG,
-  lat: position.lat,
-  lng: position.lng,
-})
-
-export const getLocation = (location) => {
-  return (dispatch) => {
-    axios.post('/api/weather', {
-      name: location,
-    })
-    .then(result => {
-      const latLong = result.data;
-      dispatch(getForcast(latLong));
-      dispatch(setLocation(location));
-    })
-  }
 }
