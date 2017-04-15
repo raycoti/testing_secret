@@ -5,7 +5,7 @@ const manualKey = undefined //; //manually put api Key if you dont have it as gl
 const apiKey = manualKey || process.env.DS_API_PASSWORD;
 module.exports = router;
 
-router.post('/location', (req, res, next) => {
+router.post('/weather', (req, res, next) => {
   const latitude = req.body.latitude;
   const longitude = req.body.latitude;
 
@@ -18,3 +18,15 @@ router.post('/location', (req, res, next) => {
   .catch(next)
 })
 //also get one for the history
+router.post('/history', (req, res, next) => {
+  const latitude = req.body.latitude;
+  const longitude = req.body.latitude;
+  const time = req.body.time;
+  //const forecast = new DarkSkyApi(apiKey);
+  axios.get(`https://api.darksky.net/forecast/${apiKey}/${latitude},${longitude},${time}?exclude=currently,hourly`)
+  .then(result => {
+    const weather = result.data;
+    res.send(weather).status(200)}
+  )
+  .catch(next)
+})

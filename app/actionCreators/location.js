@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { getForcast } from './weather';
+import {setChartView} from './chart';
 import {SELECT_LOCATION, SET_LAT_LONG} from '../constants';
 
 export const setLocation = (location) => ({
@@ -15,13 +16,16 @@ export const setLatLong = (position) =>({
 
 export const getLocation = (location) => {
   return (dispatch) => {
-    axios.post('/api/weather', {
+    axios.post('/api/location', {
       name: location,
     })
     .then(result => {
-      const latLong = result.data;
+      const latLong = result.data.location;
+      const name = result.data.name; 
       dispatch(getForcast(latLong));
-      dispatch(setLocation(location));
+      dispatch(setLocation(name));
+      dispatch(setLatLong(latLong));
+      dispatch(setChartView(false));
     })
   }
 }

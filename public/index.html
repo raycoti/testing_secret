@@ -22,8 +22,8 @@ function initMap() {
               lng: position.coords.longitude
             };
 
-            //infoWindow.setPosition(pos);
-            //infoWindow.setContent('Location found.');
+            infoWindow.setPosition(pos);
+            infoWindow.setContent('Location found.');
             infoWindow.open(map);
             map.setCenter(pos);
           }, function() {
@@ -46,7 +46,9 @@ function initMap() {
   </head>
   <body>
     <div id="main"></div>
-    <div id="map"></div>
+    <div id="map" class="col-md-2"></div>
+    
+    
     <script async defer src="/bundle.js"></script>
     <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB56ThlMMe0HgMLMSHcLEKacv-vRtGeYrQ&callback=initMap">

@@ -3,8 +3,7 @@ const router = require('express').Router();
 
 module.exports = router;
 
-router.post('/weather', (req, res, next) => {
-  console.log('hi', req.body);
+router.post('/location', (req, res, next) => {
   const location = req.body.name; 
   if (!req.session.queries) req.session.queries = [];
   req.session.queries.push(location)
@@ -12,8 +11,13 @@ router.post('/weather', (req, res, next) => {
   axios.get(`https://maps.googleapis.com/maps/api/geocode/json?&address=${location}`)
   .then(result => {
     const place = result.data.results[0].geometry.location;
-    res.send(place).status(200)}
+    const name = result.data.results[0].formatted_address;
+    res.send({location: place, name: name}).status(200)}
   )
   .catch(next)
 })
 
+router.get('/queries', (req, res, next) => {
+  if (!req.session.queries) req.session.queries = [];
+  res.send(req.session.queries).status(200)
+})
