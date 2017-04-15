@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
-
+import WeatherChart from '../containers/chartContainer';
 import WeatherContainer from '../containers/weatherContainer';
 import DayView from '../containers/dayView';
 const mapStateToProps = (store) => {
@@ -22,6 +22,7 @@ const app = function(){
       <div className="row">
       <WeatherContainer />
       <div className ="col-md-9">
+        <WeatherChart />
         <DayView />
       </div>
       </div>

@@ -1,6 +1,6 @@
 import axios from 'axios';
 import {SET_DAILY, SET_WEATHER, SET_HOURLY} from '../constants';
-
+import {setData} from './chart';
 export const setWeather = (forcast) => ({
   type: SET_WEATHER,
   forcast: forcast,
@@ -31,6 +31,8 @@ export const getForcast = (location) => {
       dispatch(setWeather(forcast))
       dispatch(setDaily(daily));
       dispatch(setHourly(hourly));
+      dispatch(setData(daily, 'daily'));
+      dispatch(setData(hourly, 'hourly'));
     })
   }
 }
