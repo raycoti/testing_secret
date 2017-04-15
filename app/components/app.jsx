@@ -18,13 +18,13 @@ const mapDispathToProps = (dispatch)=> {
 const app = function(){
   return (
     <div id="main">
-      <h1>Weather Checker</h1>
       <div className="row">
-      <WeatherContainer />
-      <div className ="col-md-9">
-        <WeatherChart />
-        <DayView />
+        <h1>Weather Checker</h1>
+        <WeatherContainer />
       </div>
+        <div className ="col-md-10">
+          <WeatherChart />
+          <DayView />
       </div>
     </div>
   )

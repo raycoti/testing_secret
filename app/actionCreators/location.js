@@ -15,13 +15,15 @@ export const setLatLong = (position) =>({
 
 export const getLocation = (location) => {
   return (dispatch) => {
-    axios.post('/api/weather', {
+    axios.post('/api/location', {
       name: location,
     })
     .then(result => {
-      const latLong = result.data;
+      const latLong = result.data.location;
+      const name = result.data.name; 
       dispatch(getForcast(latLong));
-      dispatch(setLocation(location));
+      dispatch(setLocation(name));
+      dispatch(setLatLong(latLong))
     })
   }
 }

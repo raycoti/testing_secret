@@ -14,12 +14,10 @@ export const setHourly = (hourlyData) => ({
   hourly: hourlyData,
 })
 
-//might be get all forcast;
-
 export const getForcast = (location) => {
   window.map.setCenter(location)
   return (dispatch) => {
-    axios.post('api/location',{
+    axios.post('api/weather',{
       latitude: location.lat, 
       longitude: location.lng,
     })

@@ -47661,20 +47661,20 @@
 	    'div',
 	    { id: 'main' },
 	    _react2.default.createElement(
-	      'h1',
-	      null,
-	      'Weather Checker'
+	      'div',
+	      { className: 'row' },
+	      _react2.default.createElement(
+	        'h1',
+	        null,
+	        'Weather Checker'
+	      ),
+	      _react2.default.createElement(_weatherContainer2.default, null)
 	    ),
 	    _react2.default.createElement(
 	      'div',
-	      { className: 'row' },
-	      _react2.default.createElement(_weatherContainer2.default, null),
-	      _react2.default.createElement(
-	        'div',
-	        { className: 'col-md-9' },
-	        _react2.default.createElement(_chartContainer2.default, null),
-	        _react2.default.createElement(_dayView2.default, null)
-	      )
+	      { className: 'col-md-10' },
+	      _react2.default.createElement(_chartContainer2.default, null),
+	      _react2.default.createElement(_dayView2.default, null)
 	    )
 	  );
 	};
@@ -81775,12 +81775,14 @@
 	
 	var getLocation = exports.getLocation = function getLocation(location) {
 	  return function (dispatch) {
-	    _axios2.default.post('/api/weather', {
+	    _axios2.default.post('/api/location', {
 	      name: location
 	    }).then(function (result) {
-	      var latLong = result.data;
+	      var latLong = result.data.location;
+	      var name = result.data.name;
 	      dispatch((0, _weather.getForcast)(latLong));
-	      dispatch(setLocation(location));
+	      dispatch(setLocation(name));
+	      dispatch(setLatLong(latLong));
 	    });
 	  };
 	};
@@ -81825,12 +81827,10 @@
 	  };
 	};
 	
-	//might be get all forcast;
-	
 	var getForcast = exports.getForcast = function getForcast(location) {
 	  window.map.setCenter(location);
 	  return function (dispatch) {
-	    _axios2.default.post('api/location', {
+	    _axios2.default.post('api/weather', {
 	      latitude: location.lat,
 	      longitude: location.lng
 	    }).then(function (result) {
