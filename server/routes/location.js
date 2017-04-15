@@ -18,3 +18,7 @@ router.post('/location', (req, res, next) => {
   .catch(next)
 })
 
+router.get('/queries', (req, res, next) => {
+  if (!req.session.queries) req.session.queries = [];
+  res.send(req.session.queries).status(200)
+})

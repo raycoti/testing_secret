@@ -81885,8 +81885,10 @@
 	var setData = exports.setData = function setData(data, type) {
 	  return function (dispatch) {
 	    var formatedData = data.map(function (theData) {
+	      var timestamp = moment.unix(theData.time);
+	      var name = timestamp.format("MM-DD-YYYY");
 	      return {
-	        name: theData.time.toString(),
+	        name: name,
 	        high: theData.temperatureMax,
 	        low: theData.temperatureMin
 	      };
