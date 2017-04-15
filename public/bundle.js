@@ -23663,7 +23663,7 @@
 	
 	var _store2 = _interopRequireDefault(_store);
 	
-	var _app = __webpack_require__(292);
+	var _app = __webpack_require__(293);
 	
 	var _app2 = _interopRequireDefault(_app);
 	
@@ -30483,11 +30483,11 @@
 	
 	var _reducers2 = _interopRequireDefault(_reducers);
 	
-	var _reduxLogger = __webpack_require__(285);
+	var _reduxLogger = __webpack_require__(286);
 	
 	var _reduxLogger2 = _interopRequireDefault(_reduxLogger);
 	
-	var _reduxThunk = __webpack_require__(291);
+	var _reduxThunk = __webpack_require__(292);
 	
 	var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 	
@@ -30539,7 +30539,7 @@
 	
 	var _weather2 = _interopRequireDefault(_weather);
 	
-	var _location = __webpack_require__(284);
+	var _location = __webpack_require__(285);
 	
 	var _location2 = _interopRequireDefault(_location);
 	
@@ -30559,7 +30559,6 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.getForcast = exports.setHourly = exports.setDaily = exports.setWeather = undefined;
 	
 	exports.default = function () {
 	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
@@ -30567,13 +30566,13 @@
 	
 	  var newState = Object.assign({}, state);
 	  switch (action.type) {
-	    case SET_WEATHER:
+	    case _constants.SET_WEATHER:
 	      newState.forcast = action.forcast;
 	      break;
-	    case SET_DAILY:
+	    case _constants.SET_DAILY:
 	      newState.daily = action.daily;
 	      break;
-	    case SET_HOURLY:
+	    case _constants.SET_HOURLY:
 	      newState.hourly = action.hourly;
 	      break;
 	    default:
@@ -30582,62 +30581,244 @@
 	  return newState;
 	};
 	
-	var _axios = __webpack_require__(251);
+	var _constants = __webpack_require__(284);
 	
-	var _axios2 = _interopRequireDefault(_axios);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var SET_WEATHER = 'SET_WEATHER';
-	var SET_DAILY = 'SET_DAILY';
-	var SET_HOURLY = 'SET_HOURLY';
+	var initialState2 = [{
+	  time: 1492113600,
+	  summary: 'Rain throughout the day.',
+	  icon: 'rain',
+	  sunriseTime: 1492137323,
+	  sunsetTime: 1492185174,
+	  moonPhase: 0.6,
+	  precipIntensity: 0.0398,
+	  precipIntensityMax: 0.1026,
+	  precipIntensityMaxTime: 1492164000,
+	  precipProbability: 0.8,
+	  precipType: 'rain',
+	  temperatureMin: 43.94,
+	  temperatureMinTime: 1492196400,
+	  temperatureMax: 52.05,
+	  temperatureMaxTime: 1492113600,
+	  apparentTemperatureMin: 41,
+	  apparentTemperatureMinTime: 1492196400,
+	  apparentTemperatureMax: 52.05,
+	  apparentTemperatureMaxTime: 1492113600,
+	  dewPoint: 45.64,
+	  humidity: 0.92,
+	  windSpeed: 5.22,
+	  windBearing: 224,
+	  cloudCover: 0.58,
+	  pressure: 1009.06,
+	  ozone: 343.21
+	}, {
+	  time: 1492200000,
+	  summary: 'Partly cloudy in the morning.',
+	  icon: 'partly-cloudy-night',
+	  sunriseTime: 1492223628,
+	  sunsetTime: 1492271640,
+	  moonPhase: 0.63,
+	  precipIntensity: 0.0022,
+	  precipIntensityMax: 0.0142,
+	  precipIntensityMaxTime: 1492200000,
+	  precipProbability: 0.56,
+	  precipType: 'rain',
+	  temperatureMin: 39.05,
+	  temperatureMinTime: 1492218000,
+	  temperatureMax: 57.54,
+	  temperatureMaxTime: 1492257600,
+	  apparentTemperatureMin: 39.05,
+	  apparentTemperatureMinTime: 1492218000,
+	  apparentTemperatureMax: 57.54,
+	  apparentTemperatureMaxTime: 1492257600,
+	  dewPoint: 41.32,
+	  humidity: 0.83,
+	  windSpeed: 1.64,
+	  windBearing: 277,
+	  cloudCover: 0.25,
+	  pressure: 1017.39,
+	  ozone: 353.45
+	}, {
+	  time: 1492286400,
+	  summary: 'Clear throughout the day.',
+	  icon: 'clear-day',
+	  sunriseTime: 1492309933,
+	  sunsetTime: 1492358106,
+	  moonPhase: 0.66,
+	  precipIntensity: 0.0006,
+	  precipIntensityMax: 0.0026,
+	  precipIntensityMaxTime: 1492354800,
+	  precipProbability: 0.08,
+	  precipType: 'rain',
+	  temperatureMin: 38.94,
+	  temperatureMinTime: 1492300800,
+	  temperatureMax: 62.42,
+	  temperatureMaxTime: 1492344000,
+	  apparentTemperatureMin: 36.42,
+	  apparentTemperatureMinTime: 1492300800,
+	  apparentTemperatureMax: 62.42,
+	  apparentTemperatureMaxTime: 1492344000,
+	  dewPoint: 40.53,
+	  humidity: 0.73,
+	  windSpeed: 2.28,
+	  windBearing: 28,
+	  cloudCover: 0.01,
+	  pressure: 1018.08,
+	  ozone: 350.27
+	}, {
+	  time: 1492372800,
+	  summary: 'Mostly cloudy starting in the evening.',
+	  icon: 'partly-cloudy-night',
+	  sunriseTime: 1492396240,
+	  sunsetTime: 1492444573,
+	  moonPhase: 0.69,
+	  precipIntensity: 0,
+	  precipIntensityMax: 0,
+	  precipProbability: 0,
+	  temperatureMin: 47.23,
+	  temperatureMinTime: 1492372800,
+	  temperatureMax: 77.22,
+	  temperatureMaxTime: 1492430400,
+	  apparentTemperatureMin: 44.57,
+	  apparentTemperatureMinTime: 1492394400,
+	  apparentTemperatureMax: 77.22,
+	  apparentTemperatureMaxTime: 1492430400,
+	  dewPoint: 45.92,
+	  humidity: 0.6,
+	  windSpeed: 5.3,
+	  windBearing: 90,
+	  cloudCover: 0.16,
+	  pressure: 1014.75,
+	  ozone: 350.59
+	}, {
+	  time: 1492459200,
+	  summary: 'Mostly cloudy throughout the day.',
+	  icon: 'partly-cloudy-day',
+	  sunriseTime: 1492482547,
+	  sunsetTime: 1492531039,
+	  moonPhase: 0.72,
+	  precipIntensity: 0.001,
+	  precipIntensityMax: 0.0023,
+	  precipIntensityMaxTime: 1492542000,
+	  precipProbability: 0.06,
+	  precipType: 'rain',
+	  temperatureMin: 48.7,
+	  temperatureMinTime: 1492480800,
+	  temperatureMax: 76.91,
+	  temperatureMaxTime: 1492513200,
+	  apparentTemperatureMin: 48.29,
+	  apparentTemperatureMinTime: 1492477200,
+	  apparentTemperatureMax: 76.91,
+	  apparentTemperatureMaxTime: 1492513200,
+	  dewPoint: 46.72,
+	  humidity: 0.64,
+	  windSpeed: 1.37,
+	  windBearing: 217,
+	  cloudCover: 0.51,
+	  pressure: 1014.3,
+	  ozone: 356.7
+	}, {
+	  time: 1492545600,
+	  summary: 'Mostly cloudy in the morning.',
+	  icon: 'partly-cloudy-day',
+	  sunriseTime: 1492568855,
+	  sunsetTime: 1492617505,
+	  moonPhase: 0.75,
+	  precipIntensity: 0.0016,
+	  precipIntensityMax: 0.0032,
+	  precipIntensityMaxTime: 1492560000,
+	  precipProbability: 0.11,
+	  precipType: 'rain',
+	  temperatureMin: 45.25,
+	  temperatureMinTime: 1492567200,
+	  temperatureMax: 68.66,
+	  temperatureMaxTime: 1492603200,
+	  apparentTemperatureMin: 45.25,
+	  apparentTemperatureMinTime: 1492567200,
+	  apparentTemperatureMax: 68.66,
+	  apparentTemperatureMaxTime: 1492603200,
+	  dewPoint: 47.8,
+	  humidity: 0.78,
+	  windSpeed: 1.37,
+	  windBearing: 316,
+	  cloudCover: 0.46,
+	  pressure: 1017.92,
+	  ozone: 347.72
+	}, {
+	  time: 1492632000,
+	  summary: 'Partly cloudy starting in the afternoon, continuing until evening.',
+	  icon: 'partly-cloudy-day',
+	  sunriseTime: 1492655164,
+	  sunsetTime: 1492703972,
+	  moonPhase: 0.78,
+	  precipIntensity: 0,
+	  precipIntensityMax: 0,
+	  precipProbability: 0,
+	  temperatureMin: 50.28,
+	  temperatureMinTime: 1492632000,
+	  temperatureMax: 77.81,
+	  temperatureMaxTime: 1492689600,
+	  apparentTemperatureMin: 50.28,
+	  apparentTemperatureMinTime: 1492632000,
+	  apparentTemperatureMax: 77.81,
+	  apparentTemperatureMaxTime: 1492689600,
+	  dewPoint: 46.65,
+	  humidity: 0.58,
+	  windSpeed: 4.82,
+	  windBearing: 95,
+	  cloudCover: 0.2,
+	  pressure: 1015.02,
+	  ozone: 343.62
+	}, {
+	  time: 1492718400,
+	  summary: 'Drizzle overnight.',
+	  icon: 'rain',
+	  sunriseTime: 1492741473,
+	  sunsetTime: 1492790438,
+	  moonPhase: 0.82,
+	  precipIntensity: 0.0025,
+	  precipIntensityMax: 0.0041,
+	  precipIntensityMaxTime: 1492801200,
+	  precipProbability: 0.16,
+	  precipType: 'rain',
+	  temperatureMin: 53.26,
+	  temperatureMinTime: 1492740000,
+	  temperatureMax: 73.57,
+	  temperatureMaxTime: 1492776000,
+	  apparentTemperatureMin: 53.26,
+	  apparentTemperatureMinTime: 1492740000,
+	  apparentTemperatureMax: 73.57,
+	  apparentTemperatureMaxTime: 1492776000,
+	  dewPoint: 45.59,
+	  humidity: 0.58,
+	  windSpeed: 1.39,
+	  windBearing: 146,
+	  cloudCover: 0.49,
+	  pressure: 1012.59,
+	  ozone: 335.24
+	}];
 	var initialState = {
 	  forcast: '',
-	  daily: [],
+	  daily: initialState2,
 	  hourly: []
-	};
-	
-	var setWeather = exports.setWeather = function setWeather(forcast) {
-	  return {
-	    type: SET_WEATHER,
-	    forcast: forcast
-	  };
-	};
-	var setDaily = exports.setDaily = function setDaily(dailyData) {
-	  return {
-	    type: SET_DAILY,
-	    daily: dailyData
-	  };
-	};
-	var setHourly = exports.setHourly = function setHourly(hourlyData) {
-	  return {
-	    type: SET_HOURLY,
-	    hourly: hourlyData
-	  };
-	};
-	
-	//might be get all forcast;
-	
-	var getForcast = exports.getForcast = function getForcast(location) {
-	  window.map.setCenter(location);
-	  return function (dispatch) {
-	    _axios2.default.post('api/location', {
-	      latitude: location.lat,
-	      longitude: location.lng
-	    }).then(function (result) {
-	      var weather = result.data;
-	      var forcast = weather.currently.summary;
-	      var hourly = weather.hourly;
-	      var daily = weather.daily;
-	      dispatch(setWeather(forcast));
-	      dispatch(setDaily(daily));
-	      dispatch(setHourly(hourly));
-	    });
-	  };
 	};
 
 /***/ }),
 /* 284 */
+/***/ (function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	var SET_WEATHER = exports.SET_WEATHER = 'SET_WEATHER';
+	var SET_DAILY = exports.SET_DAILY = 'SET_DAILY';
+	var SET_HOURLY = exports.SET_HOURLY = 'SET_HOURLY';
+	var SELECT_LOCATION = exports.SELECT_LOCATION = 'SELECT_LOCATION';
+	var SET_LAT_LONG = exports.SET_LAT_LONG = 'SET_LAT_LONG';
+
+/***/ }),
+/* 285 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -30645,7 +30826,6 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.getLocation = exports.setLatLong = exports.setLocation = undefined;
 	
 	exports.default = function () {
 	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
@@ -30653,10 +30833,10 @@
 	
 	  var newState = Object.assign({}, state);
 	  switch (action.type) {
-	    case SELECT_LOCATION:
+	    case _constants.SELECT_LOCATION:
 	      newState.location = action.location;
 	      break;
-	    case SET_LAT_LONG:
+	    case _constants.SET_LAT_LONG:
 	      newState.lat = action.lat;
 	      newState.lng = action.lng;
 	      break;
@@ -30666,51 +30846,16 @@
 	  return newState;
 	};
 	
-	var _axios = __webpack_require__(251);
+	var _constants = __webpack_require__(284);
 	
-	var _axios2 = _interopRequireDefault(_axios);
-	
-	var _weather = __webpack_require__(283);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var SELECT_LOCATION = 'SELECT_LOCATION';
-	var SET_LAT_LONG = 'SET_LAT_LONG';
 	var initialState = {
 	  location: '',
 	  lat: 0,
 	  lng: 0
 	};
-	
-	var setLocation = exports.setLocation = function setLocation(location) {
-	  return {
-	    type: SELECT_LOCATION,
-	    location: location
-	  };
-	};
-	
-	var setLatLong = exports.setLatLong = function setLatLong(position) {
-	  return {
-	    type: SET_LAT_LONG,
-	    lat: position.lat,
-	    lng: position.lng
-	  };
-	};
-	
-	var getLocation = exports.getLocation = function getLocation(location) {
-	  return function (dispatch) {
-	    _axios2.default.post('/api/weather', {
-	      name: location
-	    }).then(function (result) {
-	      var latLong = result.data;
-	      dispatch((0, _weather.getForcast)(latLong));
-	      dispatch(setLocation(location));
-	    });
-	  };
-	};
 
 /***/ }),
-/* 285 */
+/* 286 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -30722,11 +30867,11 @@
 	
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 	
-	var _core = __webpack_require__(286);
+	var _core = __webpack_require__(287);
 	
-	var _helpers = __webpack_require__(287);
+	var _helpers = __webpack_require__(288);
 	
-	var _defaults = __webpack_require__(290);
+	var _defaults = __webpack_require__(291);
 	
 	var _defaults2 = _interopRequireDefault(_defaults);
 	
@@ -30848,7 +30993,7 @@
 
 
 /***/ }),
-/* 286 */
+/* 287 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -30861,9 +31006,9 @@
 	
 	exports.printBuffer = printBuffer;
 	
-	var _helpers = __webpack_require__(287);
+	var _helpers = __webpack_require__(288);
 	
-	var _diff = __webpack_require__(288);
+	var _diff = __webpack_require__(289);
 	
 	var _diff2 = _interopRequireDefault(_diff);
 	
@@ -30994,7 +31139,7 @@
 	}
 
 /***/ }),
-/* 287 */
+/* 288 */
 /***/ (function(module, exports) {
 
 	"use strict";
@@ -31018,7 +31163,7 @@
 	var timer = exports.timer = typeof performance !== "undefined" && performance !== null && typeof performance.now === "function" ? performance : Date;
 
 /***/ }),
-/* 288 */
+/* 289 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31028,7 +31173,7 @@
 	});
 	exports.default = diffLogger;
 	
-	var _deepDiff = __webpack_require__(289);
+	var _deepDiff = __webpack_require__(290);
 	
 	var _deepDiff2 = _interopRequireDefault(_deepDiff);
 	
@@ -31117,7 +31262,7 @@
 	module.exports = exports['default'];
 
 /***/ }),
-/* 289 */
+/* 290 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(global) {/*!
@@ -31546,7 +31691,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ }),
-/* 290 */
+/* 291 */
 /***/ (function(module, exports) {
 
 	"use strict";
@@ -31597,7 +31742,7 @@
 	module.exports = exports["default"];
 
 /***/ }),
-/* 291 */
+/* 292 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -31625,7 +31770,7 @@
 	exports['default'] = thunk;
 
 /***/ }),
-/* 292 */
+/* 293 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31640,9 +31785,13 @@
 	
 	var _reactRedux = __webpack_require__(182);
 	
-	var _weatherContainer = __webpack_require__(293);
+	var _weatherContainer = __webpack_require__(294);
 	
 	var _weatherContainer2 = _interopRequireDefault(_weatherContainer);
+	
+	var _dayView = __webpack_require__(298);
+	
+	var _dayView2 = _interopRequireDefault(_dayView);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -31654,27 +31803,32 @@
 	  return {};
 	};
 	
-	var app = function app(_ref) {
-	  var forcast = _ref.forcast;
-	
-	  console.log('hi', window.map.setCenter);
-	  console.log(window.infoWindow);
+	var app = function app() {
 	  return _react2.default.createElement(
 	    'div',
 	    { id: 'main' },
 	    _react2.default.createElement(
 	      'h1',
 	      null,
-	      'Hello'
+	      'Weather Checker'
 	    ),
-	    _react2.default.createElement(_weatherContainer2.default, null)
+	    _react2.default.createElement(
+	      'div',
+	      { className: 'row' },
+	      _react2.default.createElement(_weatherContainer2.default, null),
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'col-md-9' },
+	        _react2.default.createElement(_dayView2.default, null)
+	      )
+	    )
 	  );
 	};
 	
 	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispathToProps)(app);
 
 /***/ }),
-/* 293 */
+/* 294 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31691,11 +31845,11 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _weatherForm = __webpack_require__(294);
+	var _weatherForm = __webpack_require__(295);
 	
 	var _weatherForm2 = _interopRequireDefault(_weatherForm);
 	
-	var _location2 = __webpack_require__(284);
+	var _location = __webpack_require__(296);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -31707,8 +31861,8 @@
 	
 	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 	  return {
-	    location: function location(_location) {
-	      dispatch((0, _location2.getLocation)(_location));
+	    setLocation: function setLocation(location) {
+	      dispatch((0, _location.getLocation)(location));
 	    }
 	  };
 	};
@@ -31734,15 +31888,15 @@
 	    key: 'handleChange',
 	    value: function handleChange(e) {
 	      var value = e.target.value;
-	      this.setState({ inputValue: value,
-	        dirty: true });
+	      value !== "" ? this.setState({ inputValue: value,
+	        dirty: true }) : this.setState({ inputValue: value,
+	        dirty: false });
 	    }
 	  }, {
 	    key: 'handleSubmit',
 	    value: function handleSubmit(e) {
 	      e.preventDefault();
-	      //this.props.forcast(this.state.inputValue)
-	      this.props.location(this.state.inputValue);
+	      this.props.setLocation(this.state.inputValue);
 	      this.setState({
 	        inputValue: '',
 	        dirty: false
@@ -31752,7 +31906,7 @@
 	    key: 'render',
 	    value: function render() {
 	
-	      return _react2.default.createElement(_weatherForm2.default, { handleChange: this.handleChange, inputValue: this.state.inputValue, handleSubmit: this.handleSubmit });
+	      return _react2.default.createElement(_weatherForm2.default, { handleChange: this.handleChange, inputValue: this.state.inputValue, handleSubmit: this.handleSubmit, dirty: this.state.dirty });
 	    }
 	  }]);
 	
@@ -31762,7 +31916,7 @@
 	exports.default = (0, _reactRedux.connect)(null, mapDispatchToProps)(WeatherContainer);
 
 /***/ }),
-/* 294 */
+/* 295 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -31777,15 +31931,15 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var weatherForm = function weatherForm(props) {
-	  console.log(props);
-	  var handleChange = props.handleChange,
-	      handleSubmit = props.handleSubmit,
-	      inputValue = props.inputValue;
+	var weatherForm = function weatherForm(_ref) {
+	  var handleChange = _ref.handleChange,
+	      dirty = _ref.dirty,
+	      handleSubmit = _ref.handleSubmit,
+	      inputValue = _ref.inputValue;
 	
 	  return _react2.default.createElement(
 	    "div",
-	    null,
+	    { className: "col-md-3" },
 	    _react2.default.createElement(
 	      "form",
 	      { onSubmit: handleSubmit },
@@ -31826,7 +31980,7 @@
 	              "button",
 	              {
 	                type: "submit",
-	                className: "btn btn-success" },
+	                className: "btn btn-success", disabled: !dirty },
 	              "SEARCH WEATHER"
 	            )
 	          )
@@ -31836,6 +31990,192 @@
 	  );
 	};
 	exports.default = weatherForm;
+
+/***/ }),
+/* 296 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.getLocation = exports.setLatLong = exports.setLocation = undefined;
+	
+	var _axios = __webpack_require__(251);
+	
+	var _axios2 = _interopRequireDefault(_axios);
+	
+	var _weather = __webpack_require__(297);
+	
+	var _constants = __webpack_require__(284);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var setLocation = exports.setLocation = function setLocation(location) {
+	  return {
+	    type: _constants.SELECT_LOCATION,
+	    location: location
+	  };
+	};
+	
+	var setLatLong = exports.setLatLong = function setLatLong(position) {
+	  return {
+	    type: _constants.SET_LAT_LONG,
+	    lat: position.lat,
+	    lng: position.lng
+	  };
+	};
+	
+	var getLocation = exports.getLocation = function getLocation(location) {
+	  return function (dispatch) {
+	    _axios2.default.post('/api/weather', {
+	      name: location
+	    }).then(function (result) {
+	      var latLong = result.data;
+	      dispatch((0, _weather.getForcast)(latLong));
+	      dispatch(setLocation(location));
+	    });
+	  };
+	};
+
+/***/ }),
+/* 297 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.getForcast = exports.setHourly = exports.setDaily = exports.setWeather = undefined;
+	
+	var _axios = __webpack_require__(251);
+	
+	var _axios2 = _interopRequireDefault(_axios);
+	
+	var _constants = __webpack_require__(284);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var setWeather = exports.setWeather = function setWeather(forcast) {
+	  return {
+	    type: _constants.SET_WEATHER,
+	    forcast: forcast
+	  };
+	};
+	var setDaily = exports.setDaily = function setDaily(dailyData) {
+	  return {
+	    type: _constants.SET_DAILY,
+	    daily: dailyData
+	  };
+	};
+	var setHourly = exports.setHourly = function setHourly(hourlyData) {
+	  return {
+	    type: _constants.SET_HOURLY,
+	    hourly: hourlyData
+	  };
+	};
+	
+	//might be get all forcast;
+	
+	var getForcast = exports.getForcast = function getForcast(location) {
+	  window.map.setCenter(location);
+	  return function (dispatch) {
+	    _axios2.default.post('api/location', {
+	      latitude: location.lat,
+	      longitude: location.lng
+	    }).then(function (result) {
+	      var weather = result.data;
+	      var forcast = weather.currently.summary;
+	      var hourly = weather.hourly.data;
+	      var daily = weather.daily.data;
+	      dispatch(setWeather(forcast));
+	      dispatch(setDaily(daily));
+	      dispatch(setHourly(hourly));
+	    });
+	  };
+	};
+
+/***/ }),
+/* 298 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _reactRedux = __webpack_require__(182);
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _dayWeather = __webpack_require__(299);
+	
+	var _dayWeather2 = _interopRequireDefault(_dayWeather);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var mapStateToProps = function mapStateToProps(state) {
+	  return {
+	    days: state.weather.daily
+	  };
+	};
+	
+	var DayView = function DayView(_ref) {
+	  var days = _ref.days;
+	
+	
+	  return _react2.default.createElement(
+	    'div',
+	    { className: 'col-md-3' },
+	    days && days.map(function (day) {
+	      return _react2.default.createElement(_dayWeather2.default, { weather: day });
+	    })
+	  );
+	};
+	
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, null)(DayView);
+
+/***/ }),
+/* 299 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var dayWeather = function dayWeather(_ref) {
+	  var weather = _ref.weather;
+	
+	  return _react2.default.createElement(
+	    "div",
+	    { className: "col-md-12" },
+	    _react2.default.createElement(
+	      "p",
+	      null,
+	      "Summary: ",
+	      weather.summary,
+	      " Low:",
+	      weather.temperatureMin,
+	      "High: ",
+	      weather.temperatureMax
+	    )
+	  );
+	};
+	
+	exports.default = dayWeather;
 
 /***/ })
 /******/ ]);

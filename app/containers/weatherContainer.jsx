@@ -1,10 +1,10 @@
 import { connect } from 'react-redux';
 import React, { Component } from 'react';
-import WeatherForm from './weatherForm';
-import {getLocation} from '../reducers/location';
+import WeatherForm from '../components/weatherForm';
+import {getLocation} from '../actionCreators/location';
 const mapDispatchToProps = (dispatch) => {
   return {
-    location(location){
+    setLocation(location){
       dispatch(getLocation(location))
     }
   }
@@ -22,13 +22,14 @@ class WeatherContainer extends Component {
   }
   handleChange(e){
     const value = e.target.value;
-    this.setState({inputValue: value,
-    dirty: true})
+    value !== "" ? this.setState({inputValue: value,
+    dirty: true}) : this.setState({inputValue: value,
+    dirty: false})
+
   }
   handleSubmit(e){
     e.preventDefault();
-    //this.props.forcast(this.state.inputValue)
-    this.props.location(this.state.inputValue)
+    this.props.setLocation(this.state.inputValue)
     this.setState({
       inputValue:'',
       dirty: false,
@@ -38,7 +39,7 @@ class WeatherContainer extends Component {
   render(){
     
     return (
-      <WeatherForm handleChange={this.handleChange} inputValue={this.state.inputValue} handleSubmit={this.handleSubmit} />
+      <WeatherForm handleChange={this.handleChange} inputValue={this.state.inputValue} handleSubmit={this.handleSubmit} dirty={this.state.dirty} />
     )
   }
 

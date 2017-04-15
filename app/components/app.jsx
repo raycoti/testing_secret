@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 
-import WeatherContainer from './weatherContainer';
+import WeatherContainer from '../containers/weatherContainer';
+import DayView from '../containers/dayView';
 const mapStateToProps = (store) => {
   return {
 
@@ -14,13 +15,16 @@ const mapDispathToProps = (dispatch)=> {
 }
 
 
-const app = function({forcast}){
-  console.log('hi',window.map.setCenter);
-  console.log(window.infoWindow)
+const app = function(){
   return (
     <div id="main">
-      <h1>Hello</h1>
-     <WeatherContainer />
+      <h1>Weather Checker</h1>
+      <div className="row">
+      <WeatherContainer />
+      <div className ="col-md-9">
+        <DayView />
+      </div>
+      </div>
     </div>
   )
 }
