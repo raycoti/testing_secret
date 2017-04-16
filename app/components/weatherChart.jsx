@@ -6,11 +6,12 @@ const weatherChart = ({chartData,view,name})=> {
   if(view) theData = chartData;
   let label1="high";
   if(name==="hourly") label1="temp"
-  console.log('thedata',theData[0])
+  let height = 600;
+  if(window.innerHeight < 800) height=300;//mobile friendly version
   return (
     <div className="col-md-8">
     <h4>Chart</h4>
-       <ResponsiveContainer  minWidth={300} height={600} minHeight={200}>
+       <ResponsiveContainer  minWidth={300}  minHeight={height}>
         <ComposedChart
           data={theData}>
             <XAxis label="DATE" dataKey="name"/>

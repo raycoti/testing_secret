@@ -206,10 +206,10 @@ const data2=[
       }
     ]
 const initialState = {
-  current: 'hourly',
-  daily: data,
-  hourly: data,
-  view: true,
+  current: 'daily',
+  daily: [{}],
+  hourly: [{}],
+  view: false,
 }
 export default function(state = initialState, action){
   const newState = Object.assign({}, state);

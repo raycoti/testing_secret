@@ -23,7 +23,11 @@ html, body, body > div {
 }
 .recharts-surface{
   background-color: white;
+  height:100%;
   margin-left: -1em;
+}
+.recharts-wrapper{
+  height: 40%;
 }
 #forum {
   padding: 1%;

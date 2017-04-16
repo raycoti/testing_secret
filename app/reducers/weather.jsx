@@ -223,7 +223,7 @@ var initialState2 = [
 ]
 const initialState = {
   forcast: '',
-  daily: initialState2,
+  daily: [],
   hourly: [],
 }
 

@@ -30803,7 +30803,7 @@
 	}];
 	var initialState = {
 	  forcast: '',
-	  daily: initialState2,
+	  daily: [],
 	  hourly: []
 	};
 
@@ -31055,10 +31055,10 @@
 	  temp: 48.8
 	}];
 	var initialState = {
-	  current: 'hourly',
-	  daily: data,
-	  hourly: data,
-	  view: true
+	  current: 'daily',
+	  daily: [{}],
+	  hourly: [{}],
+	  view: false
 	};
 
 /***/ }),
@@ -32150,7 +32150,8 @@
 	  if (view) theData = chartData;
 	  var label1 = "high";
 	  if (name === "hourly") label1 = "temp";
-	  console.log('thedata', theData[0]);
+	  var height = 600;
+	  if (window.innerHeight < 800) height = 300; //mobile friendly version
 	  return React.createElement(
 	    'div',
 	    { className: 'col-md-8' },
@@ -32161,7 +32162,7 @@
 	    ),
 	    React.createElement(
 	      _recharts.ResponsiveContainer,
-	      { minWidth: 300, height: 600, minHeight: 200 },
+	      { minWidth: 300, minHeight: height },
 	      React.createElement(
 	        _recharts.ComposedChart,
 	        {
