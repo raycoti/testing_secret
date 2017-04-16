@@ -26,13 +26,22 @@ export const addDailyHistory = (historyData) =>({
 export const formatData = (data, type) => {
   return data.map(( theData ) => {
         const timestamp = moment.unix(theData.time);
-        let name;
-        type === 'daily' ? name = timestamp.format("MM-DD") : name = timestamp.format("HH:mm")
-        return {
-          name: name,
-          high: theData.temperatureMax,
-          low:  theData.temperatureMin,
+        let dataObject;
+        if (type === 'daily'){
+          dataObject = {
+            name: timestamp.format("MM-DD"),
+            high: theData.temperatureMax,
+            low:  theData.temperatureMin,
+          }
         }
+        else if(type==='hourly') {
+          dataObject = {
+            name: timestamp.format("MM-DD HH:mm"),
+            temp: theData.temperature,
+            low:  0,
+          }
+        }
+        return dataObject;
       })
 }
 export const setData = (data, type) =>{
