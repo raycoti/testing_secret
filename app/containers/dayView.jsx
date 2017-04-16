@@ -12,6 +12,7 @@ const DayView = ({days})=> {
 
   return (
     <div className="col-md-3">
+    <h4>Daily</h4>
       {days && days.map((day)=>{
         return <DayWeather weather={day} />
       })}

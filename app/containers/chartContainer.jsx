@@ -6,17 +6,17 @@ const mapStateToProps = (state) => {
   return {
     days: state.chart.daily,
     type: state.chart.current,
-    hourly: state.chart.hourly,
+    hours: state.chart.hourly,
     view: state.chart.view,
   }
 }
 
-const ChartContainer = ({days, type, hourly,view}) => {
+const ChartContainer = ({days, type, hours,view}) => {
   let chartData;
-  type === 'daily' ? chartData = days : chartData = hourly;
+  type === 'daily' ? chartData = days : chartData = hours;
 
   return (
-    <WeatherChart view={view} chartData={chartData} />
+    <WeatherChart view={view} name={type} chartData={chartData} />
   )
 }
 

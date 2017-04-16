@@ -30906,10 +30906,158 @@
 	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 	
 	var data = [{ name: '1492286400', low: 38.94, high: 62.42 }, { name: '1492372800', low: 47.23, high: 77.22 }, { name: '1492372800', low: 48.7, high: 48.29 }, { name: '1492372800', low: 45.25, high: 68.66 }, { name: '1492632000', low: 50.28, high: 77.81 }, { name: '1492718400', low: 53.26, high: 73.57 }];
+	var data2 = [{
+	  name: '21:00',
+	  temp: 38.9
+	}, {
+	  name: '22:00',
+	  temp: 40.28
+	}, {
+	  name: '23:00',
+	  temp: 44.05
+	}, {
+	  name: '00:00',
+	  temp: 48.8
+	}, {
+	  name: '01:00',
+	  temp: 52.67
+	}, {
+	  name: '02:00',
+	  temp: 55.23
+	}, {
+	  name: '03:00',
+	  temp: 57.48
+	}, {
+	  name: '04:00',
+	  temp: 59.75
+	}, {
+	  name: '05:00',
+	  temp: 62.01
+	}, {
+	  name: '06:00',
+	  temp: 63.75
+	}, {
+	  name: '07:00',
+	  temp: 64.4
+	}, {
+	  name: '08:00',
+	  temp: 63.43
+	}, {
+	  name: '09:00',
+	  temp: 61.45
+	}, {
+	  name: '10:00',
+	  temp: 58.8
+	}, {
+	  name: '11:00',
+	  temp: 55.36
+	}, {
+	  name: '12:00',
+	  temp: 51.66
+	}, {
+	  name: '13:00',
+	  temp: 49
+	}, {
+	  name: '14:00',
+	  temp: 48.02
+	}, {
+	  name: '15:00',
+	  temp: 47.95
+	}, {
+	  name: '16:00',
+	  temp: 47.97
+	}, {
+	  name: '17:00',
+	  temp: 47.68
+	}, {
+	  name: '18:00',
+	  temp: 47.37
+	}, {
+	  name: '19:00',
+	  temp: 47.18
+	}, {
+	  name: '20:00',
+	  temp: 46.83
+	}, {
+	  name: '21:00',
+	  temp: 46.62
+	}, {
+	  name: '22:00',
+	  temp: 47.94
+	}, {
+	  name: '23:00',
+	  temp: 51.07
+	}, {
+	  name: '00:00',
+	  temp: 55.09
+	}, {
+	  name: '01:00',
+	  temp: 58.53
+	}, {
+	  name: '02:00',
+	  temp: 61.18
+	}, {
+	  name: '03:00',
+	  temp: 63.85
+	}, {
+	  name: '04:00',
+	  temp: 66.53
+	}, {
+	  name: '05:00',
+	  temp: 69.01
+	}, {
+	  name: '06:00',
+	  temp: 70.84
+	}, {
+	  name: '07:00',
+	  temp: 71.45
+	}, {
+	  name: '08:00',
+	  temp: 70.19
+	}, {
+	  name: '09:00',
+	  temp: 67.83
+	}, {
+	  name: '10:00',
+	  temp: 64.71
+	}, {
+	  name: '11:00',
+	  temp: 60.71
+	}, {
+	  name: '12:00',
+	  temp: 56.43
+	}, {
+	  name: '13:00',
+	  temp: 53.28
+	}, {
+	  name: '14:00',
+	  temp: 51.93
+	}, {
+	  name: '15:00',
+	  temp: 51.57
+	}, {
+	  name: '16:00',
+	  temp: 51.31
+	}, {
+	  name: '17:00',
+	  temp: 50.71
+	}, {
+	  name: '18:00',
+	  temp: 50.09
+	}, {
+	  name: '19:00',
+	  temp: 49.65
+	}, {
+	  name: '20:00',
+	  temp: 49.14
+	}, {
+	  name: '21:00',
+	  temp: 48.8
+	}];
 	var initialState = {
-	  current: 'daily',
+	  current: 'hourly',
 	  daily: data,
-	  hourly: [],
+	  hourly: data,
 	  view: true
 	};
 
@@ -31856,17 +32004,30 @@
 	
 	var _dayView2 = _interopRequireDefault(_dayView);
 	
+	var _chart = __webpack_require__(719);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var mapStateToProps = function mapStateToProps(store) {
-	  return {};
+	var mapStateToProps = function mapStateToProps(state) {
+	  return {
+	    view: state.chart.current
+	  };
 	};
 	
 	var mapDispathToProps = function mapDispathToProps(dispatch) {
-	  return {};
+	  return {
+	    toggleView: function toggleView(view) {
+	      var newView = 'daily';
+	      if (view === 'daily') newView = 'hourly';
+	      dispatch((0, _chart.setCurrentChart)(newView));
+	    }
+	  };
 	};
 	
-	var app = function app() {
+	var app = function app(_ref) {
+	  var toggleView = _ref.toggleView,
+	      view = _ref.view;
+	
 	  return _react2.default.createElement(
 	    'div',
 	    { id: 'main' },
@@ -31883,6 +32044,18 @@
 	    _react2.default.createElement(
 	      'div',
 	      { className: 'col-md-10' },
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'col-md-1' },
+	        _react2.default.createElement(
+	          'button',
+	          { type: 'submit',
+	            className: 'btn btn-success', onClick: function onClick() {
+	              return toggleView(view);
+	            } },
+	          ' Toggle'
+	        )
+	      ),
 	      _react2.default.createElement(_chartContainer2.default, null),
 	      _react2.default.createElement(_dayView2.default, null)
 	    )
@@ -31917,7 +32090,7 @@
 	  return {
 	    days: state.chart.daily,
 	    type: state.chart.current,
-	    hourly: state.chart.hourly,
+	    hours: state.chart.hourly,
 	    view: state.chart.view
 	  };
 	};
@@ -31925,13 +32098,13 @@
 	var ChartContainer = function ChartContainer(_ref) {
 	  var days = _ref.days,
 	      type = _ref.type,
-	      hourly = _ref.hourly,
+	      hours = _ref.hours,
 	      view = _ref.view;
 	
 	  var chartData = void 0;
-	  type === 'daily' ? chartData = days : chartData = hourly;
+	  type === 'daily' ? chartData = days : chartData = hours;
 	
-	  return _react2.default.createElement(_weatherChart2.default, { view: view, chartData: chartData });
+	  return _react2.default.createElement(_weatherChart2.default, { view: view, name: type, chartData: chartData });
 	};
 	
 	exports.default = (0, _reactRedux.connect)(mapStateToProps, null)(ChartContainer);
@@ -31953,13 +32126,22 @@
 	var moment = __webpack_require__(598);
 	var weatherChart = function weatherChart(_ref) {
 	  var chartData = _ref.chartData,
-	      view = _ref.view;
+	      view = _ref.view,
+	      name = _ref.name;
 	
 	  var theData = [{}];
 	  if (view) theData = chartData;
+	  var label1 = "high";
+	  if (name === "hourly") label1 = "temp";
+	  console.log('thedata', theData[0]);
 	  return React.createElement(
 	    'div',
-	    { className: 'col-md-9' },
+	    { className: 'col-md-8' },
+	    React.createElement(
+	      'h4',
+	      null,
+	      'Chart'
+	    ),
 	    React.createElement(
 	      _recharts.ResponsiveContainer,
 	      { width: '100%', height: 600 },
@@ -31975,8 +32157,8 @@
 	        React.createElement(_recharts.CartesianGrid, { strokeDasharray: '3 3' }),
 	        React.createElement(_recharts.Tooltip, null),
 	        React.createElement(_recharts.Legend, null),
-	        React.createElement(_recharts.Line, { type: 'monotone', dataKey: 'high', stroke: '#8884d8', activeDot: { r: 2 } }),
-	        React.createElement(_recharts.Line, { type: 'monotone', dataKey: 'low', stroke: '#82ca9d' })
+	        React.createElement(_recharts.Line, { type: 'monotone', dataKey: label1, stroke: '#8884d8', activeDot: { r: 2 } }),
+	        label1 === "high" && React.createElement(_recharts.Line, { type: 'monotone', dataKey: 'low', stroke: '#82ca9d' })
 	      )
 	    )
 	  );
@@ -81948,13 +82130,21 @@
 	var formatData = exports.formatData = function formatData(data, type) {
 	  return data.map(function (theData) {
 	    var timestamp = moment.unix(theData.time);
-	    var name = void 0;
-	    type === 'daily' ? name = timestamp.format("MM-DD") : name = timestamp.format("HH:mm");
-	    return {
-	      name: name,
-	      high: theData.temperatureMax,
-	      low: theData.temperatureMin
-	    };
+	    var dataObject = void 0;
+	    if (type === 'daily') {
+	      dataObject = {
+	        name: timestamp.format("MM-DD"),
+	        high: theData.temperatureMax,
+	        low: theData.temperatureMin
+	      };
+	    } else if (type === 'hourly') {
+	      dataObject = {
+	        name: timestamp.format("MM-DD HH:mm"),
+	        temp: theData.temperature,
+	        low: 0
+	      };
+	    }
+	    return dataObject;
 	  });
 	};
 	var setData = exports.setData = function setData(data, type) {
@@ -82005,6 +82195,11 @@
 	  return _react2.default.createElement(
 	    'div',
 	    { className: 'col-md-3' },
+	    _react2.default.createElement(
+	      'h4',
+	      null,
+	      'Daily'
+	    ),
 	    days && days.map(function (day) {
 	      return _react2.default.createElement(_dayWeather2.default, { weather: day });
 	    })
