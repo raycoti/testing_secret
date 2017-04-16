@@ -50,7 +50,7 @@ export const getHistoryForcast = (location, times) => {
 }
 
 const setImageMap = (forcast,icon) => {
-   window.infoWindow.setContent(`<IMG BORDER="0" ALIGN="Left" SRC="img/${icon}.svg"> Current Forcast: ${forcast}`);
+   window.infoWindow.setContent(`<IMG BORDER="0" ALIGN="Left" SRC="img/${icon}.svg"> Current Forcast \n ${forcast}`);
 }
 export const getForcast = (location) => {
   window.map.setCenter(location)

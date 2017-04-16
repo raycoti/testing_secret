@@ -82068,7 +82068,7 @@
 	};
 	
 	var setImageMap = function setImageMap(forcast, icon) {
-	  window.infoWindow.setContent('<IMG BORDER="0" ALIGN="Left" SRC="img/' + icon + '.svg"> Current Forcast: ' + forcast);
+	  window.infoWindow.setContent('<IMG BORDER="0" ALIGN="Left" SRC="img/' + icon + '.svg"> Current Forcast \n ' + forcast);
 	};
 	var getForcast = exports.getForcast = function getForcast(location) {
 	  window.map.setCenter(location);
