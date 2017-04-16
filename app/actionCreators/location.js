@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { getForcast } from './weather';
 import {setChartView} from './chart';
-import {SELECT_LOCATION, SET_LAT_LONG} from '../constants';
+import {SELECT_LOCATION, SET_LAT_LONG, SET_SEARCHES, ADD_TO_SEARCH} from '../constants';
 
 export const setLocation = (location) => ({
   type: SELECT_LOCATION,
@@ -14,6 +14,24 @@ export const setLatLong = (position) =>({
   lng: position.lng,
 })
 
+export const addTOSearch = (name) => ({
+  type: ADD_TO_SEARCH,
+  search: name
+})
+
+export const setSearches = (searchesArr) => ({
+  type: SET_SEARCHES,
+  searches: searchesArr.reverse()
+})
+export const getSearches = () =>{
+  return (dispatch) =>{
+    axios.get('/api/queries')
+    .then(result => {
+      const searches = result.data.searches;
+      dispatch(setSearches(searches));
+    })
+  }
+}
 export const getLocation = (location) => {
   return (dispatch) => {
     axios.post('/api/location', {

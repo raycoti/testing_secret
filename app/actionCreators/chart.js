@@ -32,6 +32,9 @@ export const formatData = (data, type) => {
             name: timestamp.format("MM-DD"),
             high: theData.temperatureMax,
             low:  theData.temperatureMin,
+            hum: theData.humidity * 100,
+            wind: theData.windSpeed,
+            cloud: theData.cloudCover * 100,
           }
         }
         else if(type==='hourly') {
@@ -39,6 +42,9 @@ export const formatData = (data, type) => {
             name: timestamp.format("MM-DD HH:mm"),
             temp: theData.temperature,
             low:  0,
+            hum: theData.humidity * 100,
+            wind: theData.windSpeed,
+            cloud: theData.cloudCover * 100,
           }
         }
         return dataObject;

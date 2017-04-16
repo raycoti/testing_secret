@@ -30588,219 +30588,6 @@
 	
 	var _constants = __webpack_require__(284);
 	
-	var initialState2 = [{
-	  time: 1492113600,
-	  summary: 'Rain throughout the day.',
-	  icon: 'rain',
-	  sunriseTime: 1492137323,
-	  sunsetTime: 1492185174,
-	  moonPhase: 0.6,
-	  precipIntensity: 0.0398,
-	  precipIntensityMax: 0.1026,
-	  precipIntensityMaxTime: 1492164000,
-	  precipProbability: 0.8,
-	  precipType: 'rain',
-	  temperatureMin: 43.94,
-	  temperatureMinTime: 1492196400,
-	  temperatureMax: 52.05,
-	  temperatureMaxTime: 1492113600,
-	  apparentTemperatureMin: 41,
-	  apparentTemperatureMinTime: 1492196400,
-	  apparentTemperatureMax: 52.05,
-	  apparentTemperatureMaxTime: 1492113600,
-	  dewPoint: 45.64,
-	  humidity: 0.92,
-	  windSpeed: 5.22,
-	  windBearing: 224,
-	  cloudCover: 0.58,
-	  pressure: 1009.06,
-	  ozone: 343.21
-	}, {
-	  time: 1492200000,
-	  summary: 'Partly cloudy in the morning.',
-	  icon: 'partly-cloudy-night',
-	  sunriseTime: 1492223628,
-	  sunsetTime: 1492271640,
-	  moonPhase: 0.63,
-	  precipIntensity: 0.0022,
-	  precipIntensityMax: 0.0142,
-	  precipIntensityMaxTime: 1492200000,
-	  precipProbability: 0.56,
-	  precipType: 'rain',
-	  temperatureMin: 39.05,
-	  temperatureMinTime: 1492218000,
-	  temperatureMax: 57.54,
-	  temperatureMaxTime: 1492257600,
-	  apparentTemperatureMin: 39.05,
-	  apparentTemperatureMinTime: 1492218000,
-	  apparentTemperatureMax: 57.54,
-	  apparentTemperatureMaxTime: 1492257600,
-	  dewPoint: 41.32,
-	  humidity: 0.83,
-	  windSpeed: 1.64,
-	  windBearing: 277,
-	  cloudCover: 0.25,
-	  pressure: 1017.39,
-	  ozone: 353.45
-	}, {
-	  time: 1492286400,
-	  summary: 'Clear throughout the day.',
-	  icon: 'clear-day',
-	  sunriseTime: 1492309933,
-	  sunsetTime: 1492358106,
-	  moonPhase: 0.66,
-	  precipIntensity: 0.0006,
-	  precipIntensityMax: 0.0026,
-	  precipIntensityMaxTime: 1492354800,
-	  precipProbability: 0.08,
-	  precipType: 'rain',
-	  temperatureMin: 38.94,
-	  temperatureMinTime: 1492300800,
-	  temperatureMax: 62.42,
-	  temperatureMaxTime: 1492344000,
-	  apparentTemperatureMin: 36.42,
-	  apparentTemperatureMinTime: 1492300800,
-	  apparentTemperatureMax: 62.42,
-	  apparentTemperatureMaxTime: 1492344000,
-	  dewPoint: 40.53,
-	  humidity: 0.73,
-	  windSpeed: 2.28,
-	  windBearing: 28,
-	  cloudCover: 0.01,
-	  pressure: 1018.08,
-	  ozone: 350.27
-	}, {
-	  time: 1492372800,
-	  summary: 'Mostly cloudy starting in the evening.',
-	  icon: 'partly-cloudy-night',
-	  sunriseTime: 1492396240,
-	  sunsetTime: 1492444573,
-	  moonPhase: 0.69,
-	  precipIntensity: 0,
-	  precipIntensityMax: 0,
-	  precipProbability: 0,
-	  temperatureMin: 47.23,
-	  temperatureMinTime: 1492372800,
-	  temperatureMax: 77.22,
-	  temperatureMaxTime: 1492430400,
-	  apparentTemperatureMin: 44.57,
-	  apparentTemperatureMinTime: 1492394400,
-	  apparentTemperatureMax: 77.22,
-	  apparentTemperatureMaxTime: 1492430400,
-	  dewPoint: 45.92,
-	  humidity: 0.6,
-	  windSpeed: 5.3,
-	  windBearing: 90,
-	  cloudCover: 0.16,
-	  pressure: 1014.75,
-	  ozone: 350.59
-	}, {
-	  time: 1492459200,
-	  summary: 'Mostly cloudy throughout the day.',
-	  icon: 'partly-cloudy-day',
-	  sunriseTime: 1492482547,
-	  sunsetTime: 1492531039,
-	  moonPhase: 0.72,
-	  precipIntensity: 0.001,
-	  precipIntensityMax: 0.0023,
-	  precipIntensityMaxTime: 1492542000,
-	  precipProbability: 0.06,
-	  precipType: 'rain',
-	  temperatureMin: 48.7,
-	  temperatureMinTime: 1492480800,
-	  temperatureMax: 76.91,
-	  temperatureMaxTime: 1492513200,
-	  apparentTemperatureMin: 48.29,
-	  apparentTemperatureMinTime: 1492477200,
-	  apparentTemperatureMax: 76.91,
-	  apparentTemperatureMaxTime: 1492513200,
-	  dewPoint: 46.72,
-	  humidity: 0.64,
-	  windSpeed: 1.37,
-	  windBearing: 217,
-	  cloudCover: 0.51,
-	  pressure: 1014.3,
-	  ozone: 356.7
-	}, {
-	  time: 1492545600,
-	  summary: 'Mostly cloudy in the morning.',
-	  icon: 'partly-cloudy-day',
-	  sunriseTime: 1492568855,
-	  sunsetTime: 1492617505,
-	  moonPhase: 0.75,
-	  precipIntensity: 0.0016,
-	  precipIntensityMax: 0.0032,
-	  precipIntensityMaxTime: 1492560000,
-	  precipProbability: 0.11,
-	  precipType: 'rain',
-	  temperatureMin: 45.25,
-	  temperatureMinTime: 1492567200,
-	  temperatureMax: 68.66,
-	  temperatureMaxTime: 1492603200,
-	  apparentTemperatureMin: 45.25,
-	  apparentTemperatureMinTime: 1492567200,
-	  apparentTemperatureMax: 68.66,
-	  apparentTemperatureMaxTime: 1492603200,
-	  dewPoint: 47.8,
-	  humidity: 0.78,
-	  windSpeed: 1.37,
-	  windBearing: 316,
-	  cloudCover: 0.46,
-	  pressure: 1017.92,
-	  ozone: 347.72
-	}, {
-	  time: 1492632000,
-	  summary: 'Partly cloudy starting in the afternoon, continuing until evening.',
-	  icon: 'partly-cloudy-day',
-	  sunriseTime: 1492655164,
-	  sunsetTime: 1492703972,
-	  moonPhase: 0.78,
-	  precipIntensity: 0,
-	  precipIntensityMax: 0,
-	  precipProbability: 0,
-	  temperatureMin: 50.28,
-	  temperatureMinTime: 1492632000,
-	  temperatureMax: 77.81,
-	  temperatureMaxTime: 1492689600,
-	  apparentTemperatureMin: 50.28,
-	  apparentTemperatureMinTime: 1492632000,
-	  apparentTemperatureMax: 77.81,
-	  apparentTemperatureMaxTime: 1492689600,
-	  dewPoint: 46.65,
-	  humidity: 0.58,
-	  windSpeed: 4.82,
-	  windBearing: 95,
-	  cloudCover: 0.2,
-	  pressure: 1015.02,
-	  ozone: 343.62
-	}, {
-	  time: 1492718400,
-	  summary: 'Drizzle overnight.',
-	  icon: 'rain',
-	  sunriseTime: 1492741473,
-	  sunsetTime: 1492790438,
-	  moonPhase: 0.82,
-	  precipIntensity: 0.0025,
-	  precipIntensityMax: 0.0041,
-	  precipIntensityMaxTime: 1492801200,
-	  precipProbability: 0.16,
-	  precipType: 'rain',
-	  temperatureMin: 53.26,
-	  temperatureMinTime: 1492740000,
-	  temperatureMax: 73.57,
-	  temperatureMaxTime: 1492776000,
-	  apparentTemperatureMin: 53.26,
-	  apparentTemperatureMinTime: 1492740000,
-	  apparentTemperatureMax: 73.57,
-	  apparentTemperatureMaxTime: 1492776000,
-	  dewPoint: 45.59,
-	  humidity: 0.58,
-	  windSpeed: 1.39,
-	  windBearing: 146,
-	  cloudCover: 0.49,
-	  pressure: 1012.59,
-	  ozone: 335.24
-	}];
 	var initialState = {
 	  forcast: '',
 	  daily: [],
@@ -30826,6 +30613,8 @@
 	var SET_HOURLY_CHART = exports.SET_HOURLY_CHART = 'SET_HOURLY_CHART';
 	var ADD_DAILY_CHART = exports.ADD_DAILY_CHART = 'ADD_DAILY_CHART';
 	var TOGGLE_CHART_VIEW = exports.TOGGLE_CHART_VIEW = 'TOGGLE_CHART_VIEW';
+	var ADD_TO_SEARCH = exports.ADD_TO_SEARCH = 'ADD_TO_SEARCH';
+	var SET_SEARCHES = exports.SET_SEARCHES = 'SET_SEARCHES';
 
 /***/ }),
 /* 285 */
@@ -30850,6 +30639,12 @@
 	      newState.lat = action.lat;
 	      newState.lng = action.lng;
 	      break;
+	    case _constants.ADD_TO_SEARCH:
+	      newState.searches = [action.search].concat(_toConsumableArray(newState.searches));
+	      break;
+	    case _constants.SET_SEARCHES:
+	      newState.searches = action.searches;
+	      break;
 	    default:
 	      return state;
 	  }
@@ -30858,10 +30653,13 @@
 	
 	var _constants = __webpack_require__(284);
 	
+	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+	
 	var initialState = {
 	  location: '',
 	  lat: 0,
-	  lng: 0
+	  lng: 0,
+	  searches: []
 	};
 
 /***/ }),
@@ -32062,15 +31860,19 @@
 	        _react2.default.createElement(
 	          'h4',
 	          null,
-	          'Toggle'
+	          'Data'
 	        ),
 	        _react2.default.createElement(
-	          'button',
-	          { type: 'submit',
-	            className: 'btn btn-success', onClick: function onClick() {
-	              return toggleView(view);
-	            } },
-	          ' Toggle'
+	          'div',
+	          { id: 'submitButton', className: 'col-md-12' },
+	          _react2.default.createElement(
+	            'button',
+	            { id: 'toggleButton', type: 'submit',
+	              className: 'btn btn-default', onClick: function onClick() {
+	                return toggleView(view);
+	              } },
+	            ' Toggle'
+	          )
 	        )
 	      ),
 	      _react2.default.createElement(_chartContainer2.default, null),
@@ -32167,13 +31969,32 @@
 	        _recharts.ComposedChart,
 	        {
 	          data: theData },
+	        React.createElement(
+	          'defs',
+	          null,
+	          React.createElement(
+	            'linearGradient',
+	            { id: 'colorUv', x1: '0', y1: '0', x2: '0', y2: '1' },
+	            React.createElement('stop', { offset: '5%', stopColor: '#ee3d3d', stopOpacity: 0.8 }),
+	            React.createElement('stop', { offset: '95%', stopColor: '#ee3d3d', stopOpacity: 0 })
+	          ),
+	          React.createElement(
+	            'linearGradient',
+	            { id: 'cloud', x1: '0', y1: '0', x2: '0', y2: '1' },
+	            React.createElement('stop', { offset: '5%', stopColor: '#a1a9a4', stopOpacity: 0.8 }),
+	            React.createElement('stop', { offset: '95%', stopColor: '#a1a9a4', stopOpacity: 0 })
+	          )
+	        ),
 	        React.createElement(_recharts.XAxis, { label: 'DATE', dataKey: 'name' }),
 	        React.createElement(_recharts.YAxis, null),
 	        React.createElement(_recharts.CartesianGrid, { strokeDasharray: '3 3' }),
 	        React.createElement(_recharts.Tooltip, null),
 	        React.createElement(_recharts.Legend, null),
 	        React.createElement(_recharts.Line, { type: 'monotone', dataKey: label1, stroke: '#8884d8', activeDot: { r: 2 } }),
-	        label1 === "high" && React.createElement(_recharts.Line, { type: 'monotone', dataKey: 'low', stroke: '#82ca9d' })
+	        label1 === "high" && React.createElement(_recharts.Line, { type: 'monotone', dataKey: 'low', stroke: '#82ca9d' }),
+	        React.createElement(_recharts.Area, { type: 'monotone', dataKey: 'hum', stroke: '#ee3d3d', fillOpacity: 1, fill: 'url(#colorUv)' }),
+	        React.createElement(_recharts.Area, { type: 'monotone', dataKey: 'wind', stroke: '#81e3e1' }),
+	        React.createElement(_recharts.Area, { type: 'monotone', dataKey: 'cloud', stroke: '#a1a9a4', fillOpacity: 1, fill: 'url(#cloud)' })
 	      )
 	    )
 	  );
@@ -81818,7 +81639,18 @@
 	  return {
 	    setLocation: function setLocation(location) {
 	      dispatch((0, _location.getLocation)(location));
+	    },
+	    getQueries: function getQueries() {
+	      dispatch((0, _location.getSearches)());
+	    },
+	    addToQuery: function addToQuery(name) {
+	      dispatch((0, _location.addTOSearch)(name));
 	    }
+	  };
+	};
+	var mapStateToProps = function mapStateToProps(state) {
+	  return {
+	    searchHistory: state.location.searches
 	  };
 	};
 	
@@ -81836,10 +81668,16 @@
 	    };
 	    _this.handleChange = _this.handleChange.bind(_this);
 	    _this.handleSubmit = _this.handleSubmit.bind(_this);
+	    _this.handleSelect = _this.handleSelect.bind(_this);
 	    return _this;
 	  }
 	
 	  _createClass(WeatherContainer, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      this.props.getQueries();
+	    }
+	  }, {
 	    key: 'handleChange',
 	    value: function handleChange(e) {
 	      var value = e.target.value;
@@ -81848,10 +81686,18 @@
 	        dirty: false });
 	    }
 	  }, {
+	    key: 'handleSelect',
+	    value: function handleSelect(e) {
+	      var value = e.target.value;
+	      if (value === "searches") return;
+	      this.setState({ inputValue: value, dirty: true });
+	    }
+	  }, {
 	    key: 'handleSubmit',
 	    value: function handleSubmit(e) {
 	      e.preventDefault();
 	      this.props.setLocation(this.state.inputValue);
+	      this.props.addToQuery(this.state.inputValue);
 	      this.setState({
 	        inputValue: '',
 	        dirty: false
@@ -81861,14 +81707,14 @@
 	    key: 'render',
 	    value: function render() {
 	
-	      return _react2.default.createElement(_weatherForm2.default, { handleChange: this.handleChange, inputValue: this.state.inputValue, handleSubmit: this.handleSubmit, dirty: this.state.dirty });
+	      return _react2.default.createElement(_weatherForm2.default, { history: this.props.searchHistory, handleSelect: this.handleSelect, handleChange: this.handleChange, inputValue: this.state.inputValue, handleSubmit: this.handleSubmit, dirty: this.state.dirty });
 	    }
 	  }]);
 	
 	  return WeatherContainer;
 	}(_react.Component);
 	
-	exports.default = (0, _reactRedux.connect)(null, mapDispatchToProps)(WeatherContainer);
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(WeatherContainer);
 
 /***/ }),
 /* 716 */
@@ -81890,17 +81736,24 @@
 	  var handleChange = _ref.handleChange,
 	      dirty = _ref.dirty,
 	      handleSubmit = _ref.handleSubmit,
-	      inputValue = _ref.inputValue;
+	      handleSelect = _ref.handleSelect,
+	      inputValue = _ref.inputValue,
+	      history = _ref.history;
+	
+	  var searches = history;
+	  if (searches.length > 10) {
+	    searches = searches.slice(9);
+	  }
 	
 	  return _react2.default.createElement(
 	    "div",
 	    { className: "col-md-12" },
 	    _react2.default.createElement(
 	      "form",
-	      { onSubmit: handleSubmit },
+	      { className: "form-inline", onSubmit: handleSubmit },
 	      _react2.default.createElement(
 	        "fieldset",
-	        null,
+	        { className: "col-md-12" },
 	        _react2.default.createElement(
 	          "legend",
 	          null,
@@ -81911,7 +81764,7 @@
 	          { className: "form-group" },
 	          _react2.default.createElement(
 	            "div",
-	            { className: "col-xs-6" },
+	            { className: "col-md-12" },
 	            _react2.default.createElement("input", {
 	              placeholder: "Type Address Here",
 	              className: "form-control",
@@ -81919,16 +81772,44 @@
 	              onChange: handleChange,
 	              value: inputValue
 	            })
-	          ),
+	          )
+	        ),
+	        _react2.default.createElement(
+	          "div",
+	          { className: "form-group" },
 	          _react2.default.createElement(
 	            "div",
-	            { className: "col-xs-2" },
+	            { className: "col-md-2" },
 	            _react2.default.createElement(
 	              "button",
 	              {
 	                type: "submit",
-	                className: "btn btn-success", disabled: !dirty },
+	                className: "btn btn-default", disabled: !dirty },
 	              "SEARCH"
+	            )
+	          )
+	        ),
+	        _react2.default.createElement(
+	          "div",
+	          { className: "form-group" },
+	          _react2.default.createElement(
+	            "div",
+	            { className: "col-md-12" },
+	            _react2.default.createElement(
+	              "select",
+	              { id: "soflow", onChange: handleSelect },
+	              _react2.default.createElement(
+	                "option",
+	                { value: "searches" },
+	                "Previous Searches"
+	              ),
+	              searches.map(function (search) {
+	                return _react2.default.createElement(
+	                  "option",
+	                  { value: search },
+	                  search
+	                );
+	              })
 	            )
 	          )
 	        )
@@ -81947,7 +81828,7 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.getLocation = exports.setLatLong = exports.setLocation = undefined;
+	exports.getLocation = exports.getSearches = exports.setSearches = exports.addTOSearch = exports.setLatLong = exports.setLocation = undefined;
 	
 	var _axios = __webpack_require__(251);
 	
@@ -81976,6 +81857,27 @@
 	  };
 	};
 	
+	var addTOSearch = exports.addTOSearch = function addTOSearch(name) {
+	  return {
+	    type: _constants.ADD_TO_SEARCH,
+	    search: name
+	  };
+	};
+	
+	var setSearches = exports.setSearches = function setSearches(searchesArr) {
+	  return {
+	    type: _constants.SET_SEARCHES,
+	    searches: searchesArr.reverse()
+	  };
+	};
+	var getSearches = exports.getSearches = function getSearches() {
+	  return function (dispatch) {
+	    _axios2.default.get('/api/queries').then(function (result) {
+	      var searches = result.data.searches;
+	      dispatch(setSearches(searches));
+	    });
+	  };
+	};
 	var getLocation = exports.getLocation = function getLocation(location) {
 	  return function (dispatch) {
 	    _axios2.default.post('/api/location', {
@@ -82000,7 +81902,7 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.getForcast = exports.getHistoryForcast = exports.setHourly = exports.setDaily = exports.setWeather = undefined;
+	exports.getForcast = exports.getHistoryForcast = exports.getPastTimes = exports.setHourly = exports.setDaily = exports.setWeather = undefined;
 	
 	var _axios = __webpack_require__(251);
 	
@@ -82037,7 +81939,7 @@
 	    return arr[0];
 	  });
 	};
-	var getPastTimes = function getPastTimes(currentTime, days) {
+	var getPastTimes = exports.getPastTimes = function getPastTimes(currentTime, days) {
 	  var newTimes = [];
 	  for (var i = 1; i <= days + 1; i++) {
 	    newTimes.push(currentTime - i * 86400);
@@ -82150,13 +82052,19 @@
 	      dataObject = {
 	        name: timestamp.format("MM-DD"),
 	        high: theData.temperatureMax,
-	        low: theData.temperatureMin
+	        low: theData.temperatureMin,
+	        hum: theData.humidity * 100,
+	        wind: theData.windSpeed,
+	        cloud: theData.cloudCover * 100
 	      };
 	    } else if (type === 'hourly') {
 	      dataObject = {
 	        name: timestamp.format("MM-DD HH:mm"),
 	        temp: theData.temperature,
-	        low: 0
+	        low: 0,
+	        hum: theData.humidity * 100,
+	        wind: theData.windSpeed,
+	        cloud: theData.cloudCover * 100
 	      };
 	    }
 	    return dataObject;
