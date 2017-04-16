@@ -23674,7 +23674,7 @@
 	    _reactRedux.Provider,
 	    { store: _store2.default },
 	    _react2.default.createElement(
-	      _reactRouterDom.HashRouter,
+	      _reactRouterDom.BrowserRouter,
 	      null,
 	      _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', component: _app2.default })
 	    )
@@ -81697,7 +81697,7 @@
 	
 	  return _react2.default.createElement(
 	    "div",
-	    { className: "col-md-3" },
+	    { className: "col-md-12" },
 	    _react2.default.createElement(
 	      "form",
 	      { onSubmit: handleSubmit },
@@ -81713,33 +81713,25 @@
 	          "div",
 	          { className: "form-group" },
 	          _react2.default.createElement(
-	            "label",
-	            { className: "col-xs-2 control-label" },
-	            "Name"
-	          ),
-	          _react2.default.createElement(
 	            "div",
-	            { className: "col-xs-10" },
+	            { className: "col-xs-6" },
 	            _react2.default.createElement("input", {
+	              placeholder: "Type Address Here",
 	              className: "form-control",
 	              type: "text",
 	              onChange: handleChange,
 	              value: inputValue
 	            })
-	          )
-	        ),
-	        _react2.default.createElement(
-	          "div",
-	          { className: "form-group" },
+	          ),
 	          _react2.default.createElement(
 	            "div",
-	            { className: "col-xs-10 col-xs-offset-2" },
+	            { className: "col-xs-2" },
 	            _react2.default.createElement(
 	              "button",
 	              {
 	                type: "submit",
 	                className: "btn btn-success", disabled: !dirty },
-	              "SEARCH WEATHER"
+	              "SEARCH"
 	            )
 	          )
 	        )
@@ -81878,6 +81870,9 @@
 	  };
 	};
 	
+	var setImageMap = function setImageMap(forcast, icon) {
+	  window.infoWindow.setContent('<IMG BORDER="0" ALIGN="Left" SRC="img/' + icon + '.svg"> Current Forcast: ' + forcast);
+	};
 	var getForcast = exports.getForcast = function getForcast(location) {
 	  window.map.setCenter(location);
 	  window.infoWindow.setPosition(location);
@@ -81888,8 +81883,9 @@
 	    }).then(function (result) {
 	      var weather = result.data;
 	      var forcast = weather.currently.summary;
+	      var icon = weather.currently.icon;
 	      //<IMG BORDER="0" ALIGN="Left" SRC="stagleton.jpg"> My name is '
-	      window.infoWindow.setContent('<IMG BORDER="0" ALIGN="Left" SRC="Cloud.svg"> Current Forcast: ' + forcast);
+	      setImageMap(forcast, icon);
 	      var hourly = weather.hourly.data;
 	      var daily = weather.daily.data;
 	      var currentTime = daily[0].time;
@@ -82021,7 +82017,7 @@
 /* 721 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -82033,21 +82029,28 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
+	var moment = __webpack_require__(598);
 	var dayWeather = function dayWeather(_ref) {
 	  var weather = _ref.weather;
 	
+	  var timestamp = moment.unix(weather.time);
+	  var name = timestamp.format("MM-DD");
 	  return _react2.default.createElement(
-	    "div",
-	    { className: "col-md-12" },
+	    'div',
+	    { className: 'col-md-12' },
 	    _react2.default.createElement(
-	      "p",
+	      'p',
 	      null,
-	      "Summary: ",
+	      name,
+	      _react2.default.createElement('img', { height: '42', width: '42', src: 'img/' + weather.icon + '.svg' }),
 	      weather.summary,
-	      " Low:",
+	      ' ',
+	      _react2.default.createElement('br', null),
+	      'Low:',
 	      weather.temperatureMin,
-	      "High: ",
-	      weather.temperatureMax
+	      '\xB0 High: ',
+	      weather.temperatureMax,
+	      ' \xB0'
 	    )
 	  );
 	};
