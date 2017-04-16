@@ -49,8 +49,8 @@ export const getHistoryForcast = (location, times) => {
     })}
 }
 
-const setImageMap = (forcast,icon) => {
-   window.infoWindow.setContent(`<IMG BORDER="0" ALIGN="Left" SRC="img/${icon}.svg"> Current Forcast \n ${forcast}`);
+const setImageMap = (forcast) => {
+   window.infoWindow.setContent(`<IMG BORDER="0" ALIGN="Left" SRC="img/${forcast.icon}.svg"> Current Forcast \n ${forcast.summary} \n temp:${forcast.temperature}`);
 }
 export const getForcast = (location) => {
   window.map.setCenter(location)
@@ -65,7 +65,7 @@ export const getForcast = (location) => {
       const forcast = weather.currently.summary
       const icon =weather.currently.icon
       //<IMG BORDER="0" ALIGN="Left" SRC="stagleton.jpg"> My name is '
-      setImageMap(forcast, icon);
+      setImageMap(weather.currently);
       const hourly = weather.hourly.data;
       const daily = weather.daily.data;
       const currentTime = daily[0].time;
