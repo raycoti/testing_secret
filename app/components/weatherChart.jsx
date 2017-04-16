@@ -10,12 +10,9 @@ const weatherChart = ({chartData,view,name})=> {
   return (
     <div className="col-md-8">
     <h4>Chart</h4>
-       <ResponsiveContainer width='100%' height={600}>
+       <ResponsiveContainer  minWidth={300} height={600} minHeight={200}>
         <ComposedChart
-          width={1000}
-          height={600}
-          data={theData}
-          margin={{top: 5, right: 30, left: 20, bottom: 5}}>
+          data={theData}>
             <XAxis label="DATE" dataKey="name"/>
             <YAxis />
             <CartesianGrid strokeDasharray="3 3"/>

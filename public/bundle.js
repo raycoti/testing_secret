@@ -32010,7 +32010,8 @@
 	
 	var mapStateToProps = function mapStateToProps(state) {
 	  return {
-	    view: state.chart.current
+	    view: state.chart.current,
+	    name: state.location.location
 	  };
 	};
 	
@@ -32026,14 +32027,15 @@
 	
 	var app = function app(_ref) {
 	  var toggleView = _ref.toggleView,
-	      view = _ref.view;
+	      view = _ref.view,
+	      name = _ref.name;
 	
 	  return _react2.default.createElement(
 	    'div',
 	    { id: 'main' },
 	    _react2.default.createElement(
 	      'div',
-	      { className: 'row' },
+	      { id: 'forum', className: 'row' },
 	      _react2.default.createElement(
 	        'h1',
 	        null,
@@ -32041,12 +32043,27 @@
 	      ),
 	      _react2.default.createElement(_weatherContainer2.default, null)
 	    ),
+	    name !== '' && _react2.default.createElement(
+	      'div',
+	      { className: 'row' },
+	      _react2.default.createElement(
+	        'h2',
+	        null,
+	        'Weather in ',
+	        name
+	      )
+	    ),
 	    _react2.default.createElement(
 	      'div',
-	      { className: 'col-md-10' },
+	      { id: 'chart', className: 'col-md-10' },
 	      _react2.default.createElement(
 	        'div',
 	        { className: 'col-md-1' },
+	        _react2.default.createElement(
+	          'h4',
+	          null,
+	          'Toggle'
+	        ),
 	        _react2.default.createElement(
 	          'button',
 	          { type: 'submit',
@@ -32144,14 +32161,11 @@
 	    ),
 	    React.createElement(
 	      _recharts.ResponsiveContainer,
-	      { width: '100%', height: 600 },
+	      { minWidth: 300, height: 600, minHeight: 200 },
 	      React.createElement(
 	        _recharts.ComposedChart,
 	        {
-	          width: 1000,
-	          height: 600,
-	          data: theData,
-	          margin: { top: 5, right: 30, left: 20, bottom: 5 } },
+	          data: theData },
 	        React.createElement(_recharts.XAxis, { label: 'DATE', dataKey: 'name' }),
 	        React.createElement(_recharts.YAxis, null),
 	        React.createElement(_recharts.CartesianGrid, { strokeDasharray: '3 3' }),
@@ -82194,7 +82208,7 @@
 	
 	  return _react2.default.createElement(
 	    'div',
-	    { className: 'col-md-3' },
+	    { id: 'dayview', className: 'col-md-3' },
 	    _react2.default.createElement(
 	      'h4',
 	      null,
