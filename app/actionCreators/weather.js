@@ -19,7 +19,7 @@ const formatHistory = (historyData)=> {
     return arr[0];
   })
 }
-const getPastTimes = (currentTime, days) => {
+export const getPastTimes = (currentTime, days) => {
   const newTimes = [];
   for(var i=1; i <= days+1; i++){
     newTimes.push(currentTime-(i*86400))
