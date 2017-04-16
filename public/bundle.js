@@ -31970,7 +31970,7 @@
 	          height: 600,
 	          data: theData,
 	          margin: { top: 5, right: 30, left: 20, bottom: 5 } },
-	        React.createElement(_recharts.XAxis, { dataKey: 'name' }),
+	        React.createElement(_recharts.XAxis, { label: 'DATE', dataKey: 'name' }),
 	        React.createElement(_recharts.YAxis, null),
 	        React.createElement(_recharts.CartesianGrid, { strokeDasharray: '3 3' }),
 	        React.createElement(_recharts.Tooltip, null),
@@ -81880,6 +81880,7 @@
 	
 	var getForcast = exports.getForcast = function getForcast(location) {
 	  window.map.setCenter(location);
+	  window.infoWindow.setPosition(location);
 	  return function (dispatch) {
 	    _axios2.default.post('api/weather', {
 	      latitude: location.lat,
@@ -81887,6 +81888,8 @@
 	    }).then(function (result) {
 	      var weather = result.data;
 	      var forcast = weather.currently.summary;
+	      //<IMG BORDER="0" ALIGN="Left" SRC="stagleton.jpg"> My name is '
+	      window.infoWindow.setContent('<IMG BORDER="0" ALIGN="Left" SRC="Cloud.svg"> Current Forcast: ' + forcast);
 	      var hourly = weather.hourly.data;
 	      var daily = weather.daily.data;
 	      var currentTime = daily[0].time;

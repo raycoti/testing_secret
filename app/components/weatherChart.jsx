@@ -12,7 +12,7 @@ const weatherChart = ({chartData,view})=> {
           height={600}
           data={theData}
           margin={{top: 5, right: 30, left: 20, bottom: 5}}>
-            <XAxis dataKey="name"/>
+            <XAxis label="DATE" dataKey="name"/>
             <YAxis />
             <CartesianGrid strokeDasharray="3 3"/>
             <Tooltip />

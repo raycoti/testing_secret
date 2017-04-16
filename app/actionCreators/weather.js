@@ -51,6 +51,7 @@ export const getHistoryForcast = (location, times) => {
 
 export const getForcast = (location) => {
   window.map.setCenter(location)
+  window.infoWindow.setPosition(location);
   return (dispatch) => {
     axios.post('api/weather', {
       latitude: location.lat,
@@ -59,6 +60,8 @@ export const getForcast = (location) => {
     .then(result => {
       const weather = result.data;
       const forcast = weather.currently.summary
+      //<IMG BORDER="0" ALIGN="Left" SRC="stagleton.jpg"> My name is '
+      window.infoWindow.setContent(`<IMG BORDER="0" ALIGN="Left" SRC="Cloud.svg"> Current Forcast: ${forcast}`);
       const hourly = weather.hourly.data;
       const daily = weather.daily.data;
       const currentTime = daily[0].time;
