@@ -30703,155 +30703,6 @@
 	
 	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 	
-	var data = [{ name: '1492286400', low: 38.94, high: 62.42 }, { name: '1492372800', low: 47.23, high: 77.22 }, { name: '1492372800', low: 48.7, high: 48.29 }, { name: '1492372800', low: 45.25, high: 68.66 }, { name: '1492632000', low: 50.28, high: 77.81 }, { name: '1492718400', low: 53.26, high: 73.57 }];
-	var data2 = [{
-	  name: '21:00',
-	  temp: 38.9
-	}, {
-	  name: '22:00',
-	  temp: 40.28
-	}, {
-	  name: '23:00',
-	  temp: 44.05
-	}, {
-	  name: '00:00',
-	  temp: 48.8
-	}, {
-	  name: '01:00',
-	  temp: 52.67
-	}, {
-	  name: '02:00',
-	  temp: 55.23
-	}, {
-	  name: '03:00',
-	  temp: 57.48
-	}, {
-	  name: '04:00',
-	  temp: 59.75
-	}, {
-	  name: '05:00',
-	  temp: 62.01
-	}, {
-	  name: '06:00',
-	  temp: 63.75
-	}, {
-	  name: '07:00',
-	  temp: 64.4
-	}, {
-	  name: '08:00',
-	  temp: 63.43
-	}, {
-	  name: '09:00',
-	  temp: 61.45
-	}, {
-	  name: '10:00',
-	  temp: 58.8
-	}, {
-	  name: '11:00',
-	  temp: 55.36
-	}, {
-	  name: '12:00',
-	  temp: 51.66
-	}, {
-	  name: '13:00',
-	  temp: 49
-	}, {
-	  name: '14:00',
-	  temp: 48.02
-	}, {
-	  name: '15:00',
-	  temp: 47.95
-	}, {
-	  name: '16:00',
-	  temp: 47.97
-	}, {
-	  name: '17:00',
-	  temp: 47.68
-	}, {
-	  name: '18:00',
-	  temp: 47.37
-	}, {
-	  name: '19:00',
-	  temp: 47.18
-	}, {
-	  name: '20:00',
-	  temp: 46.83
-	}, {
-	  name: '21:00',
-	  temp: 46.62
-	}, {
-	  name: '22:00',
-	  temp: 47.94
-	}, {
-	  name: '23:00',
-	  temp: 51.07
-	}, {
-	  name: '00:00',
-	  temp: 55.09
-	}, {
-	  name: '01:00',
-	  temp: 58.53
-	}, {
-	  name: '02:00',
-	  temp: 61.18
-	}, {
-	  name: '03:00',
-	  temp: 63.85
-	}, {
-	  name: '04:00',
-	  temp: 66.53
-	}, {
-	  name: '05:00',
-	  temp: 69.01
-	}, {
-	  name: '06:00',
-	  temp: 70.84
-	}, {
-	  name: '07:00',
-	  temp: 71.45
-	}, {
-	  name: '08:00',
-	  temp: 70.19
-	}, {
-	  name: '09:00',
-	  temp: 67.83
-	}, {
-	  name: '10:00',
-	  temp: 64.71
-	}, {
-	  name: '11:00',
-	  temp: 60.71
-	}, {
-	  name: '12:00',
-	  temp: 56.43
-	}, {
-	  name: '13:00',
-	  temp: 53.28
-	}, {
-	  name: '14:00',
-	  temp: 51.93
-	}, {
-	  name: '15:00',
-	  temp: 51.57
-	}, {
-	  name: '16:00',
-	  temp: 51.31
-	}, {
-	  name: '17:00',
-	  temp: 50.71
-	}, {
-	  name: '18:00',
-	  temp: 50.09
-	}, {
-	  name: '19:00',
-	  temp: 49.65
-	}, {
-	  name: '20:00',
-	  temp: 49.14
-	}, {
-	  name: '21:00',
-	  temp: 48.8
-	}];
 	var initialState = {
 	  current: 'daily',
 	  daily: [{}],
@@ -31816,9 +31667,7 @@
 	var mapDispathToProps = function mapDispathToProps(dispatch) {
 	  return {
 	    toggleView: function toggleView(view) {
-	      var newView = 'daily';
-	      if (view === 'daily') newView = 'hourly';
-	      dispatch((0, _chart.setCurrentChart)(newView));
+	      dispatch((0, _chart.setCurrentChart)(view));
 	    }
 	  };
 	};
@@ -31828,6 +31677,7 @@
 	      view = _ref.view,
 	      name = _ref.name;
 	
+	  //turn submit button to a drop down
 	  return _react2.default.createElement(
 	    'div',
 	    { id: 'main' },
@@ -31843,9 +31693,9 @@
 	    ),
 	    name !== '' && _react2.default.createElement(
 	      'div',
-	      { className: 'row' },
+	      { id: 'headTitle', className: 'row' },
 	      _react2.default.createElement(
-	        'h2',
+	        'h1',
 	        null,
 	        'Weather in ',
 	        name
@@ -31866,12 +31716,20 @@
 	          'div',
 	          { id: 'submitButton', className: 'col-md-12' },
 	          _react2.default.createElement(
-	            'button',
-	            { id: 'toggleButton', type: 'submit',
-	              className: 'btn btn-default', onClick: function onClick() {
-	                return toggleView(view);
-	              } },
-	            ' Toggle'
+	            'select',
+	            { onChange: function onChange(e) {
+	                return toggleView(e.target.value);
+	              }, className: 'soflow2' },
+	            _react2.default.createElement(
+	              'option',
+	              { value: 'daily' },
+	              'Daily'
+	            ),
+	            _react2.default.createElement(
+	              'option',
+	              { value: 'hourly' },
+	              'Hourly'
+	            )
 	          )
 	        )
 	      ),
@@ -31974,7 +31832,7 @@
 	          null,
 	          React.createElement(
 	            'linearGradient',
-	            { id: 'colorUv', x1: '0', y1: '0', x2: '0', y2: '1' },
+	            { id: 'humid', x1: '0', y1: '0', x2: '0', y2: '1' },
 	            React.createElement('stop', { offset: '5%', stopColor: '#ee3d3d', stopOpacity: 0.8 }),
 	            React.createElement('stop', { offset: '95%', stopColor: '#ee3d3d', stopOpacity: 0 })
 	          ),
@@ -31983,6 +31841,18 @@
 	            { id: 'cloud', x1: '0', y1: '0', x2: '0', y2: '1' },
 	            React.createElement('stop', { offset: '5%', stopColor: '#a1a9a4', stopOpacity: 0.8 }),
 	            React.createElement('stop', { offset: '95%', stopColor: '#a1a9a4', stopOpacity: 0 })
+	          ),
+	          React.createElement(
+	            'linearGradient',
+	            { id: 'rain', x1: '0', y1: '0', x2: '0', y2: '1' },
+	            React.createElement('stop', { offset: '5%', stopColor: '#81e3e1', stopOpacity: 0.8 }),
+	            React.createElement('stop', { offset: '95%', stopColor: '#81e3e1', stopOpacity: 0 })
+	          ),
+	          React.createElement(
+	            'linearGradient',
+	            { id: 'wind', x1: '0', y1: '0', x2: '0', y2: '1' },
+	            React.createElement('stop', { offset: '5%', stopColor: '#D9D6BF', stopOpacity: 0.8 }),
+	            React.createElement('stop', { offset: '95%', stopColor: '#D9D6BF', stopOpacity: 0 })
 	          )
 	        ),
 	        React.createElement(_recharts.XAxis, { label: 'DATE', dataKey: 'name' }),
@@ -31992,9 +31862,10 @@
 	        React.createElement(_recharts.Legend, null),
 	        React.createElement(_recharts.Line, { type: 'monotone', dataKey: label1, stroke: '#8884d8', activeDot: { r: 2 } }),
 	        label1 === "high" && React.createElement(_recharts.Line, { type: 'monotone', dataKey: 'low', stroke: '#82ca9d' }),
-	        React.createElement(_recharts.Area, { type: 'monotone', dataKey: 'hum', stroke: '#ee3d3d', fillOpacity: 1, fill: 'url(#colorUv)' }),
-	        React.createElement(_recharts.Area, { type: 'monotone', dataKey: 'wind', stroke: '#81e3e1' }),
-	        React.createElement(_recharts.Area, { type: 'monotone', dataKey: 'cloud', stroke: '#a1a9a4', fillOpacity: 1, fill: 'url(#cloud)' })
+	        React.createElement(_recharts.Area, { type: 'monotone', dataKey: 'hum', stroke: '#ee3d3d', fillOpacity: 1, fill: 'url(#humid)' }),
+	        React.createElement(_recharts.Area, { type: 'monotone', dataKey: 'wind', stroke: '#D9D6BF' }),
+	        React.createElement(_recharts.Area, { type: 'monotone', dataKey: 'cloud', stroke: '#a1a9a4', fillOpacity: 1, fill: 'url(#cloud)' }),
+	        React.createElement(_recharts.Area, { type: 'monotone', dataKey: 'rain', stroke: '#81e3e1', fillOpacity: 1, fill: 'url(#rain)' })
 	      )
 	    )
 	  );
@@ -81797,7 +81668,7 @@
 	            { className: "col-md-12" },
 	            _react2.default.createElement(
 	              "select",
-	              { id: "soflow", onChange: handleSelect },
+	              { className: "soflow", onChange: handleSelect },
 	              _react2.default.createElement(
 	                "option",
 	                { value: "searches" },
@@ -81969,8 +81840,8 @@
 	  };
 	};
 	
-	var setImageMap = function setImageMap(forcast, icon) {
-	  window.infoWindow.setContent('<IMG BORDER="0" ALIGN="Left" SRC="img/' + icon + '.svg"> Current Forcast \n ' + forcast);
+	var setImageMap = function setImageMap(forcast) {
+	  window.infoWindow.setContent('<IMG BORDER="0" ALIGN="Left" SRC="img/' + forcast.icon + '.svg">  Forcast: ' + forcast.summary + ' \n   temp:' + forcast.temperature);
 	};
 	var getForcast = exports.getForcast = function getForcast(location) {
 	  window.map.setCenter(location);
@@ -81982,9 +81853,7 @@
 	    }).then(function (result) {
 	      var weather = result.data;
 	      var forcast = weather.currently.summary;
-	      var icon = weather.currently.icon;
-	      //<IMG BORDER="0" ALIGN="Left" SRC="stagleton.jpg"> My name is '
-	      setImageMap(forcast, icon);
+	      setImageMap(weather.currently);
 	      var hourly = weather.hourly.data;
 	      var daily = weather.daily.data;
 	      var currentTime = daily[0].time;
@@ -82053,18 +81922,20 @@
 	        name: timestamp.format("MM-DD"),
 	        high: theData.temperatureMax,
 	        low: theData.temperatureMin,
-	        hum: theData.humidity * 100,
+	        hum: Math.round(theData.humidity * 100),
 	        wind: theData.windSpeed,
-	        cloud: theData.cloudCover * 100
+	        cloud: Math.round(theData.cloudCover * 100),
+	        rain: Math.round(theData.precipProbability * 100)
 	      };
 	    } else if (type === 'hourly') {
 	      dataObject = {
 	        name: timestamp.format("MM-DD HH:mm"),
 	        temp: theData.temperature,
 	        low: 0,
-	        hum: theData.humidity * 100,
+	        hum: Math.round(theData.humidity * 100),
 	        wind: theData.windSpeed,
-	        cloud: theData.cloudCover * 100
+	        cloud: Math.round(theData.cloudCover * 100),
+	        rain: Math.round(theData.precipProbability * 100)
 	      };
 	    }
 	    return dataObject;
