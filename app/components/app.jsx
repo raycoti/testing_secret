@@ -23,6 +23,7 @@ const mapDispathToProps = (dispatch)=> {
 
 
 const app = function({toggleView,view,name}){
+  //turn submit button to a drop down
   return (
     <div id="main">
       <div id="forum" className="row">
@@ -32,13 +33,15 @@ const app = function({toggleView,view,name}){
           {name !== '' && <div className="row"><h2>Weather in {name}</h2></div>}
         <div id="chart" className ="col-md-10">
           <div className="col-md-1">
-          <h4>Toggle</h4>
-            <button type="submit"
-              className="btn btn-success" onClick={()=>toggleView(view)} > Toggle</button>
+            <h4>Data</h4>
+            <div id="submitButton" className="col-md-12">
+              <button id="toggleButton" type="submit"
+                className="btn btn-default" onClick={()=> toggleView(view)} > Toggle</button>
+              </div>
           </div>
-          <WeatherChart />
-          <DayView />
-        </div>
+        <WeatherChart />
+        <DayView />
+      </div>
     </div>
   )
 }
