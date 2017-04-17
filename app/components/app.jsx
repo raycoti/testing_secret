@@ -23,6 +23,7 @@ const mapDispathToProps = (dispatch)=> {
 
 
 const app = function({toggleView,view,name}){
+  //turn submit button to a drop down
   return (
     <div id="main">
       <div id="forum" className="row">
