@@ -76,7 +76,7 @@ export const getForcast = (location) => {
       dispatch(setData(hourly, 'hourly')),
       ];
       Promise.all(myPromisses).then(()=>{
-        const testTimes = getPastTimes(currentTime, 5);
+        const testTimes = getPastTimes(currentTime, 2);
         dispatch(getHistoryForcast(location, testTimes))
       });
 
