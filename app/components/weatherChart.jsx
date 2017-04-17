@@ -15,13 +15,21 @@ const weatherChart = ({chartData,view,name})=> {
         <ComposedChart
           data={theData}>
           <defs>
-            <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
+            <linearGradient id="humid" x1="0" y1="0" x2="0" y2="1">
               <stop offset="5%" stopColor="#ee3d3d" stopOpacity={0.8}/>
               <stop offset="95%" stopColor="#ee3d3d" stopOpacity={0}/>
             </linearGradient>
             <linearGradient id="cloud" x1="0" y1="0" x2="0" y2="1">
               <stop offset="5%" stopColor="#a1a9a4" stopOpacity={0.8}/>
             <stop offset="95%" stopColor="#a1a9a4" stopOpacity={0}/>
+            </linearGradient>
+            <linearGradient id="rain" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="5%" stopColor="#81e3e1" stopOpacity={0.8}/>
+            <stop offset="95%" stopColor="#81e3e1" stopOpacity={0}/>
+            </linearGradient>
+             <linearGradient id="wind" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="5%" stopColor="#D9D6BF" stopOpacity={0.8}/>
+            <stop offset="95%" stopColor="#D9D6BF" stopOpacity={0}/>
             </linearGradient>
           </defs>
           <XAxis label="DATE" dataKey="name"/>
@@ -31,9 +39,10 @@ const weatherChart = ({chartData,view,name})=> {
           <Legend />
           <Line type="monotone" dataKey={label1} stroke="#8884d8" activeDot={{r: 2}} />
            {label1 ==="high" &&<Line type="monotone" dataKey="low" stroke="#82ca9d" />}
-          <Area type="monotone" dataKey="hum" stroke="#ee3d3d" fillOpacity={1} fill="url(#colorUv)"/>
-          <Area type="monotone" dataKey="wind" stroke="#81e3e1"/>
+          <Area type="monotone" dataKey="hum" stroke="#ee3d3d" fillOpacity={1} fill="url(#humid)"/>
+          <Area type="monotone" dataKey="wind" stroke="#D9D6BF"/>
           <Area type="monotone" dataKey="cloud" stroke="#a1a9a4" fillOpacity={1} fill="url(#cloud)"/>
+          <Area type="monotone" dataKey="rain" stroke="#81e3e1" fillOpacity={1} fill="url(#rain)"/>
         </ComposedChart>
       </ResponsiveContainer>
     </div>

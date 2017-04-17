@@ -33,7 +33,7 @@ const weatherForm = ({handleChange, dirty, handleSubmit, handleSelect, inputValu
             </div>
             <div className="form-group">
               <div className="col-md-12">
-                <select id="soflow" onChange={handleSelect}>
+                <select className="soflow" onChange={handleSelect}>
                   <option value="searches">Previous Searches</option>
                   {searches.map(search=>{
                     return <option value={search}>{search}</option>

@@ -14,9 +14,7 @@ const mapStateToProps = (state) => {
 const mapDispathToProps = (dispatch)=> {
   return {
     toggleView(view){
-      let newView ='daily'
-      if(view ==='daily') newView ='hourly';
-      dispatch(setCurrentChart(newView))
+      dispatch(setCurrentChart(view))
     }
   }
 }
@@ -30,13 +28,15 @@ const app = function({toggleView,view,name}){
         <h1>Weather Checker</h1>
         <WeatherContainer />
       </div>
-          {name !== '' && <div className="row"><h2>Weather in {name}</h2></div>}
+          {name !== '' && <div id="headTitle" className="row"><h1>Weather in {name}</h1></div>}
         <div id="chart" className ="col-md-10">
           <div className="col-md-1">
             <h4>Data</h4>
             <div id="submitButton" className="col-md-12">
-              <button id="toggleButton" type="submit"
-                className="btn btn-default" onClick={()=> toggleView(view)} > Toggle</button>
+                <select onChange={(e)=> toggleView(e.target.value)} className="soflow2">
+                  <option value="daily">Daily</option>
+                  <option value="hourly">Hourly</option>
+                </select>
               </div>
           </div>
         <WeatherChart />
