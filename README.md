@@ -84,15 +84,15 @@ This runs all tests in the folder tests
 * **daily** Array of daily forcast information
 * **hourly** Array of hourly forcast information
 ### Action Creators
-* **setWeather**(forcast) sets forcast summary to forcast passed in.
-* **setDaily**(dailyData) sets array of daily forcasts to the data passed in. 
-* **setHourly**(hourlyData) sets array of hourly forcasts to the data passed in. 
-* **getHistoryForcast**(location, times) makes an axios requests to get weather data of given location and times. When those requests resolve, it then dispatches addDailyHistory with the new data array and setChartView to true.
+* **setWeather**(forcast): sets forcast summary to forcast passed in.
+* **setDaily**(dailyData): sets array of daily forcasts to the data passed in. 
+* **setHourly**(hourlyData): sets array of hourly forcasts to the data passed in. 
+* **getHistoryForcast**(location, times): makes an axios requests to get weather data of given location and times. When those requests resolve, it then dispatches addDailyHistory with the new data array and setChartView to true.
 * **getForcast**(location): makes an axios request to get weather data of given location. dispatches setWeather, setDaily,setHourly and setData with data retrieved. When these all resolve it then dispatches getHistoryForcast. Also centers google maps to the location passed in. 
  #### other functions
-* **formatHistory**(historyData) formats array of arrays to one array. This is done because each timeMachine request resolved to an array.  
-* **getPastTimes**(currentTime,days) returns an array of UNIX time stamps of past days.
-* **setImageMap**(forcast) adds basic summary to google maps infoWindow.
+* **formatHistory**(historyData): formats array of arrays to one array. This is done because each timeMachine request resolved to an array.  
+* **getPastTimes**(currentTime,days): returns an array of UNIX time stamps of past days.
+* **setImageMap**(forcast): adds basic summary to google maps infoWindow.
 ### Components
 * **dayView** renders out a dayWeather component for each day in the daily forcast array. 
 * **dayWeather** displays summary, image, high and low temperature info from the day object passed in from dayView. 
