@@ -14,7 +14,7 @@ export const setLatLong = (position) => ({
   lng: position.lng,
 })
 
-export const addTOSearch = (name) => ({
+export const addToSearch = (name) => ({
   type: ADD_TO_SEARCH,
   search: name
 })
@@ -40,7 +40,7 @@ export const getLocation = (location) => {
     })
     .then(result => {
       const latLong = result.data.location;
-      const name = result.data.name; 
+      const name = result.data.name;
       dispatch(getForcast(latLong));
       dispatch(setLocation(name));
       dispatch(setLatLong(latLong));

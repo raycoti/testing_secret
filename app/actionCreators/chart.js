@@ -19,7 +19,7 @@ export const setHourlyChart = (hourlyData) => ({
   type: SET_HOURLY_CHART,
   hourly: hourlyData,
 });
-export const addDailyHistory = (historyData) =>({
+export const addDailyHistory = (historyData) => ({
   type: ADD_DAILY_CHART,
   daily: historyData,
 })
@@ -29,7 +29,7 @@ export const formatData = (data, type) => {
         let dataObject;
         if (type === 'daily'){
           dataObject = {
-            name: timestamp.format("MM-DD"),
+            name: timestamp.format('MM-DD'),
             high: theData.temperatureMax,
             low:  theData.temperatureMin,
             hum: Math.round(theData.humidity * 100),
@@ -38,9 +38,9 @@ export const formatData = (data, type) => {
             rain: Math.round(theData.precipProbability * 100),
           }
         }
-        else if(type==='hourly') {
+        else if (type === 'hourly') {
           dataObject = {
-            name: timestamp.format("MM-DD HH:mm"),
+            name: timestamp.format('MM-DD HH:mm'),
             temp: theData.temperature,
             low:  0,
             hum: Math.round(theData.humidity * 100),
@@ -52,7 +52,7 @@ export const formatData = (data, type) => {
         return dataObject;
       })
 }
-export const setData = (data, type) =>{
+export const setData = (data, type) => {
   return (dispatch) => {
       const formatedData = formatData(data, type);
       switch (type){
@@ -61,7 +61,7 @@ export const setData = (data, type) =>{
           case 'hourly':
           return dispatch(setHourlyChart(formatedData));
           default:
-      } 
+      }
   }
 }
 

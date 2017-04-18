@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 const moment = require('moment');
 const dayWeather = ({weather}) => {
   const timestamp = moment.unix(weather.time);
-  const name = timestamp.format("MM-DD");
+  const name = timestamp.format('MM-DD');
   return (
     <div className="col-md-12">
       <p>

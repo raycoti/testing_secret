@@ -13,8 +13,18 @@ const mapStateToProps = (state) => {
 
 const ChartContainer = ({days, type, hours, view}) => {
   let chartData;
-  type === 'daily' ? chartData = days : chartData = hours;
-  //turn to switch/case for more options
+  switch (type){
+    case 'daily':
+    chartData = days;
+    break;
+    case 'hourly':
+    chartData = hours;
+    break;
+    default:
+    chartData = days;
+    break;
+  }
+  //can add more options
   return (
     <WeatherChart view={view} name={type} chartData={chartData} />
   )

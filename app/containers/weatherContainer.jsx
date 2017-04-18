@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import React, { Component } from 'react';
 import WeatherForm from '../components/weatherForm';
-import {getLocation, getSearches, addTOSearch} from '../actionCreators/location';
+import {getLocation, getSearches, addToSearch} from '../actionCreators/location';
 const mapDispatchToProps = (dispatch) => {
   return {
     setLocation(location){
@@ -11,7 +11,7 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(getSearches());
     },
     addToQuery(name){
-      dispatch(addTOSearch(name));
+      dispatch(addToSearch(name));
     }
   }
 }
@@ -40,14 +40,14 @@ class WeatherContainer extends Component {
   handleChange(event){
     const value = event.target.value;
     let isDirty = true;
-    if (value === "") isDirty = false;
+    if (value === '') isDirty = false;
     this.setState({inputValue: value,
     dirty: isDirty})
   }
 
   handleSelect(event){
     const value = event.target.value;
-    if (value ==="searches") return;
+    if (value === 'searches') return;
     this.setState({inputValue: value, dirty: true});
   }
 
