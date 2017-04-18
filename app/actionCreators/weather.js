@@ -82,7 +82,8 @@ export const getForcast = (location) => {
       Promise.all(myPromisses).then(()=>{
         //after promises resolve
         //we can concate to array with additional information
-        const testTimes = getPastTimes(currentTime, 5);
+        const testTimes = getPastTimes(currentTime, 2);
+
         dispatch(getHistoryForcast(location, testTimes))
       });
 
