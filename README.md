@@ -74,8 +74,8 @@ This runs all tests in the folder tests
 
 ### Server Routes 
 
-* **'/location'**:  when the app makes a post request to this route with a location name an additional axios request will be made to GoogleMaps geocode api. When resolved axios request is resolved the route returns an object with properties location and name. 
-* **'/queries'**: when the app makes a request to this route it returns an array of previous searches associated with the session. 
+* **'api/location'**:  when the app makes a post request to this route with a location name an additional axios request will be made to GoogleMaps geocode api. When resolved axios request is resolved the route returns an object with properties location and name. 
+* **'api/queries'**: when the app makes a request to this route it returns an array of previous searches associated with the session. 
 
 # Weather
 ### Reducer
