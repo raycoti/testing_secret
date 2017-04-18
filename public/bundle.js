@@ -66066,7 +66066,8 @@
 	      Promise.all(myPromisses).then(function () {
 	        //after promises resolve
 	        //we can concate to array with additional information
-	        var testTimes = getPastTimes(currentTime, 5);
+	        var testTimes = getPastTimes(currentTime, 2);
+	
 	        dispatch(getHistoryForcast(location, testTimes));
 	      });
 	    });

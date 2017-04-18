@@ -8,7 +8,7 @@ A weather application that gives you data of any location you search!
 
  ## Prerequisites: 
  1) Set Darksky api key as a global enviornment variable. Linux: export DS_API_PASSWORD='[key]'
- 2) Set GoogleMaps api key: /maps/api/js?key=[KEY]&callback=initMap
+ 2) Set GoogleMaps api key in index.html: /maps/api/js?key=[KEY]&callback=initMap
 
 ## Tests
 npm run test
