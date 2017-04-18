@@ -31779,8 +31779,18 @@
 	      view = _ref.view;
 	
 	  var chartData = void 0;
-	  type === 'daily' ? chartData = days : chartData = hours;
-	  //turn to switch/case for more options
+	  switch (type) {
+	    case 'daily':
+	      chartData = days;
+	      break;
+	    case 'hourly':
+	      chartData = hours;
+	      break;
+	    default:
+	      chartData = days;
+	      break;
+	  }
+	  //can add more options
 	  return _react2.default.createElement(_weatherChart2.default, { view: view, name: type, chartData: chartData });
 	};
 	
@@ -65714,7 +65724,7 @@
 	      dispatch((0, _location.getSearches)());
 	    },
 	    addToQuery: function addToQuery(name) {
-	      dispatch((0, _location.addTOSearch)(name));
+	      dispatch((0, _location.addToSearch)(name));
 	    }
 	  };
 	};
@@ -65752,7 +65762,7 @@
 	    value: function handleChange(event) {
 	      var value = event.target.value;
 	      var isDirty = true;
-	      if (value === "") isDirty = false;
+	      if (value === '') isDirty = false;
 	      this.setState({ inputValue: value,
 	        dirty: isDirty });
 	    }
@@ -65760,7 +65770,7 @@
 	    key: 'handleSelect',
 	    value: function handleSelect(event) {
 	      var value = event.target.value;
-	      if (value === "searches") return;
+	      if (value === 'searches') return;
 	      this.setState({ inputValue: value, dirty: true });
 	    }
 	  }, {
@@ -65898,7 +65908,7 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.getLocation = exports.getSearches = exports.setSearches = exports.addTOSearch = exports.setLatLong = exports.setLocation = undefined;
+	exports.getLocation = exports.getSearches = exports.setSearches = exports.addToSearch = exports.setLatLong = exports.setLocation = undefined;
 	
 	var _axios = __webpack_require__(251);
 	
@@ -65927,7 +65937,7 @@
 	  };
 	};
 	
-	var addTOSearch = exports.addTOSearch = function addTOSearch(name) {
+	var addToSearch = exports.addToSearch = function addToSearch(name) {
 	  return {
 	    type: _constants.ADD_TO_SEARCH,
 	    search: name
@@ -66127,7 +66137,7 @@
 	    var dataObject = void 0;
 	    if (type === 'daily') {
 	      dataObject = {
-	        name: timestamp.format("MM-DD"),
+	        name: timestamp.format('MM-DD'),
 	        high: theData.temperatureMax,
 	        low: theData.temperatureMin,
 	        hum: Math.round(theData.humidity * 100),
@@ -66137,7 +66147,7 @@
 	      };
 	    } else if (type === 'hourly') {
 	      dataObject = {
-	        name: timestamp.format("MM-DD HH:mm"),
+	        name: timestamp.format('MM-DD HH:mm'),
 	        temp: theData.temperature,
 	        low: 0,
 	        hum: Math.round(theData.humidity * 100),
@@ -82031,7 +82041,7 @@
 	  var weather = _ref.weather;
 	
 	  var timestamp = moment.unix(weather.time);
-	  var name = timestamp.format("MM-DD");
+	  var name = timestamp.format('MM-DD');
 	  return _react2.default.createElement(
 	    'div',
 	    { className: 'col-md-12' },

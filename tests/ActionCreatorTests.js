@@ -7,12 +7,12 @@ import {dailyData, hourlyData} from '../testData/data';
 
 describe('get times for history request', function () {
   it('get moments of previous days', function () {
-    expect(getPastTimes(1496620800,4)).to.eql([ 1496188800, 1496275200, 1496361600, 1496448000, 1496534400 ]);
+    expect(getPastTimes(1496620800, 4)).to.eql([ 1496188800, 1496275200, 1496361600, 1496448000, 1496534400 ]);
   });
 });
 describe('formats daily', function () {
   it('formats data for days', function () {
-    expect(formatData(dailyData,'daily')).to.eql([ { name: '04-13',
+    expect(formatData(dailyData, 'daily')).to.eql([ { name: '04-13',
     high: 52.05,
     low: 43.94,
     hum: 92,

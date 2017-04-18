@@ -33,8 +33,8 @@ export const getPastTimes = (currentTime, days) => {
 
 export const getHistoryForcast = (location, times) => {
   return (dispatch) => {const newDataArr = times.map(time => {
-      return axios.post('api/history',{
-        latitude: location.lat, 
+      return axios.post('api/history', {
+        latitude: location.lat,
         longitude: location.lng,
         time: time,
       })//stores these aysnc calls in an array
@@ -79,7 +79,7 @@ export const getForcast = (location) => {
       dispatch(setData(daily, 'daily')),
       dispatch(setData(hourly, 'hourly')),
       ];//store asyncronous calls in an array
-      Promise.all(myPromisses).then(()=>{
+      Promise.all(myPromisses).then(() => {
         //after promises resolve
         //we can concate to array with additional information
         const testTimes = getPastTimes(currentTime, 2);
@@ -90,6 +90,3 @@ export const getForcast = (location) => {
       })
   }
 }
-
-
-
