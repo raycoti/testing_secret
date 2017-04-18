@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 
 const weatherForm = ({handleChange, dirty, handleSubmit, handleSelect, inputValue, history}) => {
   let searches = history;
-  if(searches.length > 10){
-    searches = searches.slice(9);
-  }
+  if (searches.length > 10){
+    searches = searches.slice(10);
+  }//only shows last 10 results
 
   return (
     <div className="col-md-12" >
@@ -24,7 +24,7 @@ const weatherForm = ({handleChange, dirty, handleSubmit, handleSelect, inputValu
             </div>
             <div className="form-group">
               <div className="col-md-2">
-                <button 
+                <button
                   type="submit"
                   className="btn btn-default" disabled ={!dirty}>
                   SEARCH
@@ -35,7 +35,7 @@ const weatherForm = ({handleChange, dirty, handleSubmit, handleSelect, inputValu
               <div className="col-md-12">
                 <select className="soflow" onChange={handleSelect}>
                   <option value="searches">Previous Searches</option>
-                  {searches.map(search=>{
+                  {searches.map(search => {
                     return <option value={search}>{search}</option>
                   })}
                 </select>

@@ -3,7 +3,8 @@ import {connect} from 'react-redux';
 import WeatherChart from '../containers/chartContainer';
 import WeatherContainer from '../containers/weatherContainer';
 import DayView from '../containers/dayView';
-import {setCurrentChart} from '../actionCreators/chart' 
+import {setCurrentChart} from '../actionCreators/chart';
+
 const mapStateToProps = (state) => {
   return {
     view: state.chart.current,
@@ -11,7 +12,7 @@ const mapStateToProps = (state) => {
   }
 }
 
-const mapDispathToProps = (dispatch)=> {
+const mapDispathToProps = (dispatch) => {
   return {
     toggleView(view){
       dispatch(setCurrentChart(view))
@@ -20,8 +21,8 @@ const mapDispathToProps = (dispatch)=> {
 }
 
 
-const app = function({toggleView,view,name}){
-  //turn submit button to a drop down
+const app = function({toggleView, view, name}){
+
   return (
     <div id="main">
       <div id="forum" className="row">
@@ -33,7 +34,7 @@ const app = function({toggleView,view,name}){
           <div className="col-md-1">
             <h4>Data</h4>
             <div id="submitButton" className="col-md-12">
-                <select onChange={(e)=> toggleView(e.target.value)} className="soflow2">
+                <select onChange={(event) => toggleView(event.target.value)} className="soflow2">
                   <option value="daily">Daily</option>
                   <option value="hourly">Hourly</option>
                 </select>

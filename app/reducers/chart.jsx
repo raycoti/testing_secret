@@ -6,6 +6,7 @@ const initialState = {
   hourly: [{}],
   view: false,
 }
+
 export default function(state = initialState, action){
   const newState = Object.assign({}, state);
   switch (action.type){

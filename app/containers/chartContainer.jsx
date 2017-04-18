@@ -11,13 +11,13 @@ const mapStateToProps = (state) => {
   }
 }
 
-const ChartContainer = ({days, type, hours,view}) => {
+const ChartContainer = ({days, type, hours, view}) => {
   let chartData;
   type === 'daily' ? chartData = days : chartData = hours;
-
+  //turn to switch/case for more options
   return (
     <WeatherChart view={view} name={type} chartData={chartData} />
   )
 }
 
-export default connect(mapStateToProps,null)(ChartContainer)
+export default connect(mapStateToProps, null)(ChartContainer)

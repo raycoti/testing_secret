@@ -6,7 +6,6 @@ const initialState = {
   hourly: [],
 }
 
-
 export default function(state = initialState, action){
   const newState = Object.assign({},state);
   switch (action.type){
@@ -24,5 +23,3 @@ export default function(state = initialState, action){
   }
   return newState;
 }
-
-
