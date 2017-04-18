@@ -96,7 +96,9 @@ This runs all tests in the folder tests
 ### Components
 * **dayView** renders out a dayWeather component for each day in the daily forcast array. 
 * **dayWeather** displays summary, image, high and low temperature info from the day object passed in from dayView. 
-
+### Server Routes
+* **'/api/weather'** when the app makes a post request to this route with a position an axios request will be made to darksky api. When resolved axios request is resolved the route returns an object with the weather data. 
+* **'/api/history** when the app makes a post request to this route with a position and time an axios request will be made to darksky api's. When resolved axios request is resolved the route returns an object with the weather data for that time. 
 # Tools
 ## [Google Maps](https://developers.google.com/maps)
   Google maps was used for geolocation and the map itself. The map is set up in index.html, it is made availabe to the rest of our application by adding pointers to the window: **window.map**, **window.infoWindow**
