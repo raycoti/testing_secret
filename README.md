@@ -1,5 +1,9 @@
 # **Weather Checker**
-A weather application that gives you data of any location you search!
+Simple to use weather application! Just type in any location to get:
+* an Area chart of past and future daily/hourly statistics on temperature, rain probability, humidity and cloud coverage of that location.
+* Daily Summaries of the upcomming week's forcast for that location.
+* Current day forcast for that location hovering on its appropriate location on google maps.
+
 
 # Getting started
 
@@ -21,10 +25,12 @@ npm run build
 npm start
 ```
 ## Tests
+```
 npm run test
+```
 This runs all tests in the folder tests
 
-# Overview
+# React/Redux Overview
 
 # Chart
 ### Reducer
