@@ -8,7 +8,7 @@ export const setLocation = (location) => ({
   location: location,
 })
 
-export const setLatLong = (position) =>({
+export const setLatLong = (position) => ({
   type: SET_LAT_LONG,
   lat: position.lat,
   lng: position.lng,
@@ -23,8 +23,8 @@ export const setSearches = (searchesArr) => ({
   type: SET_SEARCHES,
   searches: searchesArr.reverse()
 })
-export const getSearches = () =>{
-  return (dispatch) =>{
+export const getSearches = () => {
+  return (dispatch) => {
     axios.get('/api/queries')
     .then(result => {
       const searches = result.data.searches;
@@ -32,6 +32,7 @@ export const getSearches = () =>{
     })
   }
 }
+
 export const getLocation = (location) => {
   return (dispatch) => {
     axios.post('/api/location', {

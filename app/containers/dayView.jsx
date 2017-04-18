@@ -8,16 +8,16 @@ const mapStateToProps = (state) => {
   }
 }
 
-const DayView = ({days})=> {
+const DayView = ({days}) => {
 
   return (
     <div id="dayview"className="col-md-3">
     <h4>Daily</h4>
-      {days && days.map((day)=>{
+      {days && days.map(( day )=> {
         return <DayWeather weather={day} />
       })}
     </div>
   )
 }
 
-export default connect(mapStateToProps,null)(DayView)
+export default connect(mapStateToProps, null)(DayView )

@@ -31645,7 +31645,7 @@
 	
 	var _chartContainer2 = _interopRequireDefault(_chartContainer);
 	
-	var _weatherContainer = __webpack_require__(715);
+	var _weatherContainer = __webpack_require__(598);
 	
 	var _weatherContainer2 = _interopRequireDefault(_weatherContainer);
 	
@@ -31653,7 +31653,7 @@
 	
 	var _dayView2 = _interopRequireDefault(_dayView);
 	
-	var _chart = __webpack_require__(719);
+	var _chart = __webpack_require__(602);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -31677,7 +31677,7 @@
 	      view = _ref.view,
 	      name = _ref.name;
 	
-	  //turn submit button to a drop down
+	
 	  return _react2.default.createElement(
 	    'div',
 	    { id: 'main' },
@@ -31717,8 +31717,8 @@
 	          { id: 'submitButton', className: 'col-md-12' },
 	          _react2.default.createElement(
 	            'select',
-	            { onChange: function onChange(e) {
-	                return toggleView(e.target.value);
+	            { onChange: function onChange(event) {
+	                return toggleView(event.target.value);
 	              }, className: 'soflow2' },
 	            _react2.default.createElement(
 	              'option',
@@ -31780,7 +31780,7 @@
 	
 	  var chartData = void 0;
 	  type === 'daily' ? chartData = days : chartData = hours;
-	
+	  //turn to switch/case for more options
 	  return _react2.default.createElement(_weatherChart2.default, { view: view, name: type, chartData: chartData });
 	};
 	
@@ -31800,18 +31800,17 @@
 	
 	var React = __webpack_require__(1);
 	
-	var moment = __webpack_require__(598);
 	var weatherChart = function weatherChart(_ref) {
 	  var chartData = _ref.chartData,
 	      view = _ref.view,
 	      name = _ref.name;
 	
-	  var theData = [{}];
+	  var theData = [{}]; // default empty
 	  if (view) theData = chartData;
-	  var label1 = "high";
-	  if (name === "hourly") label1 = "temp";
+	  var label1 = 'high';
+	  if (name === 'hourly') label1 = 'temp';
 	  var height = 600;
-	  if (window.innerHeight < 800) height = 300; //mobile friendly version
+	  if (window.innerHeight < 800) height = 300; //scale if mobile
 	  return React.createElement(
 	    'div',
 	    { className: 'col-md-8' },
@@ -31861,7 +31860,7 @@
 	        React.createElement(_recharts.Tooltip, null),
 	        React.createElement(_recharts.Legend, null),
 	        React.createElement(_recharts.Line, { type: 'monotone', dataKey: label1, stroke: '#8884d8', activeDot: { r: 2 } }),
-	        label1 === "high" && React.createElement(_recharts.Line, { type: 'monotone', dataKey: 'low', stroke: '#82ca9d' }),
+	        label1 === 'high' && React.createElement(_recharts.Line, { type: 'monotone', dataKey: 'low', stroke: '#82ca9d' }),
 	        React.createElement(_recharts.Area, { type: 'monotone', dataKey: 'hum', stroke: '#ee3d3d', fillOpacity: 1, fill: 'url(#humid)' }),
 	        React.createElement(_recharts.Area, { type: 'monotone', dataKey: 'wind', stroke: '#D9D6BF' }),
 	        React.createElement(_recharts.Area, { type: 'monotone', dataKey: 'cloud', stroke: '#a1a9a4', fillOpacity: 1, fill: 'url(#cloud)' }),
@@ -65678,6 +65677,494 @@
 /* 598 */
 /***/ (function(module, exports, __webpack_require__) {
 
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _reactRedux = __webpack_require__(182);
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _weatherForm = __webpack_require__(599);
+	
+	var _weatherForm2 = _interopRequireDefault(_weatherForm);
+	
+	var _location = __webpack_require__(600);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+	  return {
+	    setLocation: function setLocation(location) {
+	      dispatch((0, _location.getLocation)(location));
+	    },
+	    getQueries: function getQueries() {
+	      dispatch((0, _location.getSearches)());
+	    },
+	    addToQuery: function addToQuery(name) {
+	      dispatch((0, _location.addTOSearch)(name));
+	    }
+	  };
+	};
+	var mapStateToProps = function mapStateToProps(state) {
+	  return {
+	    searchHistory: state.location.searches
+	  };
+	};
+	
+	var WeatherContainer = function (_Component) {
+	  _inherits(WeatherContainer, _Component);
+	
+	  function WeatherContainer() {
+	    _classCallCheck(this, WeatherContainer);
+	
+	    var _this = _possibleConstructorReturn(this, (WeatherContainer.__proto__ || Object.getPrototypeOf(WeatherContainer)).call(this));
+	
+	    _this.state = {
+	      inputValue: '',
+	      dirty: false
+	    };
+	    _this.handleChange = _this.handleChange.bind(_this);
+	    _this.handleSubmit = _this.handleSubmit.bind(_this);
+	    _this.handleSelect = _this.handleSelect.bind(_this);
+	    return _this;
+	  }
+	
+	  _createClass(WeatherContainer, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      this.props.getQueries();
+	    }
+	  }, {
+	    key: 'handleChange',
+	    value: function handleChange(event) {
+	      var value = event.target.value;
+	      var isDirty = true;
+	      if (value === "") isDirty = false;
+	      this.setState({ inputValue: value,
+	        dirty: isDirty });
+	    }
+	  }, {
+	    key: 'handleSelect',
+	    value: function handleSelect(event) {
+	      var value = event.target.value;
+	      if (value === "searches") return;
+	      this.setState({ inputValue: value, dirty: true });
+	    }
+	  }, {
+	    key: 'handleSubmit',
+	    value: function handleSubmit(event) {
+	      event.preventDefault();
+	      this.props.setLocation(this.state.inputValue);
+	      this.props.addToQuery(this.state.inputValue);
+	      this.setState({
+	        inputValue: '',
+	        dirty: false
+	      });
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(_weatherForm2.default, { history: this.props.searchHistory, handleSelect: this.handleSelect, handleChange: this.handleChange, inputValue: this.state.inputValue, handleSubmit: this.handleSubmit, dirty: this.state.dirty });
+	    }
+	  }]);
+	
+	  return WeatherContainer;
+	}(_react.Component);
+	
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(WeatherContainer);
+
+/***/ }),
+/* 599 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var weatherForm = function weatherForm(_ref) {
+	  var handleChange = _ref.handleChange,
+	      dirty = _ref.dirty,
+	      handleSubmit = _ref.handleSubmit,
+	      handleSelect = _ref.handleSelect,
+	      inputValue = _ref.inputValue,
+	      history = _ref.history;
+	
+	  var searches = history;
+	  if (searches.length > 10) {
+	    searches = searches.slice(10);
+	  } //only shows last 10 results
+	
+	  return _react2.default.createElement(
+	    "div",
+	    { className: "col-md-12" },
+	    _react2.default.createElement(
+	      "form",
+	      { className: "form-inline", onSubmit: handleSubmit },
+	      _react2.default.createElement(
+	        "fieldset",
+	        { className: "col-md-12" },
+	        _react2.default.createElement(
+	          "legend",
+	          null,
+	          "SEARCH WEATHER"
+	        ),
+	        _react2.default.createElement(
+	          "div",
+	          { className: "form-group" },
+	          _react2.default.createElement(
+	            "div",
+	            { className: "col-md-12" },
+	            _react2.default.createElement("input", {
+	              placeholder: "Type Address Here",
+	              className: "form-control",
+	              type: "text",
+	              onChange: handleChange,
+	              value: inputValue
+	            })
+	          )
+	        ),
+	        _react2.default.createElement(
+	          "div",
+	          { className: "form-group" },
+	          _react2.default.createElement(
+	            "div",
+	            { className: "col-md-2" },
+	            _react2.default.createElement(
+	              "button",
+	              {
+	                type: "submit",
+	                className: "btn btn-default", disabled: !dirty },
+	              "SEARCH"
+	            )
+	          )
+	        ),
+	        _react2.default.createElement(
+	          "div",
+	          { className: "form-group" },
+	          _react2.default.createElement(
+	            "div",
+	            { className: "col-md-12" },
+	            _react2.default.createElement(
+	              "select",
+	              { className: "soflow", onChange: handleSelect },
+	              _react2.default.createElement(
+	                "option",
+	                { value: "searches" },
+	                "Previous Searches"
+	              ),
+	              searches.map(function (search) {
+	                return _react2.default.createElement(
+	                  "option",
+	                  { value: search },
+	                  search
+	                );
+	              })
+	            )
+	          )
+	        )
+	      )
+	    )
+	  );
+	};
+	exports.default = weatherForm;
+
+/***/ }),
+/* 600 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.getLocation = exports.getSearches = exports.setSearches = exports.addTOSearch = exports.setLatLong = exports.setLocation = undefined;
+	
+	var _axios = __webpack_require__(251);
+	
+	var _axios2 = _interopRequireDefault(_axios);
+	
+	var _weather = __webpack_require__(601);
+	
+	var _chart = __webpack_require__(602);
+	
+	var _constants = __webpack_require__(284);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var setLocation = exports.setLocation = function setLocation(location) {
+	  return {
+	    type: _constants.SELECT_LOCATION,
+	    location: location
+	  };
+	};
+	
+	var setLatLong = exports.setLatLong = function setLatLong(position) {
+	  return {
+	    type: _constants.SET_LAT_LONG,
+	    lat: position.lat,
+	    lng: position.lng
+	  };
+	};
+	
+	var addTOSearch = exports.addTOSearch = function addTOSearch(name) {
+	  return {
+	    type: _constants.ADD_TO_SEARCH,
+	    search: name
+	  };
+	};
+	
+	var setSearches = exports.setSearches = function setSearches(searchesArr) {
+	  return {
+	    type: _constants.SET_SEARCHES,
+	    searches: searchesArr.reverse()
+	  };
+	};
+	var getSearches = exports.getSearches = function getSearches() {
+	  return function (dispatch) {
+	    _axios2.default.get('/api/queries').then(function (result) {
+	      var searches = result.data.searches;
+	      dispatch(setSearches(searches));
+	    });
+	  };
+	};
+	
+	var getLocation = exports.getLocation = function getLocation(location) {
+	  return function (dispatch) {
+	    _axios2.default.post('/api/location', {
+	      name: location
+	    }).then(function (result) {
+	      var latLong = result.data.location;
+	      var name = result.data.name;
+	      dispatch((0, _weather.getForcast)(latLong));
+	      dispatch(setLocation(name));
+	      dispatch(setLatLong(latLong));
+	      dispatch((0, _chart.setChartView)(false));
+	    });
+	  };
+	};
+
+/***/ }),
+/* 601 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.getForcast = exports.getHistoryForcast = exports.getPastTimes = exports.setHourly = exports.setDaily = exports.setWeather = undefined;
+	
+	var _axios = __webpack_require__(251);
+	
+	var _axios2 = _interopRequireDefault(_axios);
+	
+	var _constants = __webpack_require__(284);
+	
+	var _chart = __webpack_require__(602);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var setWeather = exports.setWeather = function setWeather(forcast) {
+	  return {
+	    type: _constants.SET_WEATHER,
+	    forcast: forcast
+	  };
+	};
+	
+	var setDaily = exports.setDaily = function setDaily(dailyData) {
+	  return {
+	    type: _constants.SET_DAILY,
+	    daily: dailyData
+	  };
+	};
+	
+	var setHourly = exports.setHourly = function setHourly(hourlyData) {
+	  return {
+	    type: _constants.SET_HOURLY,
+	    hourly: hourlyData
+	  };
+	};
+	
+	var formatHistory = function formatHistory(historyData) {
+	  return historyData.map(function (arr) {
+	    return arr[0];
+	  });
+	};
+	
+	var getPastTimes = exports.getPastTimes = function getPastTimes(currentTime, days) {
+	  var newTimes = [];
+	  for (var i = 1; i <= days + 1; i++) {
+	    newTimes.push(currentTime - i * 86400);
+	  }
+	  return newTimes.reverse();
+	};
+	
+	var getHistoryForcast = exports.getHistoryForcast = function getHistoryForcast(location, times) {
+	  return function (dispatch) {
+	    var newDataArr = times.map(function (time) {
+	      return _axios2.default.post('api/history', {
+	        latitude: location.lat,
+	        longitude: location.lng,
+	        time: time
+	      }) //stores these aysnc calls in an array
+	      .then(function (result) {
+	        var weather = result.data;
+	        var daily = weather.daily.data;
+	        return daily; //resolve promise with data for that day
+	      });
+	    });
+	    Promise.all(newDataArr).then(function (values) {
+	      //when all promises resolve
+	      var theData = formatHistory(values); //use resolved values
+	      var newData = (0, _chart.formatData)(theData, 'daily');
+	      dispatch((0, _chart.addDailyHistory)(newData));
+	      dispatch((0, _chart.setChartView)(true));
+	    });
+	  };
+	};
+	
+	var setImageMap = function setImageMap(forcast) {
+	  window.infoWindow.setContent('<IMG BORDER="0" ALIGN="Left" SRC="img/' + forcast.icon + '.svg">  Forcast: ' + forcast.summary + ' \n   temp:' + forcast.temperature);
+	};
+	
+	var getForcast = exports.getForcast = function getForcast(location) {
+	  window.map.setCenter(location);
+	  window.infoWindow.setPosition(location);
+	  return function (dispatch) {
+	    _axios2.default.post('api/weather', {
+	      latitude: location.lat,
+	      longitude: location.lng
+	    }).then(function (result) {
+	      var weather = result.data;
+	      var forcast = weather.currently.summary;
+	      setImageMap(weather.currently);
+	      var hourly = weather.hourly.data;
+	      var daily = weather.daily.data;
+	      var currentTime = daily[0].time;
+	      var myPromisses = [dispatch(setWeather(forcast)), dispatch(setDaily(daily)), dispatch(setHourly(hourly)), dispatch((0, _chart.setData)(daily, 'daily')), dispatch((0, _chart.setData)(hourly, 'hourly'))]; //store asyncronous calls in an array
+	      Promise.all(myPromisses).then(function () {
+	        //after promises resolve
+	        //we can concate to array with additional information
+	        var testTimes = getPastTimes(currentTime, 5);
+	        dispatch(getHistoryForcast(location, testTimes));
+	      });
+	    });
+	  };
+	};
+
+/***/ }),
+/* 602 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.setData = exports.formatData = exports.addDailyHistory = exports.setHourlyChart = exports.setDailyChart = exports.setCurrentChart = exports.setChartView = undefined;
+	
+	var _constants = __webpack_require__(284);
+	
+	var moment = __webpack_require__(603);
+	
+	var setChartView = exports.setChartView = function setChartView(view) {
+	  return {
+	    type: _constants.TOGGLE_CHART_VIEW,
+	    view: view
+	  };
+	};
+	var setCurrentChart = exports.setCurrentChart = function setCurrentChart(chartType) {
+	  return {
+	    type: _constants.SET_CURRENT_CHART,
+	    current: chartType
+	  };
+	};
+	
+	var setDailyChart = exports.setDailyChart = function setDailyChart(dailyData) {
+	  return {
+	    type: _constants.SET_DAILY_CHART,
+	    daily: dailyData
+	  };
+	};
+	
+	var setHourlyChart = exports.setHourlyChart = function setHourlyChart(hourlyData) {
+	  return {
+	    type: _constants.SET_HOURLY_CHART,
+	    hourly: hourlyData
+	  };
+	};
+	var addDailyHistory = exports.addDailyHistory = function addDailyHistory(historyData) {
+	  return {
+	    type: _constants.ADD_DAILY_CHART,
+	    daily: historyData
+	  };
+	};
+	var formatData = exports.formatData = function formatData(data, type) {
+	  return data.map(function (theData) {
+	    var timestamp = moment.unix(theData.time);
+	    var dataObject = void 0;
+	    if (type === 'daily') {
+	      dataObject = {
+	        name: timestamp.format("MM-DD"),
+	        high: theData.temperatureMax,
+	        low: theData.temperatureMin,
+	        hum: Math.round(theData.humidity * 100),
+	        wind: theData.windSpeed,
+	        cloud: Math.round(theData.cloudCover * 100),
+	        rain: Math.round(theData.precipProbability * 100)
+	      };
+	    } else if (type === 'hourly') {
+	      dataObject = {
+	        name: timestamp.format("MM-DD HH:mm"),
+	        temp: theData.temperature,
+	        low: 0,
+	        hum: Math.round(theData.humidity * 100),
+	        wind: theData.windSpeed,
+	        cloud: Math.round(theData.cloudCover * 100),
+	        rain: Math.round(theData.precipProbability * 100)
+	      };
+	    }
+	    return dataObject;
+	  });
+	};
+	var setData = exports.setData = function setData(data, type) {
+	  return function (dispatch) {
+	    var formatedData = formatData(data, type);
+	    switch (type) {
+	      case 'daily':
+	        return dispatch(setDailyChart(formatedData));
+	      case 'hourly':
+	        return dispatch(setHourlyChart(formatedData));
+	      default:
+	    }
+	  };
+	};
+
+/***/ }),
+/* 603 */
+/***/ (function(module, exports, __webpack_require__) {
+
 	/* WEBPACK VAR INJECTION */(function(module) {//! moment.js
 	//! version : 2.18.1
 	//! authors : Tim Wood, Iskren Chernev, Moment.js contributors
@@ -67507,7 +67994,7 @@
 	            module && module.exports) {
 	        try {
 	            oldLocale = globalLocale._abbr;
-	            __webpack_require__(599)("./" + name);
+	            __webpack_require__(604)("./" + name);
 	            // because defineLocale currently also sets the global locale, we
 	            // want to undo that for lazy loaded locales
 	            getSetGlobalLocale(oldLocale);
@@ -70145,240 +70632,240 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(205)(module)))
 
 /***/ }),
-/* 599 */
+/* 604 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var map = {
-		"./af": 600,
-		"./af.js": 600,
-		"./ar": 601,
-		"./ar-dz": 602,
-		"./ar-dz.js": 602,
-		"./ar-kw": 603,
-		"./ar-kw.js": 603,
-		"./ar-ly": 604,
-		"./ar-ly.js": 604,
-		"./ar-ma": 605,
-		"./ar-ma.js": 605,
-		"./ar-sa": 606,
-		"./ar-sa.js": 606,
-		"./ar-tn": 607,
-		"./ar-tn.js": 607,
-		"./ar.js": 601,
-		"./az": 608,
-		"./az.js": 608,
-		"./be": 609,
-		"./be.js": 609,
-		"./bg": 610,
-		"./bg.js": 610,
-		"./bn": 611,
-		"./bn.js": 611,
-		"./bo": 612,
-		"./bo.js": 612,
-		"./br": 613,
-		"./br.js": 613,
-		"./bs": 614,
-		"./bs.js": 614,
-		"./ca": 615,
-		"./ca.js": 615,
-		"./cs": 616,
-		"./cs.js": 616,
-		"./cv": 617,
-		"./cv.js": 617,
-		"./cy": 618,
-		"./cy.js": 618,
-		"./da": 619,
-		"./da.js": 619,
-		"./de": 620,
-		"./de-at": 621,
-		"./de-at.js": 621,
-		"./de-ch": 622,
-		"./de-ch.js": 622,
-		"./de.js": 620,
-		"./dv": 623,
-		"./dv.js": 623,
-		"./el": 624,
-		"./el.js": 624,
-		"./en-au": 625,
-		"./en-au.js": 625,
-		"./en-ca": 626,
-		"./en-ca.js": 626,
-		"./en-gb": 627,
-		"./en-gb.js": 627,
-		"./en-ie": 628,
-		"./en-ie.js": 628,
-		"./en-nz": 629,
-		"./en-nz.js": 629,
-		"./eo": 630,
-		"./eo.js": 630,
-		"./es": 631,
-		"./es-do": 632,
-		"./es-do.js": 632,
-		"./es.js": 631,
-		"./et": 633,
-		"./et.js": 633,
-		"./eu": 634,
-		"./eu.js": 634,
-		"./fa": 635,
-		"./fa.js": 635,
-		"./fi": 636,
-		"./fi.js": 636,
-		"./fo": 637,
-		"./fo.js": 637,
-		"./fr": 638,
-		"./fr-ca": 639,
-		"./fr-ca.js": 639,
-		"./fr-ch": 640,
-		"./fr-ch.js": 640,
-		"./fr.js": 638,
-		"./fy": 641,
-		"./fy.js": 641,
-		"./gd": 642,
-		"./gd.js": 642,
-		"./gl": 643,
-		"./gl.js": 643,
-		"./gom-latn": 644,
-		"./gom-latn.js": 644,
-		"./he": 645,
-		"./he.js": 645,
-		"./hi": 646,
-		"./hi.js": 646,
-		"./hr": 647,
-		"./hr.js": 647,
-		"./hu": 648,
-		"./hu.js": 648,
-		"./hy-am": 649,
-		"./hy-am.js": 649,
-		"./id": 650,
-		"./id.js": 650,
-		"./is": 651,
-		"./is.js": 651,
-		"./it": 652,
-		"./it.js": 652,
-		"./ja": 653,
-		"./ja.js": 653,
-		"./jv": 654,
-		"./jv.js": 654,
-		"./ka": 655,
-		"./ka.js": 655,
-		"./kk": 656,
-		"./kk.js": 656,
-		"./km": 657,
-		"./km.js": 657,
-		"./kn": 658,
-		"./kn.js": 658,
-		"./ko": 659,
-		"./ko.js": 659,
-		"./ky": 660,
-		"./ky.js": 660,
-		"./lb": 661,
-		"./lb.js": 661,
-		"./lo": 662,
-		"./lo.js": 662,
-		"./lt": 663,
-		"./lt.js": 663,
-		"./lv": 664,
-		"./lv.js": 664,
-		"./me": 665,
-		"./me.js": 665,
-		"./mi": 666,
-		"./mi.js": 666,
-		"./mk": 667,
-		"./mk.js": 667,
-		"./ml": 668,
-		"./ml.js": 668,
-		"./mr": 669,
-		"./mr.js": 669,
-		"./ms": 670,
-		"./ms-my": 671,
-		"./ms-my.js": 671,
-		"./ms.js": 670,
-		"./my": 672,
-		"./my.js": 672,
-		"./nb": 673,
-		"./nb.js": 673,
-		"./ne": 674,
-		"./ne.js": 674,
-		"./nl": 675,
-		"./nl-be": 676,
-		"./nl-be.js": 676,
-		"./nl.js": 675,
-		"./nn": 677,
-		"./nn.js": 677,
-		"./pa-in": 678,
-		"./pa-in.js": 678,
-		"./pl": 679,
-		"./pl.js": 679,
-		"./pt": 680,
-		"./pt-br": 681,
-		"./pt-br.js": 681,
-		"./pt.js": 680,
-		"./ro": 682,
-		"./ro.js": 682,
-		"./ru": 683,
-		"./ru.js": 683,
-		"./sd": 684,
-		"./sd.js": 684,
-		"./se": 685,
-		"./se.js": 685,
-		"./si": 686,
-		"./si.js": 686,
-		"./sk": 687,
-		"./sk.js": 687,
-		"./sl": 688,
-		"./sl.js": 688,
-		"./sq": 689,
-		"./sq.js": 689,
-		"./sr": 690,
-		"./sr-cyrl": 691,
-		"./sr-cyrl.js": 691,
-		"./sr.js": 690,
-		"./ss": 692,
-		"./ss.js": 692,
-		"./sv": 693,
-		"./sv.js": 693,
-		"./sw": 694,
-		"./sw.js": 694,
-		"./ta": 695,
-		"./ta.js": 695,
-		"./te": 696,
-		"./te.js": 696,
-		"./tet": 697,
-		"./tet.js": 697,
-		"./th": 698,
-		"./th.js": 698,
-		"./tl-ph": 699,
-		"./tl-ph.js": 699,
-		"./tlh": 700,
-		"./tlh.js": 700,
-		"./tr": 701,
-		"./tr.js": 701,
-		"./tzl": 702,
-		"./tzl.js": 702,
-		"./tzm": 703,
-		"./tzm-latn": 704,
-		"./tzm-latn.js": 704,
-		"./tzm.js": 703,
-		"./uk": 705,
-		"./uk.js": 705,
-		"./ur": 706,
-		"./ur.js": 706,
-		"./uz": 707,
-		"./uz-latn": 708,
-		"./uz-latn.js": 708,
-		"./uz.js": 707,
-		"./vi": 709,
-		"./vi.js": 709,
-		"./x-pseudo": 710,
-		"./x-pseudo.js": 710,
-		"./yo": 711,
-		"./yo.js": 711,
-		"./zh-cn": 712,
-		"./zh-cn.js": 712,
-		"./zh-hk": 713,
-		"./zh-hk.js": 713,
-		"./zh-tw": 714,
-		"./zh-tw.js": 714
+		"./af": 605,
+		"./af.js": 605,
+		"./ar": 606,
+		"./ar-dz": 607,
+		"./ar-dz.js": 607,
+		"./ar-kw": 608,
+		"./ar-kw.js": 608,
+		"./ar-ly": 609,
+		"./ar-ly.js": 609,
+		"./ar-ma": 610,
+		"./ar-ma.js": 610,
+		"./ar-sa": 611,
+		"./ar-sa.js": 611,
+		"./ar-tn": 612,
+		"./ar-tn.js": 612,
+		"./ar.js": 606,
+		"./az": 613,
+		"./az.js": 613,
+		"./be": 614,
+		"./be.js": 614,
+		"./bg": 615,
+		"./bg.js": 615,
+		"./bn": 616,
+		"./bn.js": 616,
+		"./bo": 617,
+		"./bo.js": 617,
+		"./br": 618,
+		"./br.js": 618,
+		"./bs": 619,
+		"./bs.js": 619,
+		"./ca": 620,
+		"./ca.js": 620,
+		"./cs": 621,
+		"./cs.js": 621,
+		"./cv": 622,
+		"./cv.js": 622,
+		"./cy": 623,
+		"./cy.js": 623,
+		"./da": 624,
+		"./da.js": 624,
+		"./de": 625,
+		"./de-at": 626,
+		"./de-at.js": 626,
+		"./de-ch": 627,
+		"./de-ch.js": 627,
+		"./de.js": 625,
+		"./dv": 628,
+		"./dv.js": 628,
+		"./el": 629,
+		"./el.js": 629,
+		"./en-au": 630,
+		"./en-au.js": 630,
+		"./en-ca": 631,
+		"./en-ca.js": 631,
+		"./en-gb": 632,
+		"./en-gb.js": 632,
+		"./en-ie": 633,
+		"./en-ie.js": 633,
+		"./en-nz": 634,
+		"./en-nz.js": 634,
+		"./eo": 635,
+		"./eo.js": 635,
+		"./es": 636,
+		"./es-do": 637,
+		"./es-do.js": 637,
+		"./es.js": 636,
+		"./et": 638,
+		"./et.js": 638,
+		"./eu": 639,
+		"./eu.js": 639,
+		"./fa": 640,
+		"./fa.js": 640,
+		"./fi": 641,
+		"./fi.js": 641,
+		"./fo": 642,
+		"./fo.js": 642,
+		"./fr": 643,
+		"./fr-ca": 644,
+		"./fr-ca.js": 644,
+		"./fr-ch": 645,
+		"./fr-ch.js": 645,
+		"./fr.js": 643,
+		"./fy": 646,
+		"./fy.js": 646,
+		"./gd": 647,
+		"./gd.js": 647,
+		"./gl": 648,
+		"./gl.js": 648,
+		"./gom-latn": 649,
+		"./gom-latn.js": 649,
+		"./he": 650,
+		"./he.js": 650,
+		"./hi": 651,
+		"./hi.js": 651,
+		"./hr": 652,
+		"./hr.js": 652,
+		"./hu": 653,
+		"./hu.js": 653,
+		"./hy-am": 654,
+		"./hy-am.js": 654,
+		"./id": 655,
+		"./id.js": 655,
+		"./is": 656,
+		"./is.js": 656,
+		"./it": 657,
+		"./it.js": 657,
+		"./ja": 658,
+		"./ja.js": 658,
+		"./jv": 659,
+		"./jv.js": 659,
+		"./ka": 660,
+		"./ka.js": 660,
+		"./kk": 661,
+		"./kk.js": 661,
+		"./km": 662,
+		"./km.js": 662,
+		"./kn": 663,
+		"./kn.js": 663,
+		"./ko": 664,
+		"./ko.js": 664,
+		"./ky": 665,
+		"./ky.js": 665,
+		"./lb": 666,
+		"./lb.js": 666,
+		"./lo": 667,
+		"./lo.js": 667,
+		"./lt": 668,
+		"./lt.js": 668,
+		"./lv": 669,
+		"./lv.js": 669,
+		"./me": 670,
+		"./me.js": 670,
+		"./mi": 671,
+		"./mi.js": 671,
+		"./mk": 672,
+		"./mk.js": 672,
+		"./ml": 673,
+		"./ml.js": 673,
+		"./mr": 674,
+		"./mr.js": 674,
+		"./ms": 675,
+		"./ms-my": 676,
+		"./ms-my.js": 676,
+		"./ms.js": 675,
+		"./my": 677,
+		"./my.js": 677,
+		"./nb": 678,
+		"./nb.js": 678,
+		"./ne": 679,
+		"./ne.js": 679,
+		"./nl": 680,
+		"./nl-be": 681,
+		"./nl-be.js": 681,
+		"./nl.js": 680,
+		"./nn": 682,
+		"./nn.js": 682,
+		"./pa-in": 683,
+		"./pa-in.js": 683,
+		"./pl": 684,
+		"./pl.js": 684,
+		"./pt": 685,
+		"./pt-br": 686,
+		"./pt-br.js": 686,
+		"./pt.js": 685,
+		"./ro": 687,
+		"./ro.js": 687,
+		"./ru": 688,
+		"./ru.js": 688,
+		"./sd": 689,
+		"./sd.js": 689,
+		"./se": 690,
+		"./se.js": 690,
+		"./si": 691,
+		"./si.js": 691,
+		"./sk": 692,
+		"./sk.js": 692,
+		"./sl": 693,
+		"./sl.js": 693,
+		"./sq": 694,
+		"./sq.js": 694,
+		"./sr": 695,
+		"./sr-cyrl": 696,
+		"./sr-cyrl.js": 696,
+		"./sr.js": 695,
+		"./ss": 697,
+		"./ss.js": 697,
+		"./sv": 698,
+		"./sv.js": 698,
+		"./sw": 699,
+		"./sw.js": 699,
+		"./ta": 700,
+		"./ta.js": 700,
+		"./te": 701,
+		"./te.js": 701,
+		"./tet": 702,
+		"./tet.js": 702,
+		"./th": 703,
+		"./th.js": 703,
+		"./tl-ph": 704,
+		"./tl-ph.js": 704,
+		"./tlh": 705,
+		"./tlh.js": 705,
+		"./tr": 706,
+		"./tr.js": 706,
+		"./tzl": 707,
+		"./tzl.js": 707,
+		"./tzm": 708,
+		"./tzm-latn": 709,
+		"./tzm-latn.js": 709,
+		"./tzm.js": 708,
+		"./uk": 710,
+		"./uk.js": 710,
+		"./ur": 711,
+		"./ur.js": 711,
+		"./uz": 712,
+		"./uz-latn": 713,
+		"./uz-latn.js": 713,
+		"./uz.js": 712,
+		"./vi": 714,
+		"./vi.js": 714,
+		"./x-pseudo": 715,
+		"./x-pseudo.js": 715,
+		"./yo": 716,
+		"./yo.js": 716,
+		"./zh-cn": 717,
+		"./zh-cn.js": 717,
+		"./zh-hk": 718,
+		"./zh-hk.js": 718,
+		"./zh-tw": 719,
+		"./zh-tw.js": 719
 	};
 	function webpackContext(req) {
 		return __webpack_require__(webpackContextResolve(req));
@@ -70391,11 +70878,11 @@
 	};
 	webpackContext.resolve = webpackContextResolve;
 	module.exports = webpackContext;
-	webpackContext.id = 599;
+	webpackContext.id = 604;
 
 
 /***/ }),
-/* 600 */
+/* 605 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -70403,7 +70890,7 @@
 	//! author : Werner Mollentze : https://github.com/wernerm
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(598)) :
+	    true ? factory(__webpack_require__(603)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, (function (moment) { 'use strict';
@@ -70473,7 +70960,7 @@
 
 
 /***/ }),
-/* 601 */
+/* 606 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -70483,7 +70970,7 @@
 	//! author : forabi https://github.com/forabi
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(598)) :
+	    true ? factory(__webpack_require__(603)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, (function (moment) { 'use strict';
@@ -70620,7 +71107,7 @@
 
 
 /***/ }),
-/* 602 */
+/* 607 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -70628,7 +71115,7 @@
 	//! author : Noureddine LOUAHEDJ : https://github.com/noureddineme
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(598)) :
+	    true ? factory(__webpack_require__(603)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, (function (moment) { 'use strict';
@@ -70684,7 +71171,7 @@
 
 
 /***/ }),
-/* 603 */
+/* 608 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -70692,7 +71179,7 @@
 	//! author : Nusret Parlak: https://github.com/nusretparlak
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(598)) :
+	    true ? factory(__webpack_require__(603)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, (function (moment) { 'use strict';
@@ -70748,7 +71235,7 @@
 
 
 /***/ }),
-/* 604 */
+/* 609 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -70756,7 +71243,7 @@
 	//! author : Ali Hmer: https://github.com/kikoanis
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(598)) :
+	    true ? factory(__webpack_require__(603)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, (function (moment) { 'use strict';
@@ -70879,7 +71366,7 @@
 
 
 /***/ }),
-/* 605 */
+/* 610 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -70888,7 +71375,7 @@
 	//! author : Abdel Said : https://github.com/abdelsaid
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(598)) :
+	    true ? factory(__webpack_require__(603)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, (function (moment) { 'use strict';
@@ -70944,7 +71431,7 @@
 
 
 /***/ }),
-/* 606 */
+/* 611 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -70952,7 +71439,7 @@
 	//! author : Suhail Alkowaileet : https://github.com/xsoh
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(598)) :
+	    true ? factory(__webpack_require__(603)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, (function (moment) { 'use strict';
@@ -71054,7 +71541,7 @@
 
 
 /***/ }),
-/* 607 */
+/* 612 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -71062,7 +71549,7 @@
 	//! author : Nader Toukabri : https://github.com/naderio
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(598)) :
+	    true ? factory(__webpack_require__(603)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, (function (moment) { 'use strict';
@@ -71118,7 +71605,7 @@
 
 
 /***/ }),
-/* 608 */
+/* 613 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -71126,7 +71613,7 @@
 	//! author : topchiyev : https://github.com/topchiyev
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(598)) :
+	    true ? factory(__webpack_require__(603)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, (function (moment) { 'use strict';
@@ -71228,7 +71715,7 @@
 
 
 /***/ }),
-/* 609 */
+/* 614 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -71238,7 +71725,7 @@
 	//! Author : Menelion Elensúle : https://github.com/Oire
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(598)) :
+	    true ? factory(__webpack_require__(603)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, (function (moment) { 'use strict';
@@ -71367,7 +71854,7 @@
 
 
 /***/ }),
-/* 610 */
+/* 615 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -71375,7 +71862,7 @@
 	//! author : Krasen Borisov : https://github.com/kraz
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(598)) :
+	    true ? factory(__webpack_require__(603)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, (function (moment) { 'use strict';
@@ -71462,7 +71949,7 @@
 
 
 /***/ }),
-/* 611 */
+/* 616 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -71470,7 +71957,7 @@
 	//! author : Kaushik Gandhi : https://github.com/kaushikgandhi
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(598)) :
+	    true ? factory(__webpack_require__(603)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, (function (moment) { 'use strict';
@@ -71586,7 +72073,7 @@
 
 
 /***/ }),
-/* 612 */
+/* 617 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -71594,7 +72081,7 @@
 	//! author : Thupten N. Chakrishar : https://github.com/vajradog
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(598)) :
+	    true ? factory(__webpack_require__(603)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, (function (moment) { 'use strict';
@@ -71710,7 +72197,7 @@
 
 
 /***/ }),
-/* 613 */
+/* 618 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -71718,7 +72205,7 @@
 	//! author : Jean-Baptiste Le Duigou : https://github.com/jbleduigou
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(598)) :
+	    true ? factory(__webpack_require__(603)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, (function (moment) { 'use strict';
@@ -71823,7 +72310,7 @@
 
 
 /***/ }),
-/* 614 */
+/* 619 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -71832,7 +72319,7 @@
 	//! based on (hr) translation by Bojan Marković
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(598)) :
+	    true ? factory(__webpack_require__(603)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, (function (moment) { 'use strict';
@@ -71971,7 +72458,7 @@
 
 
 /***/ }),
-/* 615 */
+/* 620 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -71979,7 +72466,7 @@
 	//! author : Juan G. Hurtado : https://github.com/juanghurtado
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(598)) :
+	    true ? factory(__webpack_require__(603)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, (function (moment) { 'use strict';
@@ -72064,7 +72551,7 @@
 
 
 /***/ }),
-/* 616 */
+/* 621 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -72072,7 +72559,7 @@
 	//! author : petrbela : https://github.com/petrbela
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(598)) :
+	    true ? factory(__webpack_require__(603)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, (function (moment) { 'use strict';
@@ -72241,7 +72728,7 @@
 
 
 /***/ }),
-/* 617 */
+/* 622 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -72249,7 +72736,7 @@
 	//! author : Anatoly Mironov : https://github.com/mirontoli
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(598)) :
+	    true ? factory(__webpack_require__(603)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, (function (moment) { 'use strict';
@@ -72309,7 +72796,7 @@
 
 
 /***/ }),
-/* 618 */
+/* 623 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -72318,7 +72805,7 @@
 	//! author : https://github.com/ryangreaves
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(598)) :
+	    true ? factory(__webpack_require__(603)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, (function (moment) { 'use strict';
@@ -72395,7 +72882,7 @@
 
 
 /***/ }),
-/* 619 */
+/* 624 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -72403,7 +72890,7 @@
 	//! author : Ulrik Nielsen : https://github.com/mrbase
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(598)) :
+	    true ? factory(__webpack_require__(603)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, (function (moment) { 'use strict';
@@ -72460,7 +72947,7 @@
 
 
 /***/ }),
-/* 620 */
+/* 625 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -72470,7 +72957,7 @@
 	//! author : Mikolaj Dadela : https://github.com/mik01aj
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(598)) :
+	    true ? factory(__webpack_require__(603)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, (function (moment) { 'use strict';
@@ -72543,7 +73030,7 @@
 
 
 /***/ }),
-/* 621 */
+/* 626 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -72554,7 +73041,7 @@
 	//! author : Mikolaj Dadela : https://github.com/mik01aj
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(598)) :
+	    true ? factory(__webpack_require__(603)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, (function (moment) { 'use strict';
@@ -72627,7 +73114,7 @@
 
 
 /***/ }),
-/* 622 */
+/* 627 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -72635,7 +73122,7 @@
 	//! author : sschueller : https://github.com/sschueller
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(598)) :
+	    true ? factory(__webpack_require__(603)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, (function (moment) { 'use strict';
@@ -72710,7 +73197,7 @@
 
 
 /***/ }),
-/* 623 */
+/* 628 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -72718,7 +73205,7 @@
 	//! author : Jawish Hameed : https://github.com/jawish
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(598)) :
+	    true ? factory(__webpack_require__(603)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, (function (moment) { 'use strict';
@@ -72815,7 +73302,7 @@
 
 
 /***/ }),
-/* 624 */
+/* 629 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -72823,7 +73310,7 @@
 	//! author : Aggelos Karalias : https://github.com/mehiel
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(598)) :
+	    true ? factory(__webpack_require__(603)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, (function (moment) { 'use strict';
@@ -72920,7 +73407,7 @@
 
 
 /***/ }),
-/* 625 */
+/* 630 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -72928,7 +73415,7 @@
 	//! author : Jared Morse : https://github.com/jarcoal
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(598)) :
+	    true ? factory(__webpack_require__(603)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, (function (moment) { 'use strict';
@@ -72992,7 +73479,7 @@
 
 
 /***/ }),
-/* 626 */
+/* 631 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -73000,7 +73487,7 @@
 	//! author : Jonathan Abourbih : https://github.com/jonbca
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(598)) :
+	    true ? factory(__webpack_require__(603)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, (function (moment) { 'use strict';
@@ -73060,7 +73547,7 @@
 
 
 /***/ }),
-/* 627 */
+/* 632 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -73068,7 +73555,7 @@
 	//! author : Chris Gedrim : https://github.com/chrisgedrim
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(598)) :
+	    true ? factory(__webpack_require__(603)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, (function (moment) { 'use strict';
@@ -73132,7 +73619,7 @@
 
 
 /***/ }),
-/* 628 */
+/* 633 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -73140,7 +73627,7 @@
 	//! author : Chris Cartlidge : https://github.com/chriscartlidge
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(598)) :
+	    true ? factory(__webpack_require__(603)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, (function (moment) { 'use strict';
@@ -73204,7 +73691,7 @@
 
 
 /***/ }),
-/* 629 */
+/* 634 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -73212,7 +73699,7 @@
 	//! author : Luke McGregor : https://github.com/lukemcgregor
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(598)) :
+	    true ? factory(__webpack_require__(603)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, (function (moment) { 'use strict';
@@ -73276,7 +73763,7 @@
 
 
 /***/ }),
-/* 630 */
+/* 635 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -73286,7 +73773,7 @@
 	//! comment : miestasmia corrected the translation by colindean
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(598)) :
+	    true ? factory(__webpack_require__(603)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, (function (moment) { 'use strict';
@@ -73354,7 +73841,7 @@
 
 
 /***/ }),
-/* 631 */
+/* 636 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -73362,7 +73849,7 @@
 	//! author : Julio Napurí : https://github.com/julionc
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(598)) :
+	    true ? factory(__webpack_require__(603)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, (function (moment) { 'use strict';
@@ -73442,14 +73929,14 @@
 
 
 /***/ }),
-/* 632 */
+/* 637 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
 	//! locale : Spanish (Dominican Republic) [es-do]
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(598)) :
+	    true ? factory(__webpack_require__(603)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, (function (moment) { 'use strict';
@@ -73529,7 +74016,7 @@
 
 
 /***/ }),
-/* 633 */
+/* 638 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -73538,7 +74025,7 @@
 	//! improvements : Illimar Tambek : https://github.com/ragulka
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(598)) :
+	    true ? factory(__webpack_require__(603)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, (function (moment) { 'use strict';
@@ -73614,7 +74101,7 @@
 
 
 /***/ }),
-/* 634 */
+/* 639 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -73622,7 +74109,7 @@
 	//! author : Eneko Illarramendi : https://github.com/eillarra
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(598)) :
+	    true ? factory(__webpack_require__(603)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, (function (moment) { 'use strict';
@@ -73685,7 +74172,7 @@
 
 
 /***/ }),
-/* 635 */
+/* 640 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -73693,7 +74180,7 @@
 	//! author : Ebrahim Byagowi : https://github.com/ebraminio
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(598)) :
+	    true ? factory(__webpack_require__(603)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, (function (moment) { 'use strict';
@@ -73797,7 +74284,7 @@
 
 
 /***/ }),
-/* 636 */
+/* 641 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -73805,7 +74292,7 @@
 	//! author : Tarmo Aidantausta : https://github.com/bleadof
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(598)) :
+	    true ? factory(__webpack_require__(603)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, (function (moment) { 'use strict';
@@ -73909,7 +74396,7 @@
 
 
 /***/ }),
-/* 637 */
+/* 642 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -73917,7 +74404,7 @@
 	//! author : Ragnar Johannesen : https://github.com/ragnar123
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(598)) :
+	    true ? factory(__webpack_require__(603)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, (function (moment) { 'use strict';
@@ -73974,7 +74461,7 @@
 
 
 /***/ }),
-/* 638 */
+/* 643 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -73982,7 +74469,7 @@
 	//! author : John Fischer : https://github.com/jfroffice
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(598)) :
+	    true ? factory(__webpack_require__(603)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, (function (moment) { 'use strict';
@@ -74062,7 +74549,7 @@
 
 
 /***/ }),
-/* 639 */
+/* 644 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -74070,7 +74557,7 @@
 	//! author : Jonathan Abourbih : https://github.com/jonbca
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(598)) :
+	    true ? factory(__webpack_require__(603)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, (function (moment) { 'use strict';
@@ -74141,7 +74628,7 @@
 
 
 /***/ }),
-/* 640 */
+/* 645 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -74149,7 +74636,7 @@
 	//! author : Gaspard Bucher : https://github.com/gaspard
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(598)) :
+	    true ? factory(__webpack_require__(603)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, (function (moment) { 'use strict';
@@ -74224,7 +74711,7 @@
 
 
 /***/ }),
-/* 641 */
+/* 646 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -74232,7 +74719,7 @@
 	//! author : Robin van der Vliet : https://github.com/robin0van0der0v
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(598)) :
+	    true ? factory(__webpack_require__(603)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, (function (moment) { 'use strict';
@@ -74304,7 +74791,7 @@
 
 
 /***/ }),
-/* 642 */
+/* 647 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -74312,7 +74799,7 @@
 	//! author : Jon Ashdown : https://github.com/jonashdown
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(598)) :
+	    true ? factory(__webpack_require__(603)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, (function (moment) { 'use strict';
@@ -74385,7 +74872,7 @@
 
 
 /***/ }),
-/* 643 */
+/* 648 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -74393,7 +74880,7 @@
 	//! author : Juan G. Hurtado : https://github.com/juanghurtado
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(598)) :
+	    true ? factory(__webpack_require__(603)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, (function (moment) { 'use strict';
@@ -74467,7 +74954,7 @@
 
 
 /***/ }),
-/* 644 */
+/* 649 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -74475,7 +74962,7 @@
 	//! author : The Discoverer : https://github.com/WikiDiscoverer
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(598)) :
+	    true ? factory(__webpack_require__(603)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, (function (moment) { 'use strict';
@@ -74594,7 +75081,7 @@
 
 
 /***/ }),
-/* 645 */
+/* 650 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -74604,7 +75091,7 @@
 	//! author : Tal Ater : https://github.com/TalAter
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(598)) :
+	    true ? factory(__webpack_require__(603)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, (function (moment) { 'use strict';
@@ -74698,7 +75185,7 @@
 
 
 /***/ }),
-/* 646 */
+/* 651 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -74706,7 +75193,7 @@
 	//! author : Mayank Singhal : https://github.com/mayanksinghal
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(598)) :
+	    true ? factory(__webpack_require__(603)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, (function (moment) { 'use strict';
@@ -74827,7 +75314,7 @@
 
 
 /***/ }),
-/* 647 */
+/* 652 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -74835,7 +75322,7 @@
 	//! author : Bojan Marković : https://github.com/bmarkovic
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(598)) :
+	    true ? factory(__webpack_require__(603)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, (function (moment) { 'use strict';
@@ -74977,7 +75464,7 @@
 
 
 /***/ }),
-/* 648 */
+/* 653 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -74985,7 +75472,7 @@
 	//! author : Adam Brunner : https://github.com/adambrunner
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(598)) :
+	    true ? factory(__webpack_require__(603)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, (function (moment) { 'use strict';
@@ -75091,7 +75578,7 @@
 
 
 /***/ }),
-/* 649 */
+/* 654 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -75099,7 +75586,7 @@
 	//! author : Armendarabyan : https://github.com/armendarabyan
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(598)) :
+	    true ? factory(__webpack_require__(603)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, (function (moment) { 'use strict';
@@ -75191,7 +75678,7 @@
 
 
 /***/ }),
-/* 650 */
+/* 655 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -75200,7 +75687,7 @@
 	//! reference: http://id.wikisource.org/wiki/Pedoman_Umum_Ejaan_Bahasa_Indonesia_yang_Disempurnakan
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(598)) :
+	    true ? factory(__webpack_require__(603)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, (function (moment) { 'use strict';
@@ -75279,7 +75766,7 @@
 
 
 /***/ }),
-/* 651 */
+/* 656 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -75287,7 +75774,7 @@
 	//! author : Hinrik Örn Sigurðsson : https://github.com/hinrik
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(598)) :
+	    true ? factory(__webpack_require__(603)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, (function (moment) { 'use strict';
@@ -75411,7 +75898,7 @@
 
 
 /***/ }),
-/* 652 */
+/* 657 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -75420,7 +75907,7 @@
 	//! author: Mattia Larentis: https://github.com/nostalgiaz
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(598)) :
+	    true ? factory(__webpack_require__(603)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, (function (moment) { 'use strict';
@@ -75486,7 +75973,7 @@
 
 
 /***/ }),
-/* 653 */
+/* 658 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -75494,7 +75981,7 @@
 	//! author : LI Long : https://github.com/baryon
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(598)) :
+	    true ? factory(__webpack_require__(603)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, (function (moment) { 'use strict';
@@ -75571,7 +76058,7 @@
 
 
 /***/ }),
-/* 654 */
+/* 659 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -75580,7 +76067,7 @@
 	//! reference: http://jv.wikipedia.org/wiki/Basa_Jawa
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(598)) :
+	    true ? factory(__webpack_require__(603)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, (function (moment) { 'use strict';
@@ -75659,7 +76146,7 @@
 
 
 /***/ }),
-/* 655 */
+/* 660 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -75667,7 +76154,7 @@
 	//! author : Irakli Janiashvili : https://github.com/irakli-janiashvili
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(598)) :
+	    true ? factory(__webpack_require__(603)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, (function (moment) { 'use strict';
@@ -75753,7 +76240,7 @@
 
 
 /***/ }),
-/* 656 */
+/* 661 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -75761,7 +76248,7 @@
 	//! authors : Nurlan Rakhimzhanov : https://github.com/nurlan
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(598)) :
+	    true ? factory(__webpack_require__(603)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, (function (moment) { 'use strict';
@@ -75845,7 +76332,7 @@
 
 
 /***/ }),
-/* 657 */
+/* 662 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -75853,7 +76340,7 @@
 	//! author : Kruy Vanna : https://github.com/kruyvanna
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(598)) :
+	    true ? factory(__webpack_require__(603)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, (function (moment) { 'use strict';
@@ -75908,7 +76395,7 @@
 
 
 /***/ }),
-/* 658 */
+/* 663 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -75916,7 +76403,7 @@
 	//! author : Rajeev Naik : https://github.com/rajeevnaikte
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(598)) :
+	    true ? factory(__webpack_require__(603)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, (function (moment) { 'use strict';
@@ -76039,7 +76526,7 @@
 
 
 /***/ }),
-/* 659 */
+/* 664 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -76048,7 +76535,7 @@
 	//! author : Jeeeyul Lee <jeeeyul@gmail.com>
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(598)) :
+	    true ? factory(__webpack_require__(603)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, (function (moment) { 'use strict';
@@ -76113,7 +76600,7 @@
 
 
 /***/ }),
-/* 660 */
+/* 665 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -76121,7 +76608,7 @@
 	//! author : Chyngyz Arystan uulu : https://github.com/chyngyz
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(598)) :
+	    true ? factory(__webpack_require__(603)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, (function (moment) { 'use strict';
@@ -76206,7 +76693,7 @@
 
 
 /***/ }),
-/* 661 */
+/* 666 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -76215,7 +76702,7 @@
 	//! author : David Raison : https://github.com/kwisatz
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(598)) :
+	    true ? factory(__webpack_require__(603)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, (function (moment) { 'use strict';
@@ -76348,7 +76835,7 @@
 
 
 /***/ }),
-/* 662 */
+/* 667 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -76356,7 +76843,7 @@
 	//! author : Ryan Hart : https://github.com/ryanhart2
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(598)) :
+	    true ? factory(__webpack_require__(603)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, (function (moment) { 'use strict';
@@ -76423,7 +76910,7 @@
 
 
 /***/ }),
-/* 663 */
+/* 668 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -76431,7 +76918,7 @@
 	//! author : Mindaugas Mozūras : https://github.com/mmozuras
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(598)) :
+	    true ? factory(__webpack_require__(603)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, (function (moment) { 'use strict';
@@ -76545,7 +77032,7 @@
 
 
 /***/ }),
-/* 664 */
+/* 669 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -76554,7 +77041,7 @@
 	//! author : Jānis Elmeris : https://github.com/JanisE
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(598)) :
+	    true ? factory(__webpack_require__(603)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, (function (moment) { 'use strict';
@@ -76647,7 +77134,7 @@
 
 
 /***/ }),
-/* 665 */
+/* 670 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -76655,7 +77142,7 @@
 	//! author : Miodrag Nikač <miodrag@restartit.me> : https://github.com/miodragnikac
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(598)) :
+	    true ? factory(__webpack_require__(603)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, (function (moment) { 'use strict';
@@ -76763,7 +77250,7 @@
 
 
 /***/ }),
-/* 666 */
+/* 671 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -76771,7 +77258,7 @@
 	//! author : John Corrigan <robbiecloset@gmail.com> : https://github.com/johnideal
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(598)) :
+	    true ? factory(__webpack_require__(603)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, (function (moment) { 'use strict';
@@ -76832,7 +77319,7 @@
 
 
 /***/ }),
-/* 667 */
+/* 672 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -76840,7 +77327,7 @@
 	//! author : Borislav Mickov : https://github.com/B0k0
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(598)) :
+	    true ? factory(__webpack_require__(603)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, (function (moment) { 'use strict';
@@ -76927,7 +77414,7 @@
 
 
 /***/ }),
-/* 668 */
+/* 673 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -76935,7 +77422,7 @@
 	//! author : Floyd Pink : https://github.com/floydpink
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(598)) :
+	    true ? factory(__webpack_require__(603)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, (function (moment) { 'use strict';
@@ -77013,7 +77500,7 @@
 
 
 /***/ }),
-/* 669 */
+/* 674 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -77022,7 +77509,7 @@
 	//! author : Vivek Athalye : https://github.com/vnathalye
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(598)) :
+	    true ? factory(__webpack_require__(603)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, (function (moment) { 'use strict';
@@ -77177,7 +77664,7 @@
 
 
 /***/ }),
-/* 670 */
+/* 675 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -77185,7 +77672,7 @@
 	//! author : Weldan Jamili : https://github.com/weldan
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(598)) :
+	    true ? factory(__webpack_require__(603)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, (function (moment) { 'use strict';
@@ -77264,7 +77751,7 @@
 
 
 /***/ }),
-/* 671 */
+/* 676 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -77273,7 +77760,7 @@
 	//! author : Weldan Jamili : https://github.com/weldan
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(598)) :
+	    true ? factory(__webpack_require__(603)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, (function (moment) { 'use strict';
@@ -77352,7 +77839,7 @@
 
 
 /***/ }),
-/* 672 */
+/* 677 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -77362,7 +77849,7 @@
 	//! author : Tin Aung Lin : https://github.com/thanyawzinmin
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(598)) :
+	    true ? factory(__webpack_require__(603)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, (function (moment) { 'use strict';
@@ -77453,7 +77940,7 @@
 
 
 /***/ }),
-/* 673 */
+/* 678 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -77462,7 +77949,7 @@
 	//!           Sigurd Gartmann : https://github.com/sigurdga
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(598)) :
+	    true ? factory(__webpack_require__(603)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, (function (moment) { 'use strict';
@@ -77521,7 +78008,7 @@
 
 
 /***/ }),
-/* 674 */
+/* 679 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -77529,7 +78016,7 @@
 	//! author : suvash : https://github.com/suvash
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(598)) :
+	    true ? factory(__webpack_require__(603)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, (function (moment) { 'use strict';
@@ -77649,7 +78136,7 @@
 
 
 /***/ }),
-/* 675 */
+/* 680 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -77658,7 +78145,7 @@
 	//! author : Jacob Middag : https://github.com/middagj
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(598)) :
+	    true ? factory(__webpack_require__(603)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, (function (moment) { 'use strict';
@@ -77742,7 +78229,7 @@
 
 
 /***/ }),
-/* 676 */
+/* 681 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -77751,7 +78238,7 @@
 	//! author : Jacob Middag : https://github.com/middagj
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(598)) :
+	    true ? factory(__webpack_require__(603)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, (function (moment) { 'use strict';
@@ -77835,7 +78322,7 @@
 
 
 /***/ }),
-/* 677 */
+/* 682 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -77843,7 +78330,7 @@
 	//! author : https://github.com/mechuwind
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(598)) :
+	    true ? factory(__webpack_require__(603)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, (function (moment) { 'use strict';
@@ -77900,7 +78387,7 @@
 
 
 /***/ }),
-/* 678 */
+/* 683 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -77908,7 +78395,7 @@
 	//! author : Harpreet Singh : https://github.com/harpreetkhalsagtbit
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(598)) :
+	    true ? factory(__webpack_require__(603)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, (function (moment) { 'use strict';
@@ -78029,7 +78516,7 @@
 
 
 /***/ }),
-/* 679 */
+/* 684 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -78037,7 +78524,7 @@
 	//! author : Rafal Hirsz : https://github.com/evoL
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(598)) :
+	    true ? factory(__webpack_require__(603)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, (function (moment) { 'use strict';
@@ -78141,7 +78628,7 @@
 
 
 /***/ }),
-/* 680 */
+/* 685 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -78149,7 +78636,7 @@
 	//! author : Jefferson : https://github.com/jalex79
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(598)) :
+	    true ? factory(__webpack_require__(603)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, (function (moment) { 'use strict';
@@ -78211,7 +78698,7 @@
 
 
 /***/ }),
-/* 681 */
+/* 686 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -78219,7 +78706,7 @@
 	//! author : Caio Ribeiro Pereira : https://github.com/caio-ribeiro-pereira
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(598)) :
+	    true ? factory(__webpack_require__(603)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, (function (moment) { 'use strict';
@@ -78277,7 +78764,7 @@
 
 
 /***/ }),
-/* 682 */
+/* 687 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -78286,7 +78773,7 @@
 	//! author : Valentin Agachi : https://github.com/avaly
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(598)) :
+	    true ? factory(__webpack_require__(603)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, (function (moment) { 'use strict';
@@ -78357,7 +78844,7 @@
 
 
 /***/ }),
-/* 683 */
+/* 688 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -78367,7 +78854,7 @@
 	//! author : Коренберг Марк : https://github.com/socketpair
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(598)) :
+	    true ? factory(__webpack_require__(603)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, (function (moment) { 'use strict';
@@ -78545,7 +79032,7 @@
 
 
 /***/ }),
-/* 684 */
+/* 689 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -78553,7 +79040,7 @@
 	//! author : Narain Sagar : https://github.com/narainsagar
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(598)) :
+	    true ? factory(__webpack_require__(603)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, (function (moment) { 'use strict';
@@ -78648,7 +79135,7 @@
 
 
 /***/ }),
-/* 685 */
+/* 690 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -78656,7 +79143,7 @@
 	//! authors : Bård Rolstad Henriksen : https://github.com/karamell
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(598)) :
+	    true ? factory(__webpack_require__(603)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, (function (moment) { 'use strict';
@@ -78714,7 +79201,7 @@
 
 
 /***/ }),
-/* 686 */
+/* 691 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -78722,7 +79209,7 @@
 	//! author : Sampath Sitinamaluwa : https://github.com/sampathsris
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(598)) :
+	    true ? factory(__webpack_require__(603)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, (function (moment) { 'use strict';
@@ -78790,7 +79277,7 @@
 
 
 /***/ }),
-/* 687 */
+/* 692 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -78799,7 +79286,7 @@
 	//! based on work of petrbela : https://github.com/petrbela
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(598)) :
+	    true ? factory(__webpack_require__(603)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, (function (moment) { 'use strict';
@@ -78945,7 +79432,7 @@
 
 
 /***/ }),
-/* 688 */
+/* 693 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -78953,7 +79440,7 @@
 	//! author : Robert Sedovšek : https://github.com/sedovsek
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(598)) :
+	    true ? factory(__webpack_require__(603)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, (function (moment) { 'use strict';
@@ -79112,7 +79599,7 @@
 
 
 /***/ }),
-/* 689 */
+/* 694 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -79122,7 +79609,7 @@
 	//! author : Oerd Cukalla : https://github.com/oerd
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(598)) :
+	    true ? factory(__webpack_require__(603)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, (function (moment) { 'use strict';
@@ -79187,7 +79674,7 @@
 
 
 /***/ }),
-/* 690 */
+/* 695 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -79195,7 +79682,7 @@
 	//! author : Milan Janačković<milanjanackovic@gmail.com> : https://github.com/milan-j
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(598)) :
+	    true ? factory(__webpack_require__(603)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, (function (moment) { 'use strict';
@@ -79302,7 +79789,7 @@
 
 
 /***/ }),
-/* 691 */
+/* 696 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -79310,7 +79797,7 @@
 	//! author : Milan Janačković<milanjanackovic@gmail.com> : https://github.com/milan-j
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(598)) :
+	    true ? factory(__webpack_require__(603)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, (function (moment) { 'use strict';
@@ -79417,7 +79904,7 @@
 
 
 /***/ }),
-/* 692 */
+/* 697 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -79425,7 +79912,7 @@
 	//! author : Nicolai Davies<mail@nicolai.io> : https://github.com/nicolaidavies
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(598)) :
+	    true ? factory(__webpack_require__(603)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, (function (moment) { 'use strict';
@@ -79511,7 +79998,7 @@
 
 
 /***/ }),
-/* 693 */
+/* 698 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -79519,7 +80006,7 @@
 	//! author : Jens Alm : https://github.com/ulmus
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(598)) :
+	    true ? factory(__webpack_require__(603)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, (function (moment) { 'use strict';
@@ -79585,7 +80072,7 @@
 
 
 /***/ }),
-/* 694 */
+/* 699 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -79593,7 +80080,7 @@
 	//! author : Fahad Kassim : https://github.com/fadsel
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(598)) :
+	    true ? factory(__webpack_require__(603)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, (function (moment) { 'use strict';
@@ -79649,7 +80136,7 @@
 
 
 /***/ }),
-/* 695 */
+/* 700 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -79657,7 +80144,7 @@
 	//! author : Arjunkumar Krishnamoorthy : https://github.com/tk120404
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(598)) :
+	    true ? factory(__webpack_require__(603)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, (function (moment) { 'use strict';
@@ -79784,7 +80271,7 @@
 
 
 /***/ }),
-/* 696 */
+/* 701 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -79792,7 +80279,7 @@
 	//! author : Krishna Chaitanya Thota : https://github.com/kcthota
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(598)) :
+	    true ? factory(__webpack_require__(603)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, (function (moment) { 'use strict';
@@ -79878,7 +80365,7 @@
 
 
 /***/ }),
-/* 697 */
+/* 702 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -79887,7 +80374,7 @@
 	//! author : Onorio De J. Afonso : https://github.com/marobo
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(598)) :
+	    true ? factory(__webpack_require__(603)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, (function (moment) { 'use strict';
@@ -79951,7 +80438,7 @@
 
 
 /***/ }),
-/* 698 */
+/* 703 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -79959,7 +80446,7 @@
 	//! author : Kridsada Thanabulpong : https://github.com/sirn
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(598)) :
+	    true ? factory(__webpack_require__(603)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, (function (moment) { 'use strict';
@@ -80023,7 +80510,7 @@
 
 
 /***/ }),
-/* 699 */
+/* 704 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -80031,7 +80518,7 @@
 	//! author : Dan Hagman : https://github.com/hagmandan
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(598)) :
+	    true ? factory(__webpack_require__(603)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, (function (moment) { 'use strict';
@@ -80090,7 +80577,7 @@
 
 
 /***/ }),
-/* 700 */
+/* 705 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -80098,7 +80585,7 @@
 	//! author : Dominika Kruk : https://github.com/amaranthrose
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(598)) :
+	    true ? factory(__webpack_require__(603)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, (function (moment) { 'use strict';
@@ -80215,7 +80702,7 @@
 
 
 /***/ }),
-/* 701 */
+/* 706 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -80224,7 +80711,7 @@
 	//!           Burak Yiğit Kaya: https://github.com/BYK
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(598)) :
+	    true ? factory(__webpack_require__(603)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, (function (moment) { 'use strict';
@@ -80310,7 +80797,7 @@
 
 
 /***/ }),
-/* 702 */
+/* 707 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -80319,7 +80806,7 @@
 	//! author : Iustì Canun
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(598)) :
+	    true ? factory(__webpack_require__(603)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, (function (moment) { 'use strict';
@@ -80406,7 +80893,7 @@
 
 
 /***/ }),
-/* 703 */
+/* 708 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -80414,7 +80901,7 @@
 	//! author : Abdel Said : https://github.com/abdelsaid
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(598)) :
+	    true ? factory(__webpack_require__(603)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, (function (moment) { 'use strict';
@@ -80469,7 +80956,7 @@
 
 
 /***/ }),
-/* 704 */
+/* 709 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -80477,7 +80964,7 @@
 	//! author : Abdel Said : https://github.com/abdelsaid
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(598)) :
+	    true ? factory(__webpack_require__(603)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, (function (moment) { 'use strict';
@@ -80532,7 +81019,7 @@
 
 
 /***/ }),
-/* 705 */
+/* 710 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -80541,7 +81028,7 @@
 	//! Author : Menelion Elensúle : https://github.com/Oire
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(598)) :
+	    true ? factory(__webpack_require__(603)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, (function (moment) { 'use strict';
@@ -80688,7 +81175,7 @@
 
 
 /***/ }),
-/* 706 */
+/* 711 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -80697,7 +81184,7 @@
 	//! author : Zack : https://github.com/ZackVision
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(598)) :
+	    true ? factory(__webpack_require__(603)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, (function (moment) { 'use strict';
@@ -80792,7 +81279,7 @@
 
 
 /***/ }),
-/* 707 */
+/* 712 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -80800,7 +81287,7 @@
 	//! author : Sardor Muminov : https://github.com/muminoff
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(598)) :
+	    true ? factory(__webpack_require__(603)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, (function (moment) { 'use strict';
@@ -80855,7 +81342,7 @@
 
 
 /***/ }),
-/* 708 */
+/* 713 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -80863,7 +81350,7 @@
 	//! author : Rasulbek Mirzayev : github.com/Rasulbeeek
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(598)) :
+	    true ? factory(__webpack_require__(603)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, (function (moment) { 'use strict';
@@ -80918,7 +81405,7 @@
 
 
 /***/ }),
-/* 709 */
+/* 714 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -80926,7 +81413,7 @@
 	//! author : Bang Nguyen : https://github.com/bangnk
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(598)) :
+	    true ? factory(__webpack_require__(603)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, (function (moment) { 'use strict';
@@ -81002,7 +81489,7 @@
 
 
 /***/ }),
-/* 710 */
+/* 715 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -81010,7 +81497,7 @@
 	//! author : Andrew Hood : https://github.com/andrewhood125
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(598)) :
+	    true ? factory(__webpack_require__(603)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, (function (moment) { 'use strict';
@@ -81075,7 +81562,7 @@
 
 
 /***/ }),
-/* 711 */
+/* 716 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -81083,7 +81570,7 @@
 	//! author : Atolagbe Abisoye : https://github.com/andela-batolagbe
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(598)) :
+	    true ? factory(__webpack_require__(603)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, (function (moment) { 'use strict';
@@ -81140,7 +81627,7 @@
 
 
 /***/ }),
-/* 712 */
+/* 717 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -81149,7 +81636,7 @@
 	//! author : Zeno Zeng : https://github.com/zenozeng
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(598)) :
+	    true ? factory(__webpack_require__(603)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, (function (moment) { 'use strict';
@@ -81256,7 +81743,7 @@
 
 
 /***/ }),
-/* 713 */
+/* 718 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -81266,7 +81753,7 @@
 	//! author : Konstantin : https://github.com/skfd
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(598)) :
+	    true ? factory(__webpack_require__(603)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, (function (moment) { 'use strict';
@@ -81366,7 +81853,7 @@
 
 
 /***/ }),
-/* 714 */
+/* 719 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	//! moment.js locale configuration
@@ -81375,7 +81862,7 @@
 	//! author : Chris Lam : https://github.com/hehachris
 	
 	;(function (global, factory) {
-	    true ? factory(__webpack_require__(598)) :
+	    true ? factory(__webpack_require__(603)) :
 	   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
 	   factory(global.moment)
 	}(this, (function (moment) { 'use strict';
@@ -81475,486 +81962,6 @@
 
 
 /***/ }),
-/* 715 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _reactRedux = __webpack_require__(182);
-	
-	var _react = __webpack_require__(1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _weatherForm = __webpack_require__(716);
-	
-	var _weatherForm2 = _interopRequireDefault(_weatherForm);
-	
-	var _location = __webpack_require__(717);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-	  return {
-	    setLocation: function setLocation(location) {
-	      dispatch((0, _location.getLocation)(location));
-	    },
-	    getQueries: function getQueries() {
-	      dispatch((0, _location.getSearches)());
-	    },
-	    addToQuery: function addToQuery(name) {
-	      dispatch((0, _location.addTOSearch)(name));
-	    }
-	  };
-	};
-	var mapStateToProps = function mapStateToProps(state) {
-	  return {
-	    searchHistory: state.location.searches
-	  };
-	};
-	
-	var WeatherContainer = function (_Component) {
-	  _inherits(WeatherContainer, _Component);
-	
-	  function WeatherContainer() {
-	    _classCallCheck(this, WeatherContainer);
-	
-	    var _this = _possibleConstructorReturn(this, (WeatherContainer.__proto__ || Object.getPrototypeOf(WeatherContainer)).call(this));
-	
-	    _this.state = {
-	      inputValue: '',
-	      dirty: false
-	    };
-	    _this.handleChange = _this.handleChange.bind(_this);
-	    _this.handleSubmit = _this.handleSubmit.bind(_this);
-	    _this.handleSelect = _this.handleSelect.bind(_this);
-	    return _this;
-	  }
-	
-	  _createClass(WeatherContainer, [{
-	    key: 'componentDidMount',
-	    value: function componentDidMount() {
-	      this.props.getQueries();
-	    }
-	  }, {
-	    key: 'handleChange',
-	    value: function handleChange(e) {
-	      var value = e.target.value;
-	      value !== "" ? this.setState({ inputValue: value,
-	        dirty: true }) : this.setState({ inputValue: value,
-	        dirty: false });
-	    }
-	  }, {
-	    key: 'handleSelect',
-	    value: function handleSelect(e) {
-	      var value = e.target.value;
-	      if (value === "searches") return;
-	      this.setState({ inputValue: value, dirty: true });
-	    }
-	  }, {
-	    key: 'handleSubmit',
-	    value: function handleSubmit(e) {
-	      e.preventDefault();
-	      this.props.setLocation(this.state.inputValue);
-	      this.props.addToQuery(this.state.inputValue);
-	      this.setState({
-	        inputValue: '',
-	        dirty: false
-	      });
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	
-	      return _react2.default.createElement(_weatherForm2.default, { history: this.props.searchHistory, handleSelect: this.handleSelect, handleChange: this.handleChange, inputValue: this.state.inputValue, handleSubmit: this.handleSubmit, dirty: this.state.dirty });
-	    }
-	  }]);
-	
-	  return WeatherContainer;
-	}(_react.Component);
-	
-	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(WeatherContainer);
-
-/***/ }),
-/* 716 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	"use strict";
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _react = __webpack_require__(1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var weatherForm = function weatherForm(_ref) {
-	  var handleChange = _ref.handleChange,
-	      dirty = _ref.dirty,
-	      handleSubmit = _ref.handleSubmit,
-	      handleSelect = _ref.handleSelect,
-	      inputValue = _ref.inputValue,
-	      history = _ref.history;
-	
-	  var searches = history;
-	  if (searches.length > 10) {
-	    searches = searches.slice(9);
-	  }
-	
-	  return _react2.default.createElement(
-	    "div",
-	    { className: "col-md-12" },
-	    _react2.default.createElement(
-	      "form",
-	      { className: "form-inline", onSubmit: handleSubmit },
-	      _react2.default.createElement(
-	        "fieldset",
-	        { className: "col-md-12" },
-	        _react2.default.createElement(
-	          "legend",
-	          null,
-	          "SEARCH WEATHER"
-	        ),
-	        _react2.default.createElement(
-	          "div",
-	          { className: "form-group" },
-	          _react2.default.createElement(
-	            "div",
-	            { className: "col-md-12" },
-	            _react2.default.createElement("input", {
-	              placeholder: "Type Address Here",
-	              className: "form-control",
-	              type: "text",
-	              onChange: handleChange,
-	              value: inputValue
-	            })
-	          )
-	        ),
-	        _react2.default.createElement(
-	          "div",
-	          { className: "form-group" },
-	          _react2.default.createElement(
-	            "div",
-	            { className: "col-md-2" },
-	            _react2.default.createElement(
-	              "button",
-	              {
-	                type: "submit",
-	                className: "btn btn-default", disabled: !dirty },
-	              "SEARCH"
-	            )
-	          )
-	        ),
-	        _react2.default.createElement(
-	          "div",
-	          { className: "form-group" },
-	          _react2.default.createElement(
-	            "div",
-	            { className: "col-md-12" },
-	            _react2.default.createElement(
-	              "select",
-	              { className: "soflow", onChange: handleSelect },
-	              _react2.default.createElement(
-	                "option",
-	                { value: "searches" },
-	                "Previous Searches"
-	              ),
-	              searches.map(function (search) {
-	                return _react2.default.createElement(
-	                  "option",
-	                  { value: search },
-	                  search
-	                );
-	              })
-	            )
-	          )
-	        )
-	      )
-	    )
-	  );
-	};
-	exports.default = weatherForm;
-
-/***/ }),
-/* 717 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.getLocation = exports.getSearches = exports.setSearches = exports.addTOSearch = exports.setLatLong = exports.setLocation = undefined;
-	
-	var _axios = __webpack_require__(251);
-	
-	var _axios2 = _interopRequireDefault(_axios);
-	
-	var _weather = __webpack_require__(718);
-	
-	var _chart = __webpack_require__(719);
-	
-	var _constants = __webpack_require__(284);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var setLocation = exports.setLocation = function setLocation(location) {
-	  return {
-	    type: _constants.SELECT_LOCATION,
-	    location: location
-	  };
-	};
-	
-	var setLatLong = exports.setLatLong = function setLatLong(position) {
-	  return {
-	    type: _constants.SET_LAT_LONG,
-	    lat: position.lat,
-	    lng: position.lng
-	  };
-	};
-	
-	var addTOSearch = exports.addTOSearch = function addTOSearch(name) {
-	  return {
-	    type: _constants.ADD_TO_SEARCH,
-	    search: name
-	  };
-	};
-	
-	var setSearches = exports.setSearches = function setSearches(searchesArr) {
-	  return {
-	    type: _constants.SET_SEARCHES,
-	    searches: searchesArr.reverse()
-	  };
-	};
-	var getSearches = exports.getSearches = function getSearches() {
-	  return function (dispatch) {
-	    _axios2.default.get('/api/queries').then(function (result) {
-	      var searches = result.data.searches;
-	      dispatch(setSearches(searches));
-	    });
-	  };
-	};
-	var getLocation = exports.getLocation = function getLocation(location) {
-	  return function (dispatch) {
-	    _axios2.default.post('/api/location', {
-	      name: location
-	    }).then(function (result) {
-	      var latLong = result.data.location;
-	      var name = result.data.name;
-	      dispatch((0, _weather.getForcast)(latLong));
-	      dispatch(setLocation(name));
-	      dispatch(setLatLong(latLong));
-	      dispatch((0, _chart.setChartView)(false));
-	    });
-	  };
-	};
-
-/***/ }),
-/* 718 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.getForcast = exports.getHistoryForcast = exports.getPastTimes = exports.setHourly = exports.setDaily = exports.setWeather = undefined;
-	
-	var _axios = __webpack_require__(251);
-	
-	var _axios2 = _interopRequireDefault(_axios);
-	
-	var _constants = __webpack_require__(284);
-	
-	var _location = __webpack_require__(717);
-	
-	var _chart = __webpack_require__(719);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var setWeather = exports.setWeather = function setWeather(forcast) {
-	  return {
-	    type: _constants.SET_WEATHER,
-	    forcast: forcast
-	  };
-	};
-	var setDaily = exports.setDaily = function setDaily(dailyData) {
-	  return {
-	    type: _constants.SET_DAILY,
-	    daily: dailyData
-	  };
-	};
-	var setHourly = exports.setHourly = function setHourly(hourlyData) {
-	  return {
-	    type: _constants.SET_HOURLY,
-	    hourly: hourlyData
-	  };
-	};
-	var formatHistory = function formatHistory(historyData) {
-	  return historyData.map(function (arr) {
-	    return arr[0];
-	  });
-	};
-	var getPastTimes = exports.getPastTimes = function getPastTimes(currentTime, days) {
-	  var newTimes = [];
-	  for (var i = 1; i <= days + 1; i++) {
-	    newTimes.push(currentTime - i * 86400);
-	  }
-	  return newTimes.reverse();
-	};
-	
-	var getHistoryForcast = exports.getHistoryForcast = function getHistoryForcast(location, times) {
-	  return function (dispatch) {
-	    var newData = times.map(function (time) {
-	      return _axios2.default.post('api/history', {
-	        latitude: location.lat,
-	        longitude: location.lng,
-	        time: time
-	      }).then(function (result) {
-	        var weather = result.data;
-	        var daily = weather.daily.data;
-	        return daily;
-	      });
-	    });
-	    Promise.all(newData).then(function (values) {
-	      var theData = formatHistory(values);
-	      var newData = (0, _chart.formatData)(theData, 'daily');
-	      dispatch((0, _chart.addDailyHistory)(newData));
-	      dispatch((0, _chart.setChartView)(true));
-	    });
-	  };
-	};
-	
-	var setImageMap = function setImageMap(forcast) {
-	  window.infoWindow.setContent('<IMG BORDER="0" ALIGN="Left" SRC="img/' + forcast.icon + '.svg">  Forcast: ' + forcast.summary + ' \n   temp:' + forcast.temperature);
-	};
-	var getForcast = exports.getForcast = function getForcast(location) {
-	  window.map.setCenter(location);
-	  window.infoWindow.setPosition(location);
-	  return function (dispatch) {
-	    _axios2.default.post('api/weather', {
-	      latitude: location.lat,
-	      longitude: location.lng
-	    }).then(function (result) {
-	      var weather = result.data;
-	      var forcast = weather.currently.summary;
-	      setImageMap(weather.currently);
-	      var hourly = weather.hourly.data;
-	      var daily = weather.daily.data;
-	      var currentTime = daily[0].time;
-	      var myPromisses = [dispatch(setWeather(forcast)), dispatch(setDaily(daily)), dispatch(setHourly(hourly)), dispatch((0, _chart.setData)(daily, 'daily')), dispatch((0, _chart.setData)(hourly, 'hourly'))];
-	      Promise.all(myPromisses).then(function () {
-	        var testTimes = getPastTimes(currentTime, 5);
-	        dispatch(getHistoryForcast(location, testTimes));
-	      });
-	    });
-	  };
-	};
-
-/***/ }),
-/* 719 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.setData = exports.formatData = exports.addDailyHistory = exports.setHourlyChart = exports.setDailyChart = exports.setCurrentChart = exports.setChartView = undefined;
-	
-	var _constants = __webpack_require__(284);
-	
-	var moment = __webpack_require__(598);
-	
-	var setChartView = exports.setChartView = function setChartView(view) {
-	  return {
-	    type: _constants.TOGGLE_CHART_VIEW,
-	    view: view
-	  };
-	};
-	var setCurrentChart = exports.setCurrentChart = function setCurrentChart(chartType) {
-	  return {
-	    type: _constants.SET_CURRENT_CHART,
-	    current: chartType
-	  };
-	};
-	
-	var setDailyChart = exports.setDailyChart = function setDailyChart(dailyData) {
-	  return {
-	    type: _constants.SET_DAILY_CHART,
-	    daily: dailyData
-	  };
-	};
-	
-	var setHourlyChart = exports.setHourlyChart = function setHourlyChart(hourlyData) {
-	  return {
-	    type: _constants.SET_HOURLY_CHART,
-	    hourly: hourlyData
-	  };
-	};
-	var addDailyHistory = exports.addDailyHistory = function addDailyHistory(historyData) {
-	  return {
-	    type: _constants.ADD_DAILY_CHART,
-	    daily: historyData
-	  };
-	};
-	var formatData = exports.formatData = function formatData(data, type) {
-	  return data.map(function (theData) {
-	    var timestamp = moment.unix(theData.time);
-	    var dataObject = void 0;
-	    if (type === 'daily') {
-	      dataObject = {
-	        name: timestamp.format("MM-DD"),
-	        high: theData.temperatureMax,
-	        low: theData.temperatureMin,
-	        hum: Math.round(theData.humidity * 100),
-	        wind: theData.windSpeed,
-	        cloud: Math.round(theData.cloudCover * 100),
-	        rain: Math.round(theData.precipProbability * 100)
-	      };
-	    } else if (type === 'hourly') {
-	      dataObject = {
-	        name: timestamp.format("MM-DD HH:mm"),
-	        temp: theData.temperature,
-	        low: 0,
-	        hum: Math.round(theData.humidity * 100),
-	        wind: theData.windSpeed,
-	        cloud: Math.round(theData.cloudCover * 100),
-	        rain: Math.round(theData.precipProbability * 100)
-	      };
-	    }
-	    return dataObject;
-	  });
-	};
-	var setData = exports.setData = function setData(data, type) {
-	  return function (dispatch) {
-	    var formatedData = formatData(data, type);
-	    switch (type) {
-	      case 'daily':
-	        return dispatch(setDailyChart(formatedData));
-	      case 'hourly':
-	        return dispatch(setHourlyChart(formatedData));
-	      default:
-	    }
-	  };
-	};
-
-/***/ }),
 /* 720 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -82018,7 +82025,7 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var moment = __webpack_require__(598);
+	var moment = __webpack_require__(603);
 	var dayWeather = function dayWeather(_ref) {
 	  var weather = _ref.weather;
 	
@@ -82035,11 +82042,11 @@
 	      weather.summary,
 	      ' ',
 	      _react2.default.createElement('br', null),
-	      'Low:',
+	      'Low: ',
 	      weather.temperatureMin,
 	      '\xB0 High: ',
 	      weather.temperatureMax,
-	      ' \xB0'
+	      '\xB0'
 	    )
 	  );
 	};

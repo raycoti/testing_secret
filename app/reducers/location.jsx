@@ -1,4 +1,5 @@
 import {SELECT_LOCATION, SET_LAT_LONG, SET_SEARCHES, ADD_TO_SEARCH} from '../constants';
+
 const initialState = {
   location: '',
   lat: 0,
@@ -7,7 +8,7 @@ const initialState = {
 }
 
 export default function(state = initialState, action){
-  const newState = Object.assign({},state);
+  const newState = Object.assign({}, state);
   switch (action.type){
     case SELECT_LOCATION:
     newState.location = action.location;

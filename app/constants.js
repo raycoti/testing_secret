@@ -10,4 +10,3 @@ export const ADD_DAILY_CHART = 'ADD_DAILY_CHART';
 export const TOGGLE_CHART_VIEW = 'TOGGLE_CHART_VIEW';
 export const ADD_TO_SEARCH = 'ADD_TO_SEARCH';
 export const SET_SEARCHES = 'SET_SEARCHES';
-
