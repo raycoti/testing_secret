@@ -1,7 +1,7 @@
 {
-  "name": "SkyCast",
+  "name": "Weather",
   "version": "0.0.1",
-  "description": "A review time project",
+  "description": "A weather app",
   "main": "index.js",
   "scripts": {
     "test": "mocha --compilers js:babel-register ./tests",
